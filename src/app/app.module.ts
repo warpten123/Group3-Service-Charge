@@ -7,18 +7,41 @@ import { LoginComponent } from './login/login.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { UpdateTicketComponent } from './update-ticket/update-ticket.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
 
+//MaterialShits//
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+//End Material Shits
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UserDashboardComponent,
     CreateTicketComponent,
-    UpdateTicketComponent
+    UpdateTicketComponent,
+    NavbarComponent
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

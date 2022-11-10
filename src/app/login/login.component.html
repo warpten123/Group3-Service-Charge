@@ -27,16 +27,16 @@
         </div>
         <div class="form-content">
             <div class="login-form">
-                <form class="inputs">
+                <form class="inputs" [formGroup]="loginForm"(ngSubmit)="onSubmitLogin()">
                     <div class="title-login">LogIn</div>
                     <div class="input-boxes">
                         <div class="input-box">
                             <i class="fa fa-envelope"></i>
-                            <input type="text" placeholder="Enter your Email">
+                            <input type="text" #email formControlName="emailLogin" placeholder="Enter your Email" required>
                         </div>
                         <div class="input-box">
                             <i class="fa fa-lock"></i>
-                            <input type="password" placeholder="Enter your Password" >
+                            <input type="password" formControlName="passLogin" placeholder="Enter your Password" required>
                         </div>
                       
                         <div class="button input-box">
