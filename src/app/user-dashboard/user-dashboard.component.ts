@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry, map } from 'rxjs/operators';
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
+  users: [];
   ngOnInit(): void {
-  }
+   this.http.get("http://localhost:8080/user/all").pipe(map(
+     resp=>resp)).subscribe((data: any)=>{this.users=data;
+      console.log(this.users);}
+      
+      ); 
+    
+    }
 
 }
