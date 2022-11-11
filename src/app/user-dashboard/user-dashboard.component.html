@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>   
-<div *ngIf="users.length > 0;else noUsers" class="container">
+<a mat-raised-button color="accent" (click)="modalCreate()">New Ticket</a>
+<!-- <div *ngIf="users.length > 0;else noUsers" class="container">
     <table class="content-table">
         <thead>
           <tr>
@@ -23,5 +24,42 @@
 <ng-template #noUsers>
     <hr>
     <h5>There are no users registered!</h5>
+    
+</ng-template> -->
+<div *ngIf="tickets.length > 0;else noTickets" class="container"></div>
+<!--START CARD-->
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="25px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets">
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header>
+        <mat-card-title>{{ticket.subject}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="assets/ticket.png"class=".img-responsive" width="10" height="200">
+      <mat-card-content class="mat-typography">
+        <p>
+          
+           Assignee: {{ticket.assignee}}
+          
+        </p>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Available'"><mat-icon>add_circle</mat-icon>RESERVE CAR</button>
+        <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Rented'"[disabled]="true"><mat-icon>warning</mat-icon>Unavailable</button> -->
+        <button mat-button color="primary">UPDATE</button>
+        <button mat-button color="primary">DELETE</button>
+        <button mat-button color="primary">VIEW MORE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  </div>
+  </div>
+<!--END CARD-->
+
+<!-- <button (click)="logout()">Log out!</button> -->
+<ng-template #noTickets>
+    <hr>
+    <h5 class="noTickets">There are no tickets listed!</h5>
     
 </ng-template>

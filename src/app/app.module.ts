@@ -18,12 +18,16 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatCardModule} from '@angular/material/card';
 //End Material Shits and http//
 
 //hot toast//
 import { HotToastModule } from '@ngneat/hot-toast';
+import { ModalCreateComponent } from './modal-create/modal-create.component';
 //end host toast//
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +35,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
     UserDashboardComponent,
     CreateTicketComponent,
     UpdateTicketComponent,
-    NavbarComponent
+    NavbarComponent,
+    ModalCreateComponent
   ],
   exports: [
     CommonModule,
@@ -48,8 +53,12 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatFormFieldModule,
     HttpClientModule,
     HotToastModule.forRoot(),
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
