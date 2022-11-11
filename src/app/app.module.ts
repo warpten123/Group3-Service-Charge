@@ -12,13 +12,18 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
 
-//MaterialShits//
+//MaterialShits and http//
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-//End Material Shits
+
+//End Material Shits and http//
+
+//hot toast//
+import { HotToastModule } from '@ngneat/hot-toast';
+//end host toast//
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatDialogModule,
     HttpClientModule,
+    HotToastModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

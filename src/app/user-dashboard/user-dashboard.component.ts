@@ -1,3 +1,5 @@
+import { UsersService } from './../services/users/users.service';
+import { Users } from './../services/users/user-interface';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -9,16 +11,16 @@ import { catchError, retry, map } from 'rxjs/operators';
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UsersService) { }
 
-  users: [];
+  users: Users[]=[];
   ngOnInit(): void {
-   this.http.get("http://localhost:8080/user/all").pipe(map(
-     resp=>resp)).subscribe((data: any)=>{this.users=data;
-      console.log(this.users);}
+    this.userService.getAllUsers().subscribe((data: Users[])=>{this.users=data;
+      console.log(this.users);},(error: any)=>{
+        console.error(error);
+      }
       
       ); 
-    
     }
 
 }
