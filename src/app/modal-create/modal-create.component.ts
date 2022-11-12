@@ -24,6 +24,7 @@ export class ModalCreateComponent implements OnInit {
     private HttpClient: HttpClient,
     private ticketService: TicketService,
     private router: Router,
+    private test: UserDashboardComponent,
   ) { }
 
   ticketForm: FormGroup = new FormGroup({
@@ -55,7 +56,7 @@ export class ModalCreateComponent implements OnInit {
       error: (message: any) => `${message}`
     })).subscribe((data: Ticket) => {
       this.postTicket = data;
-      
+      this.test.ngOnInit();
       this.nav("user-dashboard");
       this.close();
     });
