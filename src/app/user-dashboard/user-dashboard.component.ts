@@ -28,6 +28,10 @@ export class UserDashboardComponent implements OnInit {
    this.getAllTicket();
   }
 
+  deleteTicket(ticket_id: number, index: number){
+    this.ticketService.deleteTicket(ticket_id).subscribe((data: Ticket) => {this.tickets[index]=data})
+  }
+
   getAllUsers(){
     this.userService.getAllUsers().subscribe((data: Users[])=>{this.users=data;
       console.log(this.users);},(error: any)=>{

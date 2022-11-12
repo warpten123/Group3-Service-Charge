@@ -17,4 +17,13 @@ export class TicketService {
   saveTicket(ticket: Ticket){
     return this.http.post("http://localhost:8080/ticket/create",ticket).pipe(map(resp=>resp));
   }
+  deleteTicket(ticket_id: number){
+    return this.http.delete(`http://localhost:8080/ticket/delete/${ticket_id}`).pipe(map(resp=>resp));
+  }
+  // updateTicket(ticket: Ticket){
+  //   return this.http.
+  // }
+  updateTicketByAssignee(ticket: Ticket, name: String){
+
+  }
 }
