@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>   
-<a mat-raised-button color="accent" (click)="modalCreate()">New Ticket</a>
+
 <!-- <div *ngIf="users.length > 0;else noUsers" class="container">
     <table class="content-table">
         <thead>
@@ -30,7 +30,7 @@
 <!--START CARD-->
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="25px grid">
-        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets; let i = index">
     <mat-card class="mat-elevation-z4">
       <mat-card-header>
         <mat-card-title>{{ticket.subject}}</mat-card-title>
@@ -47,8 +47,8 @@
       <mat-card-actions>
         <!-- <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Available'"><mat-icon>add_circle</mat-icon>RESERVE CAR</button>
         <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Rented'"[disabled]="true"><mat-icon>warning</mat-icon>Unavailable</button> -->
-        <button mat-button color="primary">UPDATE</button>
-        <button mat-button color="primary">DELETE</button>
+        <button mat-button color="primary" (click)="updateTicket(ticket.ticket_id,ticket)">UPDATE</button>
+        <button mat-button color="primary" (click)="deleteTicket(ticket,i)">DELETE</button>
         <button mat-button color="primary">VIEW MORE</button>
       </mat-card-actions>
     </mat-card>

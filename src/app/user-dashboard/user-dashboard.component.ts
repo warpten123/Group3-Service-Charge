@@ -28,10 +28,16 @@ export class UserDashboardComponent implements OnInit {
    this.getAllTicket();
   }
 
-  deleteTicket(ticket_id: number, index: number){
-    this.ticketService.deleteTicket(ticket_id).subscribe((data: Ticket) => {this.tickets[index]=data})
+  deleteTicket(ticket: Ticket, index: number){
+    this.ticketService.deleteTicket(ticket.ticket_id).subscribe((data: Ticket) => {
+      this.tickets[index]=data;
+      this.tickets.splice(index,1);
+    })
+    
+    
+    console.log(index);
   }
-
+ 
   getAllUsers(){
     this.userService.getAllUsers().subscribe((data: Users[])=>{this.users=data;
       console.log(this.users);},(error: any)=>{
@@ -55,4 +61,18 @@ export class UserDashboardComponent implements OnInit {
     this.dialog.open(ModalCreateComponent,dialogConfig);
     this.getAllTicket();
   }
+  updateTicket(ticket_id: number, ticket: Ticket){
+    const payload: Ticket = {
+      assignee: "3",
+      tracker: "4",
+      description: "5",
+      subject: "6",
+      status: "Resolved",
+    };
+    this.ticketService.updateTicket(payload,ticket_id).subscribe((data: Ticket[])=>{
+      this.tickets=data;
+      this.getAllTicket();
+    });
+  }
+
 }

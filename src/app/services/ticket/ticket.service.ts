@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { Ticket } from './ticket-interface';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,27 @@ export class TicketService {
   // updateTicket(ticket: Ticket){
   //   return this.http.
   // }
-  updateTicketByAssignee(ticket: Ticket, name: String){
+  updateTicket(ticket: Ticket, ticket_id: number){
+    return this.http.post(`http://localhost:8080/ticket/update/${ticket_id}`,ticket).pipe(map(resp=>resp));
+  }
+  refreshTicket(){
+    return this.getAllTickets().subscribe((data: Ticket[])=>{this.tickets=data;
+        console.log(this.tickets);},(error: any)=>{
+          console.error(error);
+        }
+        ); 
+    
+  }
 
+  ticketForm: FormGroup = new FormGroup({
+    ticketAssignee: new FormControl('', Validators.required),
+    ticketTracker: new FormControl('', Validators.required),
+    ticketSubject: new FormControl('', Validators.required),
+    ticketDescription: new FormControl('', Validators.required),
+    
+  });
+
+  populateForm(ticket: Ticket){
+    this.ticketForm.patchValue(ticket);
   }
 }
