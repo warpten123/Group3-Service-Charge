@@ -21,7 +21,10 @@ export class LoginComponent implements OnInit {
 
    
   }
+  count : number = 0;
+  found : boolean = false;
   postUser: Users;
+  authen: Users[]=[];
   ngOnInit(): void {  
   }
   loginForm: FormGroup = new FormGroup({
@@ -36,7 +39,35 @@ export class LoginComponent implements OnInit {
     registerPassword: new FormControl('', Validators.required)
   });
   onSubmitLogin(){
-    this.router.navigate(['/user-dashboard']);
+    
+    // if(this.loginForm.invalid){
+    //   this.toast.error("Complete your Login!");
+    //   return;
+    // }
+    this.userService.getAllUsers().subscribe((data: Users[])=>{
+      this.authen=data;      
+    },(error: any)=>{
+        this.toast.error(error); 
+      });
+    this.userService.getUserByEmail(this.loginForm.value.emailLogin).subscribe((data: Users)=>{
+      this.postUser = data;
+      if(this.postUser.user_password == this.loginForm.value.passLogin  ){
+        this.toast.success(`Welcome ${this.postUser.user_fname}!`);
+        this.nav("user-dashboard");
+      }else{
+        this.toast.error("Incorrect Password!");
+        return;
+      }
+      
+    },(error: any)=>{
+      this.toast.error("Invalid Login"); 
+    }); 
+
+    //end subs
+    
+      
+      
+      
   }
   onSubmitRegister(){
     if(this.registerForm.invalid){
