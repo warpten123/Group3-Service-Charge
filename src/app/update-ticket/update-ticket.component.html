@@ -1,1 +1,69 @@
-<p>update-ticket works!</p>
+<html lang = "en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel = "stylesheet" href = "./update-ticket.component.css">
+        <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+        <div class="container">
+            <input type="checkbox" id="flip">
+            <div class="cover">
+                    
+                    <img src="assets/wall2.jpg" alt="background image">
+               
+            </div>
+            <form class="inputs" [formGroup]="ticketForm" (ngSubmit)="onSubmitUpdate(ticket)">
+               <div class="form-content">
+                <div class="admin-form">
+                    <div class="title">Update Ticket</div>
+                    <div class="input-boxes">
+                      <div class="input-box">
+                        <i class="fa fa-car"></i>
+                        <input type="text" formControlName="ticketAssignee" placeholder="{{ticket.assignee}}">
+                    </div>
+
+                    <div class="input-box">
+                        <i class="fa fa-paint-brush"></i>
+                        <input type="text" formControlName="ticketStatus" placeholder="{{ticket.status}}">
+                    </div>
+
+                    <div class="input-box">
+                        <i class="fa fa-money"></i>
+                        <input type="text" formControlName="ticketSubject" placeholder="{{ticket.subject}}">
+                    </div>
+
+                    <div class="input-box">
+                        <i class="fa fa-road"></i>
+                        <input type="text" formControlName="ticketDescription" placeholder="{{ticket.description}}">
+                    </div>
+                    <div class="input-box">
+                        <i class="fa fa-road"></i>
+                        <input  formControlName="ticketTracker"  placeholder="{{ticket.tracker}}">
+                    </div>
+
+                    <!-- <div class="input-box">
+                      <i class="fa fa-key"></i>
+                        <input matInput [matDatepicker]= "datePicker" placeholder="Pick-up Date"[min]="minDate"[max]="maxDate"[(ngModel)]="getDate" [ngModelOptions]="{standalone: true}">
+                        
+                        <mat-datepicker-toggle [for]= "datePicker" matSuffix>
+                          <mat-datepicker #datePicker>
+                          </mat-datepicker>
+                        </mat-datepicker-toggle>
+                     
+                    </div> -->
+                        
+                        <div class="button input-box">
+        
+                            <input type="submit" value="Update Ticket">
+                        </div>
+                        <div class="text sign-up-text"><a routerLink="/user-dashboard" (click)="close()">Close Form</a></div>
+                    </div>
+                </div>
+                </div>
+            </form>
+            </div>
+     
+
+</html>

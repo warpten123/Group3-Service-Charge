@@ -4,11 +4,33 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { Ticket } from './ticket-interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
   tickets: Ticket[]=[];
+  passTicketValue$: Subject<Ticket> = new Subject();
+  get passTicketValue(): Subject<Ticket>{
+    return this.passTicketValue$;
+  }
+  set passTicketValue(src: Subject<Ticket>){
+    this.passTicketValue$ = src;
+  }
+  getPassTicketValue(ticket: Ticket){
+    this.passTicketValue$.next(ticket);
+  }
+
+  // passCarsValuesArray$: Subject<CarsInterface[]> = new Subject();
+  // get passCarsValuesArray(): Subject<CarsInterface[]>{
+  //   return this.passCarsValuesArray$;
+  // }
+  // set passCarsValuesArray(src: Subject<CarsInterface[]>){
+  //   this.passCarsValuesArray$ = src;
+  // }
+  // getPassCarValueArray(car: CarsInterface[]){
+  //   this.passCarsValuesArray$.next(car);
+  // }
   constructor(private http: HttpClient) { }
 
   getAllTickets(){
@@ -24,8 +46,9 @@ export class TicketService {
   // updateTicket(ticket: Ticket){
   //   return this.http.
   // }
-  updateTicket(ticket: Ticket, ticket_id: number){
-    return this.http.post(`http://localhost:8080/ticket/update/${ticket_id}`,ticket).pipe(map(resp=>resp));
+  updateTicket(ticket_id: number,ticket: Ticket, ){
+    return this.http.patch(`http://localhost:8080/ticket/update/${ticket_id}/testing`,ticket).pipe(map(resp=>resp));
+   
   }
   refreshTicket(){
     return this.getAllTickets().subscribe((data: Ticket[])=>{this.tickets=data;
@@ -36,7 +59,7 @@ export class TicketService {
     
   }
 
-  ticketForm: FormGroup = new FormGroup({
+  editTicketForm: FormGroup = new FormGroup({
     ticketAssignee: new FormControl('', Validators.required),
     ticketTracker: new FormControl('', Validators.required),
     ticketSubject: new FormControl('', Validators.required),
@@ -45,6 +68,7 @@ export class TicketService {
   });
 
   populateForm(ticket: Ticket){
-    this.ticketForm.patchValue(ticket);
+    this.editTicketForm.patchValue(ticket);
+    console.log(this.editTicketForm.value);
   }
 }

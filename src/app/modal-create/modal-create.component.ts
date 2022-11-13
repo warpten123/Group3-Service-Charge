@@ -40,7 +40,7 @@ export class ModalCreateComponent implements OnInit {
 
   onSubmitCreate(){
     if(this.ticketForm.invalid){
-      this.toast.error("Invalid Registration!");
+      this.toast.error("Error Creating Ticket!");
       return;
     }
     const payload: Ticket = {
@@ -51,16 +51,15 @@ export class ModalCreateComponent implements OnInit {
       subject: this.ticketForm.value.ticketSubject,
       status: "Pending",
     };
+    
     this.ticketService.saveTicket(payload).pipe(this.toast.observe({
       success: "Ticket Created!",
       loading: "Processing",
       error: (message: any) => `${message}`
     })).subscribe((data: Ticket) => {
       this.postTicket = data;
-      this.nav("user-dashboard");
       this.close();
-      this.ticketService.populateForm(payload);
-      this.ticketService.refreshTicket();
+      window.location.reload();
     });
   }
 
