@@ -1,0 +1,73 @@
+<html lang = "en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel = "stylesheet" href = "./forgot.component.css">
+        <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+        <div class="container">
+            <input type="checkbox" id="flip">
+            <div class="cover">
+                    
+                    <img src="assets/forgot.jpg" alt="background image">
+               
+            </div>
+            <form class="inputs" [formGroup]="confirmPasswordForm" (ngSubmit)="onConfirmPassword()">
+               <div class="form-content">
+                <div class="admin-form">
+                    <div class="title">Forgot Password</div>
+                    <div class="input-boxes">
+                      <div class="input-box">
+                        <i class="fa fa-envelope"></i>
+                        <input type="text" formControlName="email" placeholder="Your Email">
+                    </div>
+
+                    <!-- <div class="input-box">
+                        <i class="fa fa-paint-brush"></i>
+                        <input  placeholder="Pending" disabled="disabled">
+                    </div> -->
+
+                    <div class="input-box">
+                        <i class="fa fa-lock"></i>
+                        <input  formControlName="password" placeholder="Password">
+                    </div>
+                    <!-- <div class="input-box" *ngIf="isFound == 0">
+                        <i class="fa fa-lock"></i>
+                        <input disabled="disabled" formControlName="password" placeholder="Password">
+                    </div>
+                     -->
+                    <div class="input-box">
+                        <i class="fa fa-lock"></i>
+                        <input type="text" formControlName="confirmPassword" placeholder="Confirm Password">
+                    </div>
+                    <!-- <div class="input-box">
+                        <i class="fa fa-road"></i>
+                        <input  formControlName="ticketTracker"  placeholder="Tracker">
+                    </div> -->
+
+                    <!-- <div class="input-box">
+                      <i class="fa fa-key"></i>
+                        <input matInput [matDatepicker]= "datePicker" placeholder="Pick-up Date"[min]="minDate"[max]="maxDate"[(ngModel)]="getDate" [ngModelOptions]="{standalone: true}">
+                        
+                        <mat-datepicker-toggle [for]= "datePicker" matSuffix>
+                          <mat-datepicker #datePicker>
+                          </mat-datepicker>
+                        </mat-datepicker-toggle>
+                     
+                    </div> -->
+                        
+                        <div class="button input-box">
+        
+                            <input type="submit" value="Update Password">
+                        </div>
+                        <div class="text sign-up-text"><a (click)="close()">Take me back!</a></div>
+                    </div>
+                </div>
+                </div>
+            </form>
+            </div>
+     
+
+</html>

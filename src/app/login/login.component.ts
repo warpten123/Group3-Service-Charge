@@ -1,3 +1,5 @@
+import { ForgotComponent } from './../forgot/forgot.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UsersService } from './../services/users/users.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,6 +19,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private userService: UsersService,
     private toast: HotToastService,
+    private dialog: MatDialog,
     ) { 
 
    
@@ -96,5 +99,13 @@ export class LoginComponent implements OnInit {
   }
   nav(destination: string) {
     this.router.navigate([destination]);
+  }
+  onOpenForgot( ){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true
+      dialogConfig.autoFocus = true;
+      dialogConfig.width =  "60%";
+      dialogConfig.panelClass = 'post-dialog-container',
+      this.dialog.open(ForgotComponent,dialogConfig);
   }
 }

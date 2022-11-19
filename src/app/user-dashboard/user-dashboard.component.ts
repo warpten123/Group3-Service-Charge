@@ -63,7 +63,6 @@ export class UserDashboardComponent implements OnInit {
     dialogConfig.width =  "60%";
     dialogConfig.panelClass = 'post-dialog-container',
     this.dialog.open(ModalCreateComponent,dialogConfig);
-    
   }
   nav(destination: string) {
     this.router.navigate([destination]);

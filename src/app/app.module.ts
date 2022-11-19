@@ -28,6 +28,7 @@ import { ModalCreateComponent } from './modal-create/modal-create.component';
 //end host toast//
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ForgotComponent } from './forgot/forgot.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CreateTicketComponent,
     UpdateTicketComponent,
     NavbarComponent,
-    ModalCreateComponent
+    ModalCreateComponent,
+    ForgotComponent
   ],
   exports: [
     CommonModule,
