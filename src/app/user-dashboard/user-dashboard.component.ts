@@ -50,7 +50,7 @@ export class UserDashboardComponent implements OnInit {
       ); 
   }
   getAllTicket(){
-    this.ticketService.getAllTickets().subscribe((data: Ticket[])=>{this.tickets=data;
+    this.ticketService.getAllTickets().subscribe((data: Ticket[])=>{this.tickets=data["data"];
       console.log(this.tickets);},(error: any)=>{
         console.error(error);
       }

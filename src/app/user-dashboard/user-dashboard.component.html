@@ -26,37 +26,63 @@
     <h5>There are no users registered!</h5>
     
 </ng-template> -->
-<div *ngIf="tickets.length > 0;else noTickets" class="container"></div>
+<div *ngIf="tickets.length > 0;else noTickets" class="container " style="width: 3000px;">
 <!--START CARD-->
-  <div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="25px grid">
+  <div class="content" style="font-size: 25px; font-weight: 200; font-family: monospace;">
+    <table class="table table-hover " >
+      <thead class="bg-primary text-white" style="text-align: left; ">
+        <tr>
+          <th scope="col">Ticket ID</th>
+          <th scope="col">Assignee</th>
+          <th scope="col">Status</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Description</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody style="text-align: left;" *ngFor="let ticket of tickets; let i = index">
+        <tr>
+          <th scope="row">{{ticket.ticket_id}}</th>
+          <td >{{ticket.assignee}}</td>
+          <td>{{ticket.status}}</td>
+          <td>{{ticket.subject}}</td>
+          <td>{{ticket.description}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm" (click)="updateTicket(ticket)">Update</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="deleteTicket(ticket,i)">Delete</button>
+            <button type="button" class="btn btn-success btn-sm">View more</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div fxLayout="row wrap" fxLayoutGap="25px grid">
         <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets; let i = index">
-    <mat-card class="mat-elevation-z4">
-      <mat-card-header>
-        <mat-card-title>{{ticket.subject}}</mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src="assets/ticket.png"class=".img-responsive" width="10" height="200">
-      <mat-card-content class="mat-typography">
-        <p>
-          
-           Assignee: {{ticket.assignee}}
-          
-        </p>
+          <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>{{ticket.subject}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="assets/ticket.png"class=".img-responsive" width="10" height="200">
+            <mat-card-content class="mat-typography">
+              <p>
+                
+                Assignee: {{ticket.assignee}}
+                
+              </p>
 
-      </mat-card-content>
-      <mat-card-actions>
-        <!-- <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Available'"><mat-icon>add_circle</mat-icon>RESERVE CAR</button>
-        <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Rented'"[disabled]="true"><mat-icon>warning</mat-icon>Unavailable</button> -->
-        <button mat-button color="primary" (click)="updateTicket(ticket)">UPDATE</button>
-        <button mat-button color="primary" (click)="deleteTicket(ticket,i)">DELETE</button>
-        <button mat-button color="primary">VIEW MORE</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Available'"><mat-icon>add_circle</mat-icon>RESERVE CAR</button>
+              <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Rented'"[disabled]="true"><mat-icon>warning</mat-icon>Unavailable</button>
+              <button mat-button color="primary" (click)="updateTicket(ticket)">UPDATE</button>
+              <button mat-button color="primary" (click)="deleteTicket(ticket,i)">DELETE</button>
+              <button mat-button color="primary">VIEW MORE</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+    </div> -->
   </div>
 <!--END CARD-->
-
+</div>
 <!-- <button (click)="logout()">Log out!</button> -->
 <ng-template #noTickets>
     <hr>

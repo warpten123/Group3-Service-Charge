@@ -20,7 +20,7 @@ saveUser(user: Users){
   return this.http.post("http://localhost:8080/user/create",user).pipe(map(resp=>resp));
 }
 getUserByEmail(user_email: string){
-  return this.http.get(`http://localhost:8080/user/${user_email}`)
+  return this.http.get(`http://localhost:8080/user/email/${user_email}`)
   .pipe(map(resp=>resp));
 }
 

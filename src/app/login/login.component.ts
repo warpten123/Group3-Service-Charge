@@ -53,8 +53,8 @@ export class LoginComponent implements OnInit {
         this.toast.error(error); 
       });
     this.userService.getUserByEmail(this.loginForm.value.emailLogin).subscribe((data: Users)=>{
-      this.postUser = data;
-      if(this.postUser.user_password == this.loginForm.value.passLogin  ){
+      this.postUser = data["data"];
+      if(this.postUser.user_password == this.loginForm.value.passLogin ){
         this.toast.success(`Welcome ${this.postUser.user_fname}!`);
         this.nav("user-dashboard");
       }else{
