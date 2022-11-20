@@ -37,17 +37,17 @@ export class TicketService {
     return this.http.get("http://localhost:8080/ticket/all").pipe(map(
       resp=>resp));
   }
-  saveTicket(ticket: Ticket){
+  saveTicket(ticket: FormData){
     return this.http.post("http://localhost:8080/ticket/create",ticket).pipe(map(resp=>resp));
   }
-  deleteTicket(ticket_id: number){
-    return this.http.delete(`http://localhost:8080/ticket/delete/${ticket_id}`).pipe(map(resp=>resp));
+  deleteTicket(ticketID: number){
+    return this.http.delete(`http://localhost:8080/ticket/delete/${ticketID}`).pipe(map(resp=>resp));
   }
   // updateTicket(ticket: Ticket){
   //   return this.http.
   // }
-  updateTicket(ticket_id: number,ticket: Ticket, ){
-    return this.http.patch(`http://localhost:8080/ticket/update/${ticket_id}/testing`,ticket).pipe(map(resp=>resp));
+  updateTicket(ticket_id: number,ticket: FormData, ){
+    return this.http.put(`http://localhost:8080/ticket/update`,ticket).pipe(map(resp=>resp));
    
   }
   refreshTicket(){

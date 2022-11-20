@@ -33,7 +33,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   deleteTicket(ticket: Ticket, index: number){
-    this.ticketService.deleteTicket(ticket.ticket_id).subscribe((data: Ticket) => {
+    this.ticketService.deleteTicket(ticket.ticketID).subscribe((data: Ticket) => {
       this.tickets[index]=data;
       this.tickets.splice(index,1);
     })
@@ -51,9 +51,13 @@ export class UserDashboardComponent implements OnInit {
   }
   getAllTicket(){
     this.ticketService.getAllTickets().subscribe((data: Ticket[])=>{this.tickets=data["data"];
-      console.log(this.tickets);},(error: any)=>{
+      console.log(this.tickets[0].ticketID);
+      
+    },(error: any)=>{
         console.error(error);
+        
       }
+      
       ); 
   }
   modalCreate(){
@@ -81,7 +85,7 @@ export class UserDashboardComponent implements OnInit {
   //   });
   // 
     
-    
+    console.log(`from user ${ticket.ticketID}`)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true
     dialogConfig.autoFocus = true;

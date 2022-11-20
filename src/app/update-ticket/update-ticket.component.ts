@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ticket } from '../services/ticket/ticket-interface';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-update-ticket',
@@ -15,6 +16,7 @@ import { Ticket } from '../services/ticket/ticket-interface';
 export class UpdateTicketComponent implements OnInit {
   ticket: Ticket;
   data: number;
+  strID: String;
   receivedTicketData: Subject<Ticket>;
   constructor(
     private dialog: MatDialog,
@@ -32,6 +34,7 @@ export class UpdateTicketComponent implements OnInit {
   ngOnInit(): void {
    
    this.ticketForm.patchValue({
+    ticketID: this.ticket.ticketID,
      ticketAssignee: this.ticket.assignee,
      ticketTracker: this.ticket.tracker,
      ticketSubject: this.ticket.subject,
@@ -48,15 +51,25 @@ export class UpdateTicketComponent implements OnInit {
     
   });
   onSubmitUpdate(ticket: Ticket){
+    console.log(`update ${ticket.ticketID}`);
     const payload: Ticket = {
+      ticketID: ticket.ticketID,
       assignee: this.ticketForm.value.ticketAssignee,
       tracker: this.ticketForm.value.ticketTracker,
       description: this.ticketForm.value.ticketDescription,
       subject: this.ticketForm.value.ticketSubject,
       status: this.ticketForm.value.ticketStatus,
     };
-    console.log(`payload ${payload.assignee}`);
-    this.ticketService.updateTicket(ticket.ticket_id,payload).pipe(this.toast.observe({
+    let formData = new FormData();
+    formData.append("ticketID",payload.ticketID.toString());
+    formData.append("assignee",payload.assignee);
+    formData.append("tracker",payload.tracker);
+    formData.append("description",payload.description);
+    formData.append("subject",payload.subject);
+    formData.append("status",payload.status);
+    
+    
+    this.ticketService.updateTicket(ticket.ticketID,formData).pipe(this.toast.observe({
       success: "Updated Successfully!",
       loading: "Processing",
       error: (message: any) => `${message}`

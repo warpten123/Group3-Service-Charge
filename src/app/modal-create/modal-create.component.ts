@@ -30,34 +30,40 @@ export class ModalCreateComponent implements OnInit {
 
   ticketForm: FormGroup = new FormGroup({
     ticketAssignee: new FormControl('', Validators.required),
-    ticketTracker: new FormControl('', Validators.required),
     ticketSubject: new FormControl('', Validators.required),
     ticketDescription: new FormControl('', Validators.required),
+    ticketTracker: new FormControl('', Validators.required),
     
   });
   ngOnInit(): void {
   }
 
   onSubmitCreate(){
+    
     if(this.ticketForm.invalid){
       this.toast.error("Error Creating Ticket!");
       return;
     }
     const payload: Ticket = {
-     
       assignee: this.ticketForm.value.ticketAssignee,
       tracker: this.ticketForm.value.ticketTracker,
       description: this.ticketForm.value.ticketDescription,
       subject: this.ticketForm.value.ticketSubject,
       status: "Pending",
     };
-    
-    this.ticketService.saveTicket(payload).pipe(this.toast.observe({
+    let formData = new FormData();
+    formData.append("assignee",payload.assignee);
+    formData.append("tracker",payload.tracker);
+    formData.append("description",payload.description);
+    formData.append("subject",payload.subject);
+    formData.append("status",payload.status);
+    this.ticketService.saveTicket(formData).pipe(this.toast.observe({
       success: "Ticket Created!",
       loading: "Processing",
       error: (message: any) => `${message}`
     })).subscribe((data: Ticket) => {
-      this.postTicket = data;
+      this.postTicket = data["data"];
+      console.log(`from ${this.postTicket}`);
       this.close();
       window.location.reload();
     });
