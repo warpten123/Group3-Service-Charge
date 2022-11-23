@@ -20,6 +20,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule} from '@angular/material/card';
+import { MatInputModule} from '@angular/material/input';
 //End Material Shits and http//
 
 //hot toast//
@@ -29,6 +30,7 @@ import { ModalCreateComponent } from './modal-create/modal-create.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ForgotComponent } from './forgot/forgot.component';
+import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { ForgotComponent } from './forgot/forgot.component';
     UpdateTicketComponent,
     NavbarComponent,
     ModalCreateComponent,
-    ForgotComponent
+    ForgotComponent,
+    EditTicketComponent
   ],
   exports: [
     CommonModule,
@@ -55,6 +58,7 @@ import { ForgotComponent } from './forgot/forgot.component';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatInputModule,
     FlexLayoutModule,
     MatCardModule,
     MatFormFieldModule,

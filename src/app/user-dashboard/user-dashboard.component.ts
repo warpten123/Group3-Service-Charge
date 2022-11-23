@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Ticket } from '../services/ticket/ticket-interface';
 import { ModalCreateComponent } from '../modal-create/modal-create.component';
 import { Router } from '@angular/router';
+import { EditTicketComponent } from '../edit-ticket/edit-ticket.component';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -61,12 +62,18 @@ export class UserDashboardComponent implements OnInit {
       ); 
   }
   modalCreate(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true
-    dialogConfig.autoFocus = true;
-    dialogConfig.width =  "60%";
-    dialogConfig.panelClass = 'post-dialog-container',
-    this.dialog.open(ModalCreateComponent,dialogConfig);
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true
+    // dialogConfig.autoFocus = true;
+    // dialogConfig.width =  "60%";
+    // dialogConfig.panelClass = 'post-dialog-container',
+    // this.dialog.open(ModalCreateComponent,dialogConfig);
+    this.dialog.open(ModalCreateComponent,{
+      width: '60%',
+      autoFocus: true,
+      disableClose: true,
+      
+    });
   }
   nav(destination: string) {
     this.router.navigate([destination]);
@@ -87,7 +94,7 @@ export class UserDashboardComponent implements OnInit {
     
     console.log(`from user ${ticket.ticketID}`)
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true
+    dialogConfig.disableClose = false
     dialogConfig.autoFocus = true;
     dialogConfig.width =  "60%";
     dialogConfig.panelClass = 'post-dialog-container',
