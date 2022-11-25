@@ -23,5 +23,8 @@ getUserByEmail(user_email: string){
   return this.http.get(`http://localhost:8080/user/email/${user_email}`)
   .pipe(map(resp=>resp));
 }
-
+updateUser(user: FormData){
+  return this.http.put(`http://localhost:8080/user/update`,user)
+  .pipe(map(resp=>resp));
+}
 }

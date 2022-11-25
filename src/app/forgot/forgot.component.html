@@ -21,7 +21,10 @@
                     <div class="input-boxes">
                       <div class="input-box">
                         <i class="fa fa-envelope"></i>
-                        <input type="text" formControlName="email" placeholder="Your Email">
+                        <form [formGroup]="searchForm">
+                            <input (input)="checkEmail(emailSearch.value)" #emailSearch type="text" placeholder="Email" name="emailSearch" formControlName="emailSearch">
+                            <!-- <button type="submit" (click)="filterItems(search.value)"><i class="fa fa-search"></i></button> -->
+                          </form>
                     </div>
 
                     <!-- <div class="input-box">
@@ -31,7 +34,7 @@
 
                     <div class="input-box">
                         <i class="fa fa-lock"></i>
-                        <input  formControlName="password" placeholder="Password">
+                        <input type="password" formControlName="password" placeholder="New Password">
                     </div>
                     <!-- <div class="input-box" *ngIf="isFound == 0">
                         <i class="fa fa-lock"></i>
@@ -40,7 +43,7 @@
                      -->
                     <div class="input-box">
                         <i class="fa fa-lock"></i>
-                        <input type="text" formControlName="confirmPassword" placeholder="Confirm Password">
+                        <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
                     </div>
                     <!-- <div class="input-box">
                         <i class="fa fa-road"></i>
@@ -60,8 +63,10 @@
                         
                         <div class="button input-box">
         
-                            <input type="submit" value="Update Password">
+                            <input *ngIf="isFound" type="submit" value="Update Password">
                         </div>
+                        <!-- <div class="text sign-up-text" *ngIf="isFound">Email Found!</div>
+                        <div class="text sign-up-text" *ngIf="!isFound">Email Not Found!</div> -->
                         <div class="text sign-up-text"><a (click)="close()">Take me back!</a></div>
                     </div>
                 </div>
