@@ -77,6 +77,14 @@ export class UserDashboardComponent implements OnInit {
         for (let i = 0; i < this.search.length; i++) {
           if (this.search[i].subject.toLowerCase() === search.toLowerCase()) {
             this.tickets.push(this.search[i]);
+          } else if (
+            this.search[i].assignee.toLowerCase() === search.toLowerCase()
+          ) {
+            this.tickets.push(this.search[i]);
+          } else if (
+            this.search[i].status.toLowerCase() === search.toLowerCase()
+          ) {
+            this.tickets.push(this.search[i]);
           }
         }
         if (!this.searchForm.valid) {
