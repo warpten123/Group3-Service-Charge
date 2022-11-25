@@ -16,7 +16,7 @@ getAllUsers(){
   return this.http.get("http://localhost:8080/user/all").pipe(map(
     resp=>resp));
 }
-saveUser(user: Users){
+saveUser(user: FormData){
   return this.http.post("http://localhost:8080/user/create",user).pipe(map(resp=>resp));
 }
 getUserByEmail(user_email: string){

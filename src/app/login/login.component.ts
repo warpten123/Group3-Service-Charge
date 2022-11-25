@@ -77,16 +77,22 @@ export class LoginComponent implements OnInit {
       this.toast.error("Invalid Registration!");
       return;
     }
-    const payload: Users = {
+    // const payload: Users = {
      
-      user_email: this.registerForm.value.registerEmailAdd,
-      user_lname: this.registerForm.value.registerLastName,
-      user_fname: this.registerForm.value.registerFirstName,
-      user_username: this.registerForm.value.registerUserName,
-      user_password:  this.registerForm.value.registerPassword,
+    //   user_email: this.registerForm.value.registerEmailAdd,
+    //   user_lname: this.registerForm.value.registerLastName,
+    //   user_fname: this.registerForm.value.registerFirstName,
+    //   user_username: this.registerForm.value.registerUserName,
+    //   user_password:  this.registerForm.value.registerPassword,
       
-    };
-    this.userService.saveUser(payload).pipe(this.toast.observe({
+    // };
+    let userCreate = new FormData()
+    userCreate.append('user_fname',this.registerForm.value.registerFirstName)
+    userCreate.append('user_lname',this.registerForm.value.registerLastName)
+    userCreate.append('user_email',this.registerForm.value.registerEmailAdd)
+    userCreate.append('user_username',this.registerForm.value.registerUserName)
+    userCreate.append('user_password',this.registerForm.value.registerPassword)
+    this.userService.saveUser(userCreate).pipe(this.toast.observe({
       success: "Registered Successfully!",
       loading: "Processing",
       error: (message: any) => `${message}`

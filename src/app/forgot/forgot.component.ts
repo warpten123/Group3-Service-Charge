@@ -23,35 +23,43 @@ export class ForgotComponent implements OnInit {
   isFound: boolean = false;
   users: Users[]=[];
   temp: number
-  count: number
+  count: number = 0
+  bool: boolean[]=[]
   ngOnInit(): void {
     this.confirmPasswordForm.controls['password'].disable()
     this.confirmPasswordForm.controls['confirmPassword'].disable()
+    this.userService.getAllUsers().subscribe((data: Users[])=>{
+      this.users = data['data'];
+    })
   }
 
   checkEmail(email: string){
-    this.userService.getAllUsers().subscribe((data: Users[])=>{
-      this.users = data['data'];
-      console.log(this.users.length)
-      console.log(this.confirmPasswordForm.value.email)
+      let check = 0
       for(let i  = 0; i < this.users.length; i++){
-        
-        if(this.users[i].user_email == email){  
+        this.bool.push(this.users[i].user_email === email)
+      }
+      for(let i  = 0; i < this.users.length; i++){
+        if(this.bool[i] == true){
+          check = i
+        }
+      }
+      for(let i  = 0; i < this.users.length; i++){
+        if(this.users[check].user_email === email){  
           this.confirmPasswordForm.controls['password'].enable()
           this.confirmPasswordForm.controls['confirmPassword'].enable()
-          this.count = i
-          return this.isFound = true
+          this.count = check
+          this.isFound = true
         }else{
           this.confirmPasswordForm.controls['password'].disable()
           this.confirmPasswordForm.controls['confirmPassword'].disable()
-    
-          return this.isFound = false
+          this.isFound = false
         }
-          
+        
       }
+      this.bool = []
       return this.isFound
-    })
-  
+    
+
   }
   onConfirmPassword(){
     if(!this.confirmPasswordForm.valid){
