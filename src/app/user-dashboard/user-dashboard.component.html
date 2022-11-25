@@ -1,4 +1,19 @@
-<app-navbar></app-navbar>   
+<app-navbar></app-navbar>
+<form
+  class="example"
+  [formGroup]="searchForm"
+  style="margin: auto; max-width: 300px"
+>
+  <input
+    (input)="filterItems(search.value)"
+    #search
+    type="text"
+    placeholder="Search..."
+    name="search"
+    formControlName="search"
+  />
+  <!-- <button type="submit" (click)="filterItems(search.value)"><i class="fa fa-search"></i></button> -->
+</form>
 <!-- <a mat-raised-button color="accent" (click)="modalCreate()">New Ticket</a> -->
 <!-- <div *ngIf="users.length > 0;else noUsers" class="container">
     <table class="content-table">
@@ -26,11 +41,18 @@
     <h5>There are no users registered!</h5>
     
 </ng-template> -->
-<div *ngIf="tickets.length > 0;else noTickets" class="container " style="width: 3000px;">
-<!--START CARD-->
-  <div class="content" style="font-size: 25px; font-weight: 200; font-family: monospace;">
-    <table class="table table-hover " >
-      <thead class="bg-primary text-white" style="text-align: left; ">
+<div
+  *ngIf="tickets.length > 0; else noTickets"
+  class="container"
+  style="width: 3000px"
+>
+  <!--START CARD-->
+  <div
+    class="content"
+    style="font-size: 25px; font-weight: 200; font-family: monospace"
+  >
+    <table class="table table-hover">
+      <thead class="bg-primary text-white" style="text-align: left">
         <tr>
           <th scope="col">Ticket ID</th>
           <th scope="col">Assignee</th>
@@ -40,17 +62,34 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody style="text-align: left;" *ngFor="let ticket of tickets; let i = index">
+      <tbody
+        style="text-align: left"
+        *ngFor="let ticket of tickets; let i = index"
+      >
         <tr>
-          <th scope="row">{{ticket.ticketID}}</th>
-          <td >{{ticket.assignee}}</td>
-          <td>{{ticket.status}}</td>
-          <td>{{ticket.subject}}</td>
-          <td>{{ticket.description}}</td>
+          <th scope="row">{{ ticket.ticketID }}</th>
+          <td>{{ ticket.assignee }}</td>
+          <td>{{ ticket.status }}</td>
+          <td>{{ ticket.subject }}</td>
+          <td>{{ ticket.description }}</td>
           <td>
-            <button type="button" class="btn btn-primary btn-sm" (click)="updateTicket(ticket)">Update</button>
-            <button type="button" class="btn btn-secondary btn-sm" (click)="deleteTicket(ticket,i)">Resolve</button>
-            <button type="button" class="btn btn-success btn-sm">View more</button>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="updateTicket(ticket)"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              (click)="deleteTicket(ticket, i)"
+            >
+              Resolve
+            </button>
+            <button type="button" class="btn btn-success btn-sm">
+              View more
+            </button>
           </td>
         </tr>
       </tbody>
@@ -81,11 +120,10 @@
         </div>
     </div> -->
   </div>
-<!--END CARD-->
+  <!--END CARD-->
 </div>
 <!-- <button (click)="logout()">Log out!</button> -->
 <ng-template #noTickets>
-    <hr>
-    <h5 class="noTickets">There are no tickets listed!</h5>
-    
+  <hr />
+  <h5 class="noTickets">There are no tickets listed!</h5>
 </ng-template>

@@ -10,38 +10,33 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Ticket } from '../services/ticket/ticket-interface';
 
-
 @Component({
   selector: 'app-modal-create',
   templateUrl: './modal-create.component.html',
-  styleUrls: ['./modal-create.component.css']
+  styleUrls: ['./modal-create.component.css'],
 })
 export class ModalCreateComponent implements OnInit {
   postTicket: Ticket;
-  refreshTicket: Ticket[]=[];
+  refreshTicket: Ticket[] = [];
   constructor(
     private dialog: MatDialog,
     private toast: HotToastService,
     private HttpClient: HttpClient,
     private ticketService: TicketService,
-    private router: Router,
-    
-  ) { }
+    private router: Router
+  ) {}
 
   ticketForm: FormGroup = new FormGroup({
     ticketAssignee: new FormControl('', Validators.required),
     ticketSubject: new FormControl('', Validators.required),
     ticketDescription: new FormControl('', Validators.required),
     ticketTracker: new FormControl('', Validators.required),
-    
   });
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  onSubmitCreate(){
-    
-    if(this.ticketForm.invalid){
-      this.toast.error("Error Creating Ticket!");
+  onSubmitCreate() {
+    if (this.ticketForm.invalid) {
+      this.toast.error('Error Creating Ticket!');
       return;
     }
     const payload: Ticket = {
@@ -49,31 +44,35 @@ export class ModalCreateComponent implements OnInit {
       tracker: this.ticketForm.value.ticketTracker,
       description: this.ticketForm.value.ticketDescription,
       subject: this.ticketForm.value.ticketSubject,
-      status: "Pending",
+      status: 'Pending',
     };
     let formData = new FormData();
-    formData.append("assignee",payload.assignee);
-    formData.append("tracker",payload.tracker);
-    formData.append("description",payload.description);
-    formData.append("subject",payload.subject);
-    formData.append("status",payload.status);
-    this.ticketService.saveTicket(formData).pipe(this.toast.observe({
-      success: "Ticket Created!",
-      loading: "Processing",
-      error: (message: any) => `${message}`
-    })).subscribe((data: Ticket) => {
-      this.postTicket = data["data"];
-      console.log(`from ${this.postTicket}`);
-      this.close();
-      window.location.reload();
-    });
+    formData.append('assignee', payload.assignee);
+    formData.append('tracker', payload.tracker);
+    formData.append('description', payload.description);
+    formData.append('subject', payload.subject);
+    formData.append('status', payload.status);
+    this.ticketService
+      .saveTicket(formData)
+      .pipe(
+        this.toast.observe({
+          success: 'Ticket Created!',
+          loading: 'Processing',
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: Ticket) => {
+        this.postTicket = data['data'];
+        console.log(`from ${this.postTicket}`);
+        this.close();
+        window.location.reload();
+      });
   }
 
-  close(){
+  close() {
     this.dialog.closeAll();
   }
   nav(destination: string) {
     this.router.navigate([destination]);
   }
-
 }
