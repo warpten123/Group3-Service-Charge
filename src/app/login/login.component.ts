@@ -7,111 +7,126 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Users } from '../services/users/user-interface';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
- 
-  constructor( 
+  constructor(
     private router: Router,
     private userService: UsersService,
     private toast: HotToastService,
-    private dialog: MatDialog,
-    ) { 
-
-   
-  }
-  count : number = 0;
-  found : boolean = false;
+    private dialog: MatDialog
+  ) {}
+  count: number = 0;
+  found: boolean = false;
   postUser: Users;
-  authen: Users[]=[];
-  ngOnInit(): void {  
-  }
+  authen: Users[] = [];
+  ngOnInit(): void {}
   loginForm: FormGroup = new FormGroup({
-    emailLogin: new FormControl('', Validators.required, ),
-    passLogin: new FormControl('', Validators.required)
+    emailLogin: new FormControl('', Validators.required),
+    passLogin: new FormControl('', Validators.required),
   });
   registerForm: FormGroup = new FormGroup({
     registerEmailAdd: new FormControl('', Validators.required),
     registerLastName: new FormControl('', Validators.required),
     registerUserName: new FormControl('', Validators.required),
     registerFirstName: new FormControl('', Validators.required),
-    registerPassword: new FormControl('', Validators.required)
+    registerPassword: new FormControl('', Validators.required),
   });
-  onSubmitLogin(){
-    
+  onSubmitLogin() {
     // if(this.loginForm.invalid){
     //   this.toast.error("Complete your Login!");
     //   return;
     // }
-    this.userService.getAllUsers().subscribe((data: Users[])=>{
-      this.authen=data;      
-    },(error: any)=>{
-        this.toast.error(error); 
-      });
-    this.userService.getUserByEmail(this.loginForm.value.emailLogin).subscribe((data: Users)=>{
-      this.postUser = data["data"];
-      if(this.postUser.user_password == this.loginForm.value.passLogin ){
-        this.toast.success(`Welcome ${this.postUser.user_fname}!`);
-        this.nav("user-dashboard");
-      }else{
-        this.toast.error("Incorrect Password!");
-        return;
+    this.userService.getAllUsers().subscribe(
+      (data: Users[]) => {
+        this.authen = data;
+      },
+      (error: any) => {
+        this.toast.error(error);
       }
-      
-    },(error: any)=>{
-      this.toast.error("Invalid Login"); 
-    }); 
+    );
+    this.userService.getUserByEmail(this.loginForm.value.emailLogin).subscribe(
+      (data: Users) => {
+        this.postUser = data['data'];
+        if (this.postUser.user_password == this.loginForm.value.passLogin) {
+          this.toast.success(`Welcome ${this.postUser.user_fname}!`);
+          this.nav('user-dashboard');
+        } else {
+          this.toast.error('Incorrect Password!');
+          return;
+        }
+      },
+      (error: any) => {
+        this.toast.error('Invalid Login');
+      }
+    );
 
     //end subs
-    
-      
-      
-      
   }
-  onSubmitRegister(){
-    if(this.registerForm.invalid){
-      this.toast.error("Invalid Registration!");
+  onSubmitRegister() {
+    if (this.registerForm.invalid) {
+      this.toast.error('Invalid Registration!');
       return;
     }
     // const payload: Users = {
-     
+
     //   user_email: this.registerForm.value.registerEmailAdd,
     //   user_lname: this.registerForm.value.registerLastName,
     //   user_fname: this.registerForm.value.registerFirstName,
     //   user_username: this.registerForm.value.registerUserName,
     //   user_password:  this.registerForm.value.registerPassword,
-      
+
     // };
-    let userCreate = new FormData()
-    userCreate.append('user_fname',this.registerForm.value.registerFirstName)
-    userCreate.append('user_lname',this.registerForm.value.registerLastName)
-    userCreate.append('user_email',this.registerForm.value.registerEmailAdd)
-    userCreate.append('user_username',this.registerForm.value.registerUserName)
-    userCreate.append('user_password',this.registerForm.value.registerPassword)
-    this.userService.saveUser(userCreate).pipe(this.toast.observe({
-      success: "Registered Successfully!",
-      loading: "Processing",
-      error: (message: any) => `${message}`
-    })).subscribe((data: Users) => {
-      this.postUser = data;
-      this.nav("user-dashboard");
-    });
-    
+    let userCreate = new FormData();
+    userCreate.append('user_fname', this.registerForm.value.registerFirstName);
+    userCreate.append('user_lname', this.registerForm.value.registerLastName);
+    userCreate.append('user_email', this.registerForm.value.registerEmailAdd);
+    userCreate.append(
+      'user_username',
+      this.registerForm.value.registerUserName
+    );
+    userCreate.append(
+      'user_password',
+      this.registerForm.value.registerPassword
+    );
+    this.userService
+      .saveUser(userCreate)
+      .pipe(
+        this.toast.observe({
+          success: 'Registered Successfully!',
+          loading: 'Processing',
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: Users) => {
+        this.postUser = data;
+        this.nav('user-dashboard');
+      });
+
     this.registerForm.reset();
   }
   nav(destination: string) {
     this.router.navigate([destination]);
   }
-  onOpenForgot( ){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true
-      dialogConfig.autoFocus = true;
-      dialogConfig.width =  "60%";
-      dialogConfig.panelClass = 'post-dialog-container',
-      this.dialog.open(ForgotComponent,dialogConfig);
+  onOpenForgot() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    (dialogConfig.panelClass = 'post-dialog-container'),
+      this.dialog.open(ForgotComponent, dialogConfig);
+  }
+  onOpenRegister() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    (dialogConfig.panelClass = 'post-dialog-container'),
+      this.dialog.open(RegisterComponent, dialogConfig);
   }
 }

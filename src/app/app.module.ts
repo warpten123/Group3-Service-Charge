@@ -31,6 +31,7 @@ import { ModalCreateComponent } from './modal-create/modal-create.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ForgotComponent } from './forgot/forgot.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
     NavbarComponent,
     ModalCreateComponent,
     ForgotComponent,
-    EditTicketComponent
+    EditTicketComponent,
+    RegisterComponent
   ],
   exports: [
     CommonModule,
