@@ -2,16 +2,16 @@
 <form
   class="example"
   [formGroup]="searchForm"
-  style="margin: auto; max-width: 300px"
 >
-  <input
-    (input)="filterItems(search.value)"
-    #search
-    type="text"
-    placeholder="Search..."
-    name="search"
-    formControlName="search"
-  />
+  <nav class="navbar" style="width: 1265px; margin-left:435px; margin-top: 10px;">
+    <div class="container-fluid">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" #search  placeholder="Search..." name="search"
+        formControlName="search" (input)="filterItems(search.value)">
+        <button class="btn btn-outline-success" type="submit" style="width:max-content;">Search</button>
+      </form>
+    </div>
+  </nav>
   <!-- <button type="submit" (click)="filterItems(search.value)"><i class="fa fa-search"></i></button> -->
 </form>
 <!-- <a mat-raised-button color="accent" (click)="modalCreate()">New Ticket</a> -->
@@ -44,7 +44,7 @@
 <div
   *ngIf="tickets.length > 0; else noTickets"
   class="container"
-  style="width: 3000px"
+  style="width: 2500px;"
 >
   <!--START CARD-->
   <div
@@ -87,13 +87,73 @@
             >
               Resolve
             </button>
-            <button type="button" class="btn btn-success btn-sm">
+            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
               View more
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="text-align: left;">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- <div fxLayout="row wrap" fxLayoutGap="25px grid">
         <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets; let i = index">
           <mat-card class="mat-elevation-z4">
