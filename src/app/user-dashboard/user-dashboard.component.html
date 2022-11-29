@@ -1,14 +1,15 @@
 <app-navbar></app-navbar>
+
 <form
   class="example"
   [formGroup]="searchForm"
 >
-  <nav class="navbar" style="width: 1265px; margin-left:435px; margin-top: 10px;">
+  <nav class="navbar" style="width: 1265px; margin-left:320px; margin-top: 10px;">
     <div class="container-fluid">
       <form class="d-flex" role="search">
         <input class="form-control me-2" #search  placeholder="Search..." name="search"
         formControlName="search" (input)="filterItems(search.value)">
-        <button class="btn btn-outline-success" type="submit" style="width:max-content;">Search</button>
+        <button class="btn btn-outline-success" type="submit" style="width:max-content;" (click)="filterItems(search.value)">Search</button>
       </form>
     </div>
   </nav>
@@ -78,11 +79,31 @@
             </div>
           </th>
           <th scope="row">{{ ticket.ticketID }}</th>
-          <td>{{ ticket.assignee }}</td>
-          <td>{{ ticket.status }}</td>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option selected>Assignee</option>
+              <option value="1">Vonne</option>
+              <option value="2">Joshua</option>
+              <option value="3">Sean</option>
+              <option value="4">Mervyn</option>
+            </select>
+
+          </td>
+          <td>
+            <div class="col-md-7">
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>pending</option>
+                <option value="1">resolved</option>
+                <option value="2">to be reviewed</option>
+              </select>
+            </div>
+          </td>
           <td>{{ ticket.subject }}</td>
           <td>{{ ticket.description }}</td>
           <td>
+            <button type="button" class="btn btn-primary btn-sm">Save</button>
+          </td>
+          <!-- <td>
             <button
               type="button"
               class="btn btn-primary btn-sm"
@@ -100,7 +121,7 @@
             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
               View more
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -163,6 +184,7 @@
       </div>
     </div>
   </div>
+  
 </div>
     <!-- <div fxLayout="row wrap" fxLayoutGap="25px grid">
         <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets; let i = index">
