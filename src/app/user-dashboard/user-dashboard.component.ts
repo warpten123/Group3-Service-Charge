@@ -71,19 +71,21 @@ export class UserDashboardComponent implements OnInit {
   }
   filterItems(search: string) {
     this.tickets.length = 0;
+
     this.ticketService.getAllTickets().subscribe(
       (data: Ticket[]) => {
         this.search = data['data'];
         for (let i = 0; i < this.search.length; i++) {
-          if (this.search[i].subject.toLowerCase() === search.toLowerCase()) {
+          console.log(
+            this.search[i].assignee +
+              ' ' +
+              this.search[i].assignee.includes(search)
+          );
+          if (this.search[i].subject.includes(search)) {
             this.tickets.push(this.search[i]);
-          } else if (
-            this.search[i].assignee.toLowerCase() === search.toLowerCase()
-          ) {
+          } else if (this.search[i].assignee.includes(search)) {
             this.tickets.push(this.search[i]);
-          } else if (
-            this.search[i].status.toLowerCase() === search.toLowerCase()
-          ) {
+          } else if (this.search[i].status.includes(search)) {
             this.tickets.push(this.search[i]);
           }
         }
