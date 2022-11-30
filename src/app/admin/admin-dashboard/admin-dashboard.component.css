@@ -1,0 +1,86 @@
+mat-toolbar {
+    justify-content: space-between;
+  }
+  
+  .content {
+    padding: 16px;
+    text-align: center;
+    font-size: 50px;
+    
+  }
+  
+  .content > mat-card {
+    margin-bottom: 16px;
+  }
+  
+  .column-label {
+    margin-right: 15px;
+    font-size: 1rem;
+  }
+  .sizing{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    padding: left;
+  }
+  .mat-typography{
+    display: inline-block;
+    font-size: 18px;
+  }
+  .mat-button{
+    padding: 5%;
+    
+  }
+  * {
+    box-sizing: border-box;
+  }
+  
+  input[type=text] {
+    text-align: center;
+    width: 100%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  
+  /* When the input field gets focus, change its width to 100% */
+  input[type=text]:focus {
+    width: 100%;
+  }
+  
+  form.example button {
+    float: right;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.example button:hover {
+    background: #0b7dda;
+  }
+  
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .noCars{
+    text-align: center;
+    font-size: larger;
+  }
+
+  .mat-card{
+      max-width: 300px;
+      margin: auto;
+  }
+  .mat-card-actions{
+      display: flex;
+  }
+  .mat-card-actions .flex-spacer{
+      widows: 100%;
+  }
