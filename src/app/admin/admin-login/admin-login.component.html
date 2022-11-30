@@ -1,0 +1,77 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Group 3 Service Charge</title>
+    <link rel="stylesheet" href="./admin-login.component.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <input type="checkbox" id="flip" />
+      <div class="cover">
+        <div class="front">
+          <img src="assets/alliance2.jpg" alt="" />
+          <div class="text">
+            <span class="text-1">Service Charge System</span>
+            <span class="text-2">Group 3</span>
+          </div>
+        </div>
+        <div class="back">
+          <img class="backImg" src="assets/alliance2.jpg" alt="" />
+          <div class="text">
+            <!-- <span class="text-1">Join us now!</span>
+                        <span class="text-2">Yea right!</span> -->
+          </div>
+        </div>
+      </div>
+      <form class="inputs" [formGroup]="adminForm">
+        <div class="form-content">
+          <div class="admin-form">
+            <div class="title">Login</div>
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fa fa-key"></i>
+                <input
+                  type="text"
+                  id="emailLogin"
+                  placeholder="Email"
+                  formControlName="adminKey"
+                  required
+                />
+              </div>
+              <!--1-->
+              <div class="input-box">
+                <i class="fa fa-lock"></i>
+                <input
+                  type="password"
+                  id="passLogin"
+                  placeholder="Password"
+                  formControlName="adminPassword"
+                  required
+                />
+              </div>
+
+              <div class="button input-box">
+                <input
+                  type="submit"
+                  id="adminGo"
+                  value="Login"
+                  (click)="onSubmitLogin()"
+                />
+              </div>
+              <div class="text sign-up-text">
+                <a routerLink="/login" style="color: blue">Take me back! </a>
+
+                <!-- <label for="flip"><a routerLink=""> Members </a></label> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

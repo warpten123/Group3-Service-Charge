@@ -33,6 +33,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { RegisterComponent } from './register/register.component';
 import { ClientComponent } from './client/client.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { ClientComponent } from './client/client.component';
     ForgotComponent,
     EditTicketComponent,
     RegisterComponent,
-    ClientComponent
+    ClientComponent,
+    AdminLoginComponent
   ],
   exports: [
     CommonModule,
