@@ -54,7 +54,9 @@ export class LoginComponent implements OnInit {
       (data: Users) => {
         this.postUser = data['data'];
         if (this.postUser.user_password == this.loginForm.value.passLogin) {
+          console.log(this.postUser);
           this.toast.success(`Welcome ${this.postUser.user_fname}!`);
+          this.userService.getPassUserValue(this.postUser);
           this.nav('client');
         } else {
           this.toast.error('Incorrect Password!');
