@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.postUser = data['data'];
         if (this.postUser.user_password == this.loginForm.value.passLogin) {
           this.toast.success(`Welcome ${this.postUser.user_fname}!`);
-          this.nav('user-dashboard');
+          this.nav('client');
         } else {
           this.toast.error('Incorrect Password!');
           return;
@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
       )
       .subscribe((data: Users) => {
         this.postUser = data;
-        this.nav('user-dashboard');
+        this.nav('client');
       });
 
     this.registerForm.reset();
