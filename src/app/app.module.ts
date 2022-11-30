@@ -35,6 +35,7 @@ import { RegisterComponent } from './register/register.component';
 import { ClientComponent } from './client/client.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     RegisterComponent,
     ClientComponent,
     AdminLoginComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    InvoiceComponent
   ],
   exports: [
     CommonModule,
