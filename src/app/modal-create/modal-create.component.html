@@ -1,5 +1,4 @@
-
-    <!-- <head>
+<!-- <head>
         <meta charset="UTF-8">
         <title></title>
         <link rel = "stylesheet" href = "./modal-create.component.css">
@@ -7,7 +6,7 @@
         <meta name = "viewport" content="width=device-width, initial-scale=1.0">
     </head> -->
 
-        <div class="container">
+<!-- <div class="container">
             <input type="checkbox" id="flip">
             <div class="cover">
                     
@@ -41,9 +40,9 @@
                     <div class="input-box">
                         <i class="fa fa-road"></i>
                         <input  formControlName="ticketTracker"  placeholder="Tracker">
-                    </div>
+                    </div> -->
 
-                    <!-- <div class="input-box">
+<!-- <div class="input-box">
                       <i class="fa fa-key"></i>
                         <input matInput [matDatepicker]= "datePicker" placeholder="Pick-up Date"[min]="minDate"[max]="maxDate"[(ngModel)]="getDate" [ngModelOptions]="{standalone: true}">
                         
@@ -53,7 +52,7 @@
                         </mat-datepicker-toggle>
                      
                     </div> -->
-                        
+<!--                         
                         <div class="button input-box">
         
                             <input type="submit" value="Submit Ticket">
@@ -64,5 +63,91 @@
                 </div>
             </form>
             </div>
-     
+      -->
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .layout {
+        margin: 50px auto;
+        width: 1500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="modal fade"
+      id="createTicket"
+      data-bs-backdrop="static"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Submit ticket
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="inputs">
+              <div class="p-3">
+                <div class="row g-2">
+                  <div class="col-6">
+                    <h2 class="fs-5">Subject</h2>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="start_date"
+                      id="start_date"
+                      value=""
+                      placeholder="Subject"
+                    />
+                  </div>
+                </div>
+                <br />
+                <div class="row g-2">
+                  <div class="col-12">
+                    <h2 class="fs-5">Tell us about your issue</h2>
+                    <div class="form-floating">
+                      <textarea
+                        formControlName="ticketDesc"
+                        class="form-control"
+                        placeholder="Leave a comment here"
+                        id="floatingTextarea2"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="floatingTextarea2">Description</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Submit ticket</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

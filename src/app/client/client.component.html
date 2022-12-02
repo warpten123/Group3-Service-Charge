@@ -90,9 +90,7 @@
         <div class="row gx-5">
           <div class="col">
             <div class="p-3 d-flex" style="line-height: 100px">
-              <h1>
-                Welcome <b style="color: red">{{ user.user_fname }}</b>
-              </h1>
+              <h1>Welcome <b style="color: red"></b></h1>
             </div>
           </div>
         </div>
@@ -118,17 +116,24 @@
               </button>
             </div>
           </div>
-          <div class="row gx-5">
+          <div class="row gx-5" *ngIf="tickets.length > 0; else noTickets">
             <div class="col">
               <table class="table table-hover text-center">
                 <th scope="col">#</th>
                 <th scope="col">Subject</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
-                <tbody class="table-group-divider text-start">
+                <tbody
+                  class="table-group-divider text-start"
+                  *ngFor="let ticket of tickets; let i = index"
+                >
                   <tr>
-                    <th class="text-center p-4" scope="row" width="10%">1</th>
-                    <td class="text-center p-4" width="10%">Mark</td>
+                    <th class="text-center p-4" scope="row" width="10%">
+                      {{ ticket.ticketID }}
+                    </th>
+                    <td class="text-center p-4" width="10%">
+                      {{ ticket.subject }}
+                    </td>
                     <td class="d-flex justify-content-center">
                       <textarea
                         class="form-control"
@@ -136,8 +141,7 @@
                         id="floatingTextarea2"
                         style="height: 70px; width: 400px"
                         disabled
-                      >
-I forgot my password and I cannot request for change of password</textarea
+                        >{{ ticket.description }}</textarea
                       >
                     </td>
                     <td class="text-center p-4" width="15%">
@@ -147,6 +151,7 @@ I forgot my password and I cannot request for change of password</textarea
                         data-bs-toggle="modal"
                         data-bs-target="#viewTicket"
                         data-bs-whatever="@mdo"
+                        (click)="passTicket(ticket)"
                       >
                         View ticket
                       </button>
@@ -201,18 +206,19 @@ I forgot my password and I cannot request for change of password</textarea
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form class="inputs" [formGroup]="ticketForm">
           <div class="p-3">
             <div class="row g-2">
               <div class="col-6">
                 <h2 class="fs-5">Subject</h2>
                 <input
+                  formControlName="ticketSubject"
                   class="form-control"
                   type="text"
                   name="start_date"
                   id="start_date"
                   value=""
-                  placeholder="input subject..."
+                  placeholder="Subject"
                 />
               </div>
             </div>
@@ -222,6 +228,7 @@ I forgot my password and I cannot request for change of password</textarea
                 <h2 class="fs-5">Tell us about your issue</h2>
                 <div class="form-floating">
                   <textarea
+                    formControlName="ticketDesc"
                     class="form-control"
                     placeholder="Leave a comment here"
                     id="floatingTextarea2"
@@ -238,7 +245,13 @@ I forgot my password and I cannot request for change of password</textarea
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Submit ticket</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSubmitTicket()"
+        >
+          Submit ticket
+        </button>
       </div>
     </div>
   </div>
@@ -247,6 +260,7 @@ I forgot my password and I cannot request for change of password</textarea
 <!-- view ticket model -->
 
 <div
+  *ngIf="getTicket"
   class="modal fade"
   id="viewTicket"
   data-bs-backdrop="static"
@@ -258,7 +272,7 @@ I forgot my password and I cannot request for change of password</textarea
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Ticket "Ticket subject"
+          {{ getTicket.ticketID }}
         </h1>
         <button
           type="button"
@@ -278,7 +292,7 @@ I forgot my password and I cannot request for change of password</textarea
                   type="text"
                   name="start_date"
                   id="start_date"
-                  value="I forgot my password"
+                  value="{{ getTicket.subject }}"
                   disabled
                 />
               </div>
@@ -289,7 +303,7 @@ I forgot my password and I cannot request for change of password</textarea
                   type="text"
                   name="start_date"
                   id="start_date"
-                  value="Account"
+                  value="{{ getTicket.tracker }}"
                   disabled
                 />
               </div>
@@ -305,8 +319,7 @@ I forgot my password and I cannot request for change of password</textarea
                     id="floatingTextarea2"
                     style="height: 100px"
                     disabled
-                  >
-I forgot my password and I cannot request for change of password</textarea
+                    >{{ getTicket.description }}</textarea
                   >
                   <label for="floatingTextarea2">Description</label>
                 </div>
@@ -321,7 +334,7 @@ I forgot my password and I cannot request for change of password</textarea
                   type="text"
                   name="start_date"
                   id="start_date"
-                  value="Premacio"
+                  value="{{ getTicket.assignee }}"
                   disabled
                 />
               </div>
@@ -332,8 +345,20 @@ I forgot my password and I cannot request for change of password</textarea
               <div class="col-6">
                 <h2 class="fs-5">Status</h2>
               </div>
-              <div class="alert alert-warning" role="alert">
+
+              <div
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Pending'"
+              >
                 Ticket is still pending
+              </div>
+              <div
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Accepted'"
+              >
+                Ticket is Accepted
               </div>
             </div>
           </div>
@@ -347,3 +372,7 @@ I forgot my password and I cannot request for change of password</textarea
     </div>
   </div>
 </div>
+<ng-template #noTickets>
+  <hr />
+  <h5 class="noCars">There are no Tickets listed!</h5>
+</ng-template>

@@ -129,7 +129,13 @@
           <td>{{ ticket.subject }}</td>
           <td>{{ ticket.description }}</td>
           <td>
-            <button type="button" class="btn btn-primary btn-sm">Save</button>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="updateTicket(ticket)"
+            >
+              Save
+            </button>
           </td>
           <!-- <td>
             <button

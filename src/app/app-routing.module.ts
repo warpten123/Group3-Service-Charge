@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
   },
+  {
+    path: 'client-dashboard',
+    component: ClientComponent,
+  },
 ];
 
 @NgModule({

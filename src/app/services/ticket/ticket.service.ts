@@ -21,6 +21,8 @@ export class TicketService {
     this.passTicketValue$.next(ticket);
   }
 
+
+  
   // passCarsValuesArray$: Subject<CarsInterface[]> = new Subject();
   // get passCarsValuesArray(): Subject<CarsInterface[]>{
   //   return this.passCarsValuesArray$;

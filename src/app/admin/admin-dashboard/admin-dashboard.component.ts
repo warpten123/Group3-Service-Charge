@@ -60,7 +60,6 @@ export class AdminDashboardComponent implements OnInit {
     this.ticketService.getAllTickets().subscribe(
       (data: Ticket[]) => {
         this.tickets = data['data'];
-        console.log(this.tickets[0].ticketID);
       },
       (error: any) => {
         console.error(error);
