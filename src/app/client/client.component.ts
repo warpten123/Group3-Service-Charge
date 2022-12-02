@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { Ticket } from '../services/ticket/ticket-interface';
 import { TicketService } from '../services/ticket/ticket.service';
 import { Users } from '../services/users/user-interface';
@@ -18,13 +18,18 @@ import { ModalCreateComponent } from '../modal-create/modal-create.component';
 })
 export class ClientComponent implements OnInit {
   view: boolean = false;
+  temp: number;
   user!: Users;
   postTicket: Ticket;
   getTicket!: Ticket;
-  id: number;
+  public id: number;
+  test: Users;
   tickets: Ticket[] = [];
   getDate = Date;
-  receivedUserData!: Subject<Users>;
+  receivedUserData: Subject<Users>;
+  loginForm: any;
+  postUser: Users[] = [];
+  bindUser: Users;
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
@@ -35,35 +40,86 @@ export class ClientComponent implements OnInit {
     this.receivedUserData = this.userService.passUserValue$;
     this.receivedUserData.subscribe((user: Users) => {
       this.user = user;
-      console.log(`from service: ${this.user.user_fname}`);
+      this.id = this.user.user_id;
+      console.log(`from service: ${this.user.user_id}`);
     });
   }
 
   ngOnInit(): void {
-    this.getAllTicket();
+    this.userService.getAllUsers().subscribe(
+      (data: Users) => {
+        this.postUser = data['data'];
+        for (let i = 0; i < this.postUser.length; i++) {
+          if (this.postUser[i].is_logged_in === 'true') {
+            this.bindUser = this.postUser[i];
+            this.getTicketsByUser(this.bindUser);
+            break;
+          }
+        }
+      },
+      (error: any) => {
+        this.toast.error('Invalid Login');
+      }
+    );
+    console.log(this.user);
+  }
+  updateLoggedIn(postUser: any) {
+    throw new Error('Method not implemented.');
   }
   ticketForm: FormGroup = new FormGroup({
     ticketSubject: new FormControl('', Validators.required),
     ticketDesc: new FormControl('', Validators.required),
   });
-  logout() {
+  logout(user: Users) {
+    let updateFormData = new FormData();
+    updateFormData.append('user_id', user.user_id.toString());
+    updateFormData.append('user_fname', user.user_fname);
+    updateFormData.append('user_lname', user.user_lname.toString());
+    updateFormData.append('user_email', user.user_email.toString());
+    updateFormData.append('user_username', user.user_username.toString());
+    updateFormData.append('user_password', user.user_password);
+    updateFormData.append('is_logged_in', 'false');
+    this.userService
+      .updateUser(updateFormData)
+      .pipe(
+        this.toast.observe({
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: number) => {
+        this.temp = data;
+      });
+
     this.nav('/login');
   }
   nav(destination: string) {
     this.router.navigate([destination]);
   }
-  getAllTicket() {
-    this.ticketService.getAllTickets().subscribe(
+  getTicketsByUser(user: Users) {
+    console.log(user.user_id);
+    this.ticketService.getAllTicketsByUser(user.user_id).subscribe(
       (data: Ticket[]) => {
         this.tickets = data['data'];
-        console.log(this.tickets[0].description);
       },
       (error: any) => {
         console.error(error);
       }
     );
   }
-  onSubmitTicket() {
+  getAllTicket() {
+    this.ticketService.getAllTickets().subscribe(
+      (data: Ticket[]) => {
+        this.tickets = data['data'];
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+  passTicket(ticket: Ticket) {
+    this.getTicket = ticket;
+  }
+  onSubmitTicket(user: Users) {
     var moment = require('moment');
     var current_timestamp = moment().format('MMMM Do YYYY, h:mm:ss a');
     if (this.ticketForm.invalid) {
@@ -77,7 +133,7 @@ export class ClientComponent implements OnInit {
       status: 'Pending',
       tracker: 'Pending',
       assignee: 'Pending',
-      userID: 1,
+      userID: user.user_id,
     };
     let formData = new FormData();
 
@@ -102,20 +158,5 @@ export class ClientComponent implements OnInit {
 
         window.location.reload();
       });
-  }
-  passTicket(ticket: Ticket) {
-    this.view = true;
-
-    this.getTicket = ticket;
-    console.log(this.getTicket.ticketID);
-    // console.log(`from user ${ticket.ticketID}`);
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = false;
-    // dialogConfig.autoFocus = true;
-    // dialogConfig.width = '60%';
-    // (dialogConfig.panelClass = 'post-dialog-container'),
-    //   this.dialog.open(ModalCreateComponent, dialogConfig);
-    // console.log(`ticket ${ticket}`);
-    // this.ticketService.getPassTicketValue(ticket);
   }
 }

@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit {
       'user_password',
       this.registerForm.value.registerPassword
     );
+
     this.userService
       .saveUser(userCreate)
       .pipe(
@@ -68,7 +69,7 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe((data: Users) => {
         this.postUser = data;
-        this.nav('user-dashboard');
+        this.nav('login');
       });
 
     this.registerForm.reset();

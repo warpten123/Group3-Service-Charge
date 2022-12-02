@@ -4,7 +4,7 @@ import {
   HttpResponse,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Observable, Subject, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { Users } from './user-interface';
 import { Ticket } from '../ticket/ticket-interface';
@@ -14,6 +14,8 @@ import { Ticket } from '../ticket/ticket-interface';
 })
 export class UsersService {
   users: Users[] = [];
+  init: Users;
+  passUser: BehaviorSubject<Users>;
   constructor(private http: HttpClient) {}
 
   //subject
@@ -28,6 +30,13 @@ export class UsersService {
     this.passUserValue$.next(user);
   }
   //end subject
+
+  //behavior subject
+  nextUser(user: Users) {
+    this.passUser.next(user);
+  }
+
+  //end behavior subject
   getAllUsers() {
     return this.http
       .get('http://localhost:8080/user/all')

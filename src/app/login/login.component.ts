@@ -8,6 +8,7 @@ import { Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Users } from '../services/users/user-interface';
 import { RegisterComponent } from '../register/register.component';
+import { ModalCreateComponent } from '../modal-create/modal-create.component';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private toast: HotToastService,
     private dialog: MatDialog
   ) {}
+  temp: number;
   count: number = 0;
   found: boolean = false;
   postUser: Users;
@@ -38,10 +40,10 @@ export class LoginComponent implements OnInit {
     registerPassword: new FormControl('', Validators.required),
   });
   onSubmitLogin() {
-    // if(this.loginForm.invalid){
-    //   this.toast.error("Complete your Login!");
-    //   return;
-    // }
+    if (this.loginForm.invalid) {
+      this.toast.error('Complete your Login!');
+      return;
+    }
     this.userService.getAllUsers().subscribe(
       (data: Users[]) => {
         this.authen = data;
@@ -56,8 +58,10 @@ export class LoginComponent implements OnInit {
         if (this.postUser.user_password == this.loginForm.value.passLogin) {
           console.log(this.postUser);
           this.toast.success(`Welcome ${this.postUser.user_fname}!`);
+          this.postUser.is_logged_in = 'true';
+          this.updateLoggedIn(this.postUser);
+          this.nav('/client');
           this.userService.getPassUserValue(this.postUser);
-          this.nav('client');
         } else {
           this.toast.error('Incorrect Password!');
           return;
@@ -96,6 +100,7 @@ export class LoginComponent implements OnInit {
       'user_password',
       this.registerForm.value.registerPassword
     );
+
     this.userService
       .saveUser(userCreate)
       .pipe(
@@ -107,9 +112,8 @@ export class LoginComponent implements OnInit {
       )
       .subscribe((data: Users) => {
         this.postUser = data;
-        this.nav('client');
       });
-
+    this.nav('/login');
     this.registerForm.reset();
   }
   nav(destination: string) {
@@ -130,5 +134,26 @@ export class LoginComponent implements OnInit {
     dialogConfig.width = '60%';
     (dialogConfig.panelClass = 'post-dialog-container'),
       this.dialog.open(RegisterComponent, dialogConfig);
+  }
+  updateLoggedIn(userUpdate: Users) {
+    console.log('wtf', userUpdate);
+    let updateFormData = new FormData();
+    updateFormData.append('user_id', userUpdate.user_id.toString());
+    updateFormData.append('user_fname', userUpdate.user_fname);
+    updateFormData.append('user_lname', userUpdate.user_lname.toString());
+    updateFormData.append('user_email', userUpdate.user_email.toString());
+    updateFormData.append('user_username', userUpdate.user_username.toString());
+    updateFormData.append('user_password', userUpdate.user_password);
+    updateFormData.append('is_logged_in', 'true');
+    this.userService
+      .updateUser(updateFormData)
+      .pipe(
+        this.toast.observe({
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: number) => {
+        this.temp = data;
+      });
   }
 }

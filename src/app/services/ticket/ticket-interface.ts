@@ -6,6 +6,6 @@ export interface Ticket {
   subject: string;
   description: string;
   tracker?: string;
-  created_at?: Date;
-  updated_at?: Date;
+  created_at?: String;
+  updated_at?: String;
 }

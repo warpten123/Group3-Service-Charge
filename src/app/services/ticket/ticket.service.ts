@@ -21,8 +21,6 @@ export class TicketService {
     this.passTicketValue$.next(ticket);
   }
 
-
-  
   // passCarsValuesArray$: Subject<CarsInterface[]> = new Subject();
   // get passCarsValuesArray(): Subject<CarsInterface[]>{
   //   return this.passCarsValuesArray$;
@@ -58,6 +56,12 @@ export class TicketService {
       .put(`http://localhost:8080/ticket/update`, ticket)
       .pipe(map((resp) => resp));
   }
+  getAllTicketsByUser(id: number) {
+    return this.http
+      .get(`http://localhost:8080/ticket/user/${id}`)
+      .pipe(map((resp) => resp));
+  }
+
   refreshTicket() {
     return this.getAllTickets().subscribe(
       (data: Ticket[]) => {
