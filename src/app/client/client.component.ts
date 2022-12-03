@@ -51,8 +51,10 @@ export class ClientComponent implements OnInit {
         this.postUser = data['data'];
         for (let i = 0; i < this.postUser.length; i++) {
           if (this.postUser[i].is_logged_in === 'true') {
+            console.log(this.postUser[i].is_logged_in);
             this.bindUser = this.postUser[i];
             this.getTicketsByUser(this.bindUser);
+
             break;
           }
         }
@@ -62,7 +64,13 @@ export class ClientComponent implements OnInit {
       }
     );
     console.log(this.user);
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 1000 * 1);
   }
+  // ngAfterViewInit(){
+  //   window.location.reload();
+  // }
   updateLoggedIn(postUser: any) {
     throw new Error('Method not implemented.');
   }

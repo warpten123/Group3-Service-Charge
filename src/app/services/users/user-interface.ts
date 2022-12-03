@@ -5,5 +5,5 @@ export interface Users {
   user_email: string;
   user_username: string;
   user_password: string;
-  is_logged_in?: String;
+  is_logged_in: String;
 }

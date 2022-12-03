@@ -60,7 +60,9 @@ export class LoginComponent implements OnInit {
           this.toast.success(`Welcome ${this.postUser.user_fname}!`);
           this.postUser.is_logged_in = 'true';
           this.updateLoggedIn(this.postUser);
+
           this.nav('/client');
+
           this.userService.getPassUserValue(this.postUser);
         } else {
           this.toast.error('Incorrect Password!');
@@ -74,48 +76,49 @@ export class LoginComponent implements OnInit {
 
     //end subs
   }
-  onSubmitRegister() {
-    if (this.registerForm.invalid) {
-      this.toast.error('Invalid Registration!');
-      return;
-    }
-    // const payload: Users = {
+  // onSubmitRegister() {
+  //   if (this.registerForm.invalid) {
+  //     this.toast.error('Invalid Registration!');
+  //     return;
+  //   }
+  //   // const payload: Users = {
 
-    //   user_email: this.registerForm.value.registerEmailAdd,
-    //   user_lname: this.registerForm.value.registerLastName,
-    //   user_fname: this.registerForm.value.registerFirstName,
-    //   user_username: this.registerForm.value.registerUserName,
-    //   user_password:  this.registerForm.value.registerPassword,
+  //   //   user_email: this.registerForm.value.registerEmailAdd,
+  //   //   user_lname: this.registerForm.value.registerLastName,
+  //   //   user_fname: this.registerForm.value.registerFirstName,
+  //   //   user_username: this.registerForm.value.registerUserName,
+  //   //   user_password:  this.registerForm.value.registerPassword,
 
-    // };
-    let userCreate = new FormData();
-    userCreate.append('user_fname', this.registerForm.value.registerFirstName);
-    userCreate.append('user_lname', this.registerForm.value.registerLastName);
-    userCreate.append('user_email', this.registerForm.value.registerEmailAdd);
-    userCreate.append(
-      'user_username',
-      this.registerForm.value.registerUserName
-    );
-    userCreate.append(
-      'user_password',
-      this.registerForm.value.registerPassword
-    );
+  //   // };
+  //   let userCreate = new FormData();
+  //   userCreate.append('user_fname', this.registerForm.value.registerFirstName);
+  //   userCreate.append('user_lname', this.registerForm.value.registerLastName);
+  //   userCreate.append('user_email', this.registerForm.value.registerEmailAdd);
+  //   userCreate.append(
+  //     'user_username',
+  //     this.registerForm.value.registerUserName
+  //   );
+  //   userCreate.append(
+  //     'user_password',
+  //     this.registerForm.value.registerPassword
+  //   );
 
-    this.userService
-      .saveUser(userCreate)
-      .pipe(
-        this.toast.observe({
-          success: 'Registered Successfully!',
-          loading: 'Processing',
-          error: (message: any) => `${message}`,
-        })
-      )
-      .subscribe((data: Users) => {
-        this.postUser = data;
-      });
-    this.nav('/login');
-    this.registerForm.reset();
-  }
+  //   console.log(userCreate);
+  //   this.userService
+  //     .saveUser(userCreate)
+  //     .pipe(
+  //       this.toast.observe({
+  //         success: 'Registered Successfully!',
+  //         loading: 'Processing',
+  //         error: (message: any) => `${message}`,
+  //       })
+  //     )
+  //     .subscribe((data: Users) => {
+  //       this.postUser = data;
+  //     });
+  //   this.nav('/login');
+  //   this.registerForm.reset();
+  // }
   nav(destination: string) {
     this.router.navigate([destination]);
   }

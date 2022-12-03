@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
       'user_password',
       this.registerForm.value.registerPassword
     );
-
+    userCreate.append('is_logged_in', 'false');
     this.userService
       .saveUser(userCreate)
       .pipe(

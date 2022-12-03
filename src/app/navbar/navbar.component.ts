@@ -31,24 +31,5 @@ export class NavbarComponent implements OnInit {
     console.log('clicked logout');
     this.router.navigate(['/login']);
   }
-  updateLoggedIn(userUpdate: Users) {
-    let updateFormData = new FormData();
-    updateFormData.append('user_id', userUpdate.user_id.toString());
-    updateFormData.append('user_fname', userUpdate.user_fname);
-    updateFormData.append('user_lname', userUpdate.user_lname.toString());
-    updateFormData.append('user_email', userUpdate.user_email.toString());
-    updateFormData.append('user_username', userUpdate.user_username.toString());
-    updateFormData.append('user_password', userUpdate.user_password);
-    updateFormData.append('is_logged_in', 'false');
-    this.userService
-      .updateUser(updateFormData)
-      .pipe(
-        this.toast.observe({
-          error: (message: any) => `${message}`,
-        })
-      )
-      .subscribe((data: number) => {
-        this.temp = data;
-      });
-  }
+  
 }
