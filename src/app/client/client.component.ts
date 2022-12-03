@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, tap } from 'rxjs';
@@ -11,12 +11,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UpdateTicketComponent } from '../update-ticket/update-ticket.component';
 import { ModalCreateComponent } from '../modal-create/modal-create.component';
+
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.css'],
 })
 export class ClientComponent implements OnInit {
+  @ViewChild('viewmodal') content: any;
   view: boolean = false;
   temp: number;
   user!: Users;
@@ -26,10 +28,12 @@ export class ClientComponent implements OnInit {
   test: Users;
   tickets: Ticket[] = [];
   getDate = Date;
+  search: Ticket[] = [];
   receivedUserData: Subject<Users>;
   loginForm: any;
   postUser: Users[] = [];
   bindUser: Users;
+
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
@@ -45,6 +49,12 @@ export class ClientComponent implements OnInit {
     });
   }
 
+  viewTicketForm: FormGroup = new FormGroup({
+    ticketSubject: new FormControl('', Validators.required),
+    ticketDesc: new FormControl('', Validators.required),
+    ticketAssignee: new FormControl('', Validators.required),
+    ticketTracker: new FormControl('', Validators.required),
+  });
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(
       (data: Users) => {
@@ -63,11 +73,12 @@ export class ClientComponent implements OnInit {
         this.toast.error('Invalid Login');
       }
     );
-    console.log(this.user);
     setTimeout(() => {
       this.ngOnInit();
     }, 1000 * 1);
+    console.log(this.user);
   }
+
   // ngAfterViewInit(){
   //   window.location.reload();
   // }
@@ -164,7 +175,32 @@ export class ClientComponent implements OnInit {
       .subscribe((data: Ticket) => {
         this.postTicket = data['data'];
 
-        window.location.reload();
+        // window.location.reload();
       });
   }
+  // filterItems(search: string) {
+  //   this.tickets.length = 0;
+
+  //   this.ticketService.getAllTicketsByUser(this.bindUser.user_id).subscribe(
+  //     (data: Ticket[]) => {
+  //       this.search = data['data'];
+  //       for (let i = 0; i < this.search.length; i++) {
+  //         console.log(
+  //           this.search[i].subject +
+  //             ' ' +
+  //             this.search[i].subject.toLowerCase().includes(search)
+  //         );
+  //         if (this.search[i].subject.includes(search)) {
+  //           this.tickets.push(this.search[i]);
+  //         }
+  //       }
+  //       if (!this.searchForm.valid) {
+  //         this.getTicketsByUser(this.bindUser);
+  //       }
+  //     },
+  //     (error: any) => {
+  //       console.error(error);
+  //     }
+  //   );
+  // }
 }

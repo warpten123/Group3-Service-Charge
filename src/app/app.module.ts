@@ -10,17 +10,18 @@ import { UpdateTicketComponent } from './update-ticket/update-ticket.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 //MaterialShits and http//
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatCardModule} from '@angular/material/card';
-import { MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 //End Material Shits and http//
 
 //hot toast//
@@ -49,13 +50,9 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     RegisterComponent,
     ClientComponent,
     AdminLoginComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
   ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  exports: [CommonModule, FormsModule, ReactiveFormsModule],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -71,10 +68,11 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     MatCardModule,
     MatFormFieldModule,
     HttpClientModule,
+    MatSelectModule,
+    FormsModule,
     HotToastModule.forRoot(),
-   
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

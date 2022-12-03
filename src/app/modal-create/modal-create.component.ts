@@ -9,6 +9,9 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Ticket } from '../services/ticket/ticket-interface';
+interface Assignee {
+  name: string;
+}
 
 @Component({
   selector: 'app-modal-create',
@@ -17,6 +20,8 @@ import { Ticket } from '../services/ticket/ticket-interface';
 })
 export class ModalCreateComponent implements OnInit {
   postTicket: Ticket;
+  selectedValue: string;
+  selectedCar: string;
   refreshTicket: Ticket[] = [];
   constructor(
     private dialog: MatDialog,
@@ -32,8 +37,19 @@ export class ModalCreateComponent implements OnInit {
     ticketDescription: new FormControl('', Validators.required),
     ticketTracker: new FormControl('', Validators.required),
   });
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.selectedValue);
+  }
 
+  assignee: Assignee[] = [
+    { name: 'Morales' },
+    { name: 'Premacio' },
+    { name: 'Pinote' },
+    { name: 'Tuso' },
+  ];
+
+  assignees: string[] = ['Pinote', 'Premacio', 'Tuso', 'Morales'];
+  selectedAssignee: string;
   onSubmitCreate() {
     if (this.ticketForm.invalid) {
       this.toast.error('Error Creating Ticket!');

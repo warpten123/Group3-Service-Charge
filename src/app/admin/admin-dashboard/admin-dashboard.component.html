@@ -12,14 +12,11 @@
           #search
           placeholder="Search..."
           name="search"
-          formControlName="search"
-          (input)="filterItems(search.value)"
         />
         <button
           class="btn btn-outline-success"
           type="submit"
           style="width: max-content"
-          (click)="filterItems(search.value)"
         >
           Search
         </button>
@@ -79,8 +76,7 @@
             </div>
           </th>
           <th scope="col">Ticket ID</th>
-          <th scope="col">Assignee</th>
-          <th scope="col">Status</th>
+          <th scope="col">User ID</th>
           <th scope="col">Subject</th>
           <th scope="col">Description</th>
           <th scope="col">Actions</th>
@@ -102,7 +98,8 @@
             </div>
           </th>
           <th scope="row">{{ ticket.ticketID }}</th>
-          <td>
+          <th scope="row">{{ ticket.userID }}</th>
+          <!-- <td>
             <select
               class="form-select form-select-sm"
               aria-label=".form-select-sm example"
@@ -113,8 +110,8 @@
               <option value="3">Sean</option>
               <option value="4">Mervyn</option>
             </select>
-          </td>
-          <td>
+          </td> -->
+          <!-- <td>
             <div class="col-md-7">
               <select
                 class="form-select form-select-sm"
@@ -125,7 +122,7 @@
                 <option value="2">to be reviewed</option>
               </select>
             </div>
-          </td>
+          </td> -->
           <td>{{ ticket.subject }}</td>
           <td>{{ ticket.description }}</td>
           <td>
@@ -134,7 +131,7 @@
               class="btn btn-primary btn-sm"
               (click)="updateTicket(ticket)"
             >
-              Save
+              Update
             </button>
           </td>
           <!-- <td>

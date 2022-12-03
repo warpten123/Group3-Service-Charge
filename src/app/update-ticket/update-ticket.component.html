@@ -1,49 +1,118 @@
-<html lang = "en" dir="ltr">
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-        <link rel = "stylesheet" href = "./update-ticket.component.css">
-        <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="./update-ticket.component.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-        <div class="container">
-            <input type="checkbox" id="flip">
-            <div class="cover">
-                    
-                    <img src="assets/wall2.jpg" alt="background image">
-               
-            </div>
-            <form class="inputs" [formGroup]="ticketForm" (ngSubmit)="onSubmitUpdate(ticket)">
-               <div class="form-content">
-                <div class="admin-form">
-                    <div class="title">Update Ticket</div>
-                    <div class="input-boxes">
-                      <div class="input-box">
+  <div class="container">
+    <input type="checkbox" id="flip" />
+    <div class="cover">
+      <img src="assets/wall2.jpg" alt="background image" />
+    </div>
+    <form
+      class="inputs"
+      [formGroup]="ticketForm"
+      (ngSubmit)="onSubmitUpdate(ticket)"
+    >
+      <div class="form-content">
+        <div class="admin-form">
+          <div class="title">Update Ticket for {{ ticket.userID }}</div>
+          <div class="input-boxes">
+            <!-- <div class="input-box">
                         <i class="fa fa-car"></i>
                         <input title="Assignee" value="60" type="text" formControlName="ticketAssignee" placeholder="{{ticket.assignee}}">
-                    </div>
+                    </div> -->
+            <div class="input-box">
+              <i class="fa fa-money"></i>
+              <input
+                #subject
+                title="Subject"
+                value="60"
+                type="text"
+                formControlName="ticketSubject"
+                placeholder="{{ ticket.subject }}"
+              />
+            </div>
 
-                    <div class="input-box">
-                        <i class="fa fa-paint-brush"></i>
-                        <input title="Status" value="60" type="text" formControlName="ticketStatus" placeholder="{{ticket.status}}">
-                    </div>
+            <div class="input-box">
+              <i class="fa fa-road"></i>
+              <input
+                #description
+                title="Description"
+                value="60"
+                type="text"
+                formControlName="ticketDescription"
+                placeholder="{{ ticket.description }}"
+              />
+            </div>
 
-                    <div class="input-box">
-                        <i class="fa fa-money"></i>
-                        <input title="Subject" value="60" type="text" formControlName="ticketSubject" placeholder="{{ticket.subject}}">
-                    </div>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Assignee</mat-label>
+              <mat-select
+                [(ngModel)]="selectedValue"
+                name="food"
+                (selectionChange)="getValueFromAssignee($event.value)"
+              >
+                <mat-option
+                  *ngFor="let assignee of assignee"
+                  [value]="assignee.name"
+                >
+                  {{ assignee.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <div class="input-box">
+              <i class="fa fa-paint-brush"></i>
+              <input
+                title="Status"
+                value="60"
+                type="text"
+                formControlName="ticketStatus"
+                placeholder="{{ ticket.status }}"
+              />
+            </div> -->
+            <mat-form-field appearance="fill">
+              <mat-label>Select Status</mat-label>
+              <mat-select
+                [(ngModel)]="selectedStatus"
+                name="food"
+                (selectionChange)="getValueFromStatus($event.value)"
+              >
+                <mat-option *ngFor="let stat of status" [value]="stat.stat">
+                  {{ stat.stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Tracker</mat-label>
+              <mat-select
+                [(ngModel)]="selectedTracker"
+                name="food"
+                (selectionChange)="getValueFromTracker($event.value)"
+              >
+                <mat-option *ngFor="let track of tracker" [value]="track.track">
+                  {{ track.track }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-                    <div class="input-box">
-                        <i class="fa fa-road"></i>
-                        <input title="Description" value="60" type="text" formControlName="ticketDescription" placeholder="{{ticket.description}}">
-                    </div>
-                    <div class="input-box">
-                        <i class="fa fa-road"></i>
-                        <input  title="Tracker" value="60" formControlName="ticketTracker"  placeholder="{{ticket.tracker}}">
-                    </div>
+            <!-- <div class="input-box">
+              <i class="fa fa-road"></i>
+              <input
+                title="Tracker"
+                value="60"
+                formControlName="ticketTracker"
+                placeholder="{{ ticket.tracker }}"
+              />
+            </div> -->
 
-                    <!-- <div class="input-box">
+            <!-- <div class="input-box">
                       <i class="fa fa-key"></i>
                         <input matInput [matDatepicker]= "datePicker" placeholder="Pick-up Date"[min]="minDate"[max]="maxDate"[(ngModel)]="getDate" [ngModelOptions]="{standalone: true}">
                         
@@ -53,17 +122,16 @@
                         </mat-datepicker-toggle>
                      
                     </div> -->
-                        
-                        <div class="button input-box">
-        
-                            <input type="submit" value="Update Ticket">
-                        </div>
-                        <div class="text sign-up-text"><a routerLink="/user-dashboard" (click)="close()">Close Form</a></div>
-                    </div>
-                </div>
-                </div>
-            </form>
-            </div>
-     
 
+            <div class="button input-box">
+              <input type="submit" value="Update Ticket" />
+            </div>
+            <div class="text sign-up-text">
+              <a routerLink="/user-dashboard" (click)="close()">Close Form</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </html>
