@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
-
+<head>
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
+</head>
 <form class="example" [formGroup]="searchForm">
   <nav
     class="navbar"
@@ -65,7 +70,7 @@
     <table class="table table-hover">
       <thead class="text-black" style="text-align: left">
         <tr>
-          <th scope="col">
+          <!-- <th scope="col">
             <div class="form-check">
               <input
                 class="form-check-input"
@@ -74,12 +79,14 @@
                 id="defaultCheck1"
               />
             </div>
-          </th>
+          </th> -->
           <th scope="col">Ticket ID</th>
           <th scope="col">User ID</th>
           <th scope="col">Subject</th>
           <th scope="col">Description</th>
+          <th scope="col">Date Created</th>
           <th scope="col">Actions</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody
@@ -87,7 +94,7 @@
         *ngFor="let ticket of tickets; let i = index"
       >
         <tr>
-          <th>
+          <!-- <th>
             <div class="form-check">
               <input
                 class="form-check-input"
@@ -96,7 +103,8 @@
                 id="defaultCheck1"
               />
             </div>
-          </th>
+          </th> -->
+
           <th scope="row">{{ ticket.ticketID }}</th>
           <th scope="row">{{ ticket.userID }}</th>
           <!-- <td>
@@ -125,6 +133,7 @@
           </td> -->
           <td>{{ ticket.subject }}</td>
           <td>{{ ticket.description }}</td>
+          <th scope="row">{{ ticket.created_at }}</th>
           <td>
             <button
               type="button"
@@ -134,6 +143,21 @@
               Update
             </button>
           </td>
+          <td>
+            <span
+              style="width: 100px"
+              *ngIf="ticket.status == 'Pending' && !checkForAgingTicket(ticket)"
+              class="badge text-bg-success"
+              >New</span
+            >
+            <span
+              style="width: 100px"
+              *ngIf="ticket.status == 'Pending' && checkForAgingTicket(ticket)"
+              class="badge text-bg-warning"
+              >Warning</span
+            >
+          </td>
+
           <!-- <td>
             <button
               type="button"

@@ -45,7 +45,6 @@ export class ClientComponent implements OnInit {
     this.receivedUserData.subscribe((user: Users) => {
       this.user = user;
       this.id = this.user.user_id;
-      console.log(`from service: ${this.user.user_id}`);
     });
   }
 
@@ -61,7 +60,6 @@ export class ClientComponent implements OnInit {
         this.postUser = data['data'];
         for (let i = 0; i < this.postUser.length; i++) {
           if (this.postUser[i].is_logged_in === 'true') {
-            console.log(this.postUser[i].is_logged_in);
             this.bindUser = this.postUser[i];
             this.getTicketsByUser(this.bindUser);
 
@@ -76,7 +74,6 @@ export class ClientComponent implements OnInit {
     setTimeout(() => {
       this.ngOnInit();
     }, 1000 * 1);
-    console.log(this.user);
   }
 
   // ngAfterViewInit(){
@@ -115,7 +112,6 @@ export class ClientComponent implements OnInit {
     this.router.navigate([destination]);
   }
   getTicketsByUser(user: Users) {
-    console.log(user.user_id);
     this.ticketService.getAllTicketsByUser(user.user_id).subscribe(
       (data: Ticket[]) => {
         this.tickets = data['data'];
@@ -140,7 +136,7 @@ export class ClientComponent implements OnInit {
   }
   onSubmitTicket(user: Users) {
     var moment = require('moment');
-    var current_timestamp = moment().format('MMMM Do YYYY, h:mm:ss a');
+    var current_timestamp = moment();
     if (this.ticketForm.invalid) {
       this.toast.error('Error Creating Ticket!');
       return;
@@ -153,6 +149,7 @@ export class ClientComponent implements OnInit {
       tracker: 'Pending',
       assignee: 'Pending',
       userID: user.user_id,
+      created_at: current_timestamp,
     };
     let formData = new FormData();
 
@@ -162,6 +159,7 @@ export class ClientComponent implements OnInit {
     formData.append('status', payload.status);
     formData.append('assignee', payload.assignee);
     formData.append('userID', payload.userID.toString());
+    formData.append('created_at', payload.created_at);
 
     this.ticketService
       .saveTicket(formData)
