@@ -175,7 +175,7 @@ export class ClientComponent implements OnInit {
       .subscribe((data: Ticket) => {
         this.postTicket = data['data'];
 
-        // window.location.reload();
+        window.location.reload();
       });
   }
   // filterItems(search: string) {

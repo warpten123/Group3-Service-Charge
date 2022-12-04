@@ -49,12 +49,14 @@ export class UpdateTicketComponent implements OnInit {
   }
 
   assignee: Assignee[] = [
+    { name: 'Pending' },
     { name: 'Morales' },
     { name: 'Premacio' },
     { name: 'Pinote' },
     { name: 'Tuso' },
   ];
   tracker: Tracker[] = [
+    { track: 'Pending' },
     { track: 'Feature' },
     { track: 'Bug' },
     { track: 'Front-end' },
@@ -66,6 +68,9 @@ export class UpdateTicketComponent implements OnInit {
     { stat: 'Resolved' },
   ];
   ngOnInit(): void {
+    this.finalAssignee = 'Pending';
+    this.finalStatus = 'Pending';
+    this.finalTracker = 'Pending';
     this.ticketForm.controls['ticketSubject'].disable();
     this.ticketForm.controls['ticketDescription'].disable();
     this.ticketForm.patchValue({
@@ -97,6 +102,7 @@ export class UpdateTicketComponent implements OnInit {
     console.log(this.finalTracker);
   }
   onSubmitUpdate(ticket: Ticket) {
+    // if(this.assignee == undefined || this.status == undefined || this.subj)
     this.ticketForm.controls['ticketSubject'].enable();
     this.ticketForm.controls['ticketDescription'].enable();
     console.log(`update ${ticket.ticketID}`);
