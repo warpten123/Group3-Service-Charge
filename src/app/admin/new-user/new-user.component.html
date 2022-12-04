@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>Employee Account</h1>
+<form class="example-form" [formGroup]="registerForm">
+  <mat-form-field class="example-full-width">
+    <mat-label>First Name</mat-label>
+    <input
+      formControlName="registerFirstName"
+      matInput
+      placeholder="Ex. Pizza"
+      value=""
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Last Name</mat-label>
+    <input
+      formControlName="registerLastName"
+      matInput
+      placeholder="Last Name"
+      value=""
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input
+      formControlName="registerEmailAdd"
+      matInput
+      placeholder="Email"
+      value=""
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Username</mat-label>
+    <input
+      formControlName="registerUserName"
+      matInput
+      placeholder="registerUserName"
+      value=""
+    />
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input
+      formControlName="registerPassword"
+      matInput
+      placeholder="Password"
+      type="password"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="example-full-width">
+    <mat-label>Role</mat-label>
+    <mat-select
+      [(ngModel)]="selectedRoles"
+      name="roles"
+      (selectionChange)="getValueFromRoles($event.value)"
+    >
+      <mat-option *ngFor="let dept of departments" [value]="dept.department">
+        {{ dept.department }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" (click)="onSubmitCreate()">
+      Create
+    </button>
+  </div>
+  <!-- <div mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" (click)="refreshForm()">
+      Clear
+    </button>
+  </div> -->
+</form>

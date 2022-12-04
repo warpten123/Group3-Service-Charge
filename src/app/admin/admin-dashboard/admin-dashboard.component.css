@@ -116,7 +116,31 @@ mat-toolbar {
   background-color: transparent;
   border-radius: 0.625em;
 }
+table {
+  width: 100%;
+}
+th{
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+td, th {
+  
+  text-align: center !important;
+  vertical-align: middle !important;
+}
 
+
+.mat-sort-header-container {
+  justify-content: center !important;
+}
+.mat-header-cell {
+  background: red;
+}
+.mat-mdc-form-field {
+  font-size: 20px;
+  width: 500%;
+}
 .warn.warning::before {
   content: "";
   display: block;

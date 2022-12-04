@@ -95,6 +95,7 @@ export class ClientComponent implements OnInit {
     updateFormData.append('user_username', user.user_username.toString());
     updateFormData.append('user_password', user.user_password);
     updateFormData.append('is_logged_in', 'false');
+    updateFormData.append('roles', user.roles.toString());
     this.userService
       .updateUser(updateFormData)
       .pipe(

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -9,69 +8,26 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { Users } from 'src/app/services/users/user-interface';
 import { UsersService } from 'src/app/services/users/users.service';
 import { UpdateTicketComponent } from 'src/app/update-ticket/update-ticket.component';
-import { MatTableDataSource } from '@angular/material/table';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css'],
+  selector: 'app-sales-team-dashboard',
+  templateUrl: './sales-team-dashboard.component.html',
+  styleUrls: ['./sales-team-dashboard.component.css'],
 })
-export class AdminDashboardComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'username', 'email'];
-  dataSource: any;
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+export class SalesTeamDashboardComponent implements OnInit {
+  tickets: Ticket[] = [];
+  users: Users[] = [];
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
     private dialog: MatDialog,
     private router: Router
   ) {}
-  newDate: any;
-  search: Ticket[] = [];
-  users: Users[] = [];
-  tickets: Ticket[] = [];
-  singleTicket: number;
+
   ngOnInit(): void {
     this.getAllUsers();
     this.getAllTicket();
-    this.dataSource = new MatTableDataSource(this.users);
   }
-  searchForm: FormGroup = new FormGroup({
-    search: new FormControl('', Validators.required),
-  });
-
-  deleteTicket(ticket: Ticket, index: number) {
-    this.ticketService
-      .deleteTicket(ticket.ticketID)
-      .subscribe((data: Ticket) => {
-        this.tickets[index] = data;
-        this.tickets.splice(index, 1);
-      });
-  }
-
   getAllUsers() {
     this.userService.getAllUsers().subscribe(
       (data: Users[]) => {
@@ -98,30 +54,6 @@ export class AdminDashboardComponent implements OnInit {
         // const finalDate = moment(currentDay);
         // let date = moment(test, 'YYYY-MM-DD').format('MMMM Do YYYY, h:mm:ss a');
         console.log(currentDay.toString());
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
-  }
-  filterItems(search: string) {
-    this.tickets.length = 0;
-
-    this.ticketService.getAllTickets().subscribe(
-      (data: Ticket[]) => {
-        this.search = data['data'];
-        for (let i = 0; i < this.search.length; i++) {
-          if (this.search[i].subject.includes(search)) {
-            this.tickets.push(this.search[i]);
-          } else if (this.search[i].assignee.includes(search)) {
-            this.tickets.push(this.search[i]);
-          } else if (this.search[i].status.includes(search)) {
-            this.tickets.push(this.search[i]);
-          }
-        }
-        if (!this.searchForm.valid) {
-          this.tickets = this.search;
-        }
       },
       (error: any) => {
         console.error(error);

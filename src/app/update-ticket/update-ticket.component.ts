@@ -102,7 +102,14 @@ export class UpdateTicketComponent implements OnInit {
     console.log(this.finalTracker);
   }
   onSubmitUpdate(ticket: Ticket) {
-    // if(this.assignee == undefined || this.status == undefined || this.subj)
+    if (
+      this.finalAssignee == 'Pending' ||
+      this.finalStatus == 'Pending' ||
+      this.finalTracker == 'Pending'
+    ) {
+      this.toast.error('Error Updating Ticket!');
+      return;
+    }
     this.ticketForm.controls['ticketSubject'].enable();
     this.ticketForm.controls['ticketDescription'].enable();
     console.log(`update ${ticket.ticketID}`);

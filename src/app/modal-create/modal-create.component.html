@@ -16,15 +16,14 @@
       <div class="admin-form">
         <div class="title">Create New Ticket</div>
         <div class="input-boxes">
-          <mat-label>Select Assignee</mat-label>
-          <mat-select [(ngModel)]="selectedValue" name="food">
-            <mat-option
-              *ngFor="let assignee of assignee"
-              [value]="assignee.name"
-            >
-              {{ assignee.name }}
-            </mat-option>
-          </mat-select>
+          <div class="input-box">
+            <i class="fa fa-car"></i>
+            <input
+              type="text"
+              formControlName="ticketAssignee"
+              placeholder="Ticket Assignee"
+            />
+          </div>
 
           <div class="input-box">
             <i class="fa fa-paint-brush"></i>

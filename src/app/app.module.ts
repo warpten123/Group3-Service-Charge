@@ -22,6 +22,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 //End Material Shits and http//
 
 //hot toast//
@@ -36,6 +38,15 @@ import { RegisterComponent } from './register/register.component';
 import { ClientComponent } from './client/client.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+
+import { BillingComponent } from './employee/billing/billing.component';
+import { CollectionComponent } from './employee/collection/collection.component';
+import { TreasuryComponent } from './employee/treasury/treasury.component';
+import { AdminNavbarComponent } from './admin/admin-navbar/admin-navbar.component';
+import { NewUserComponent } from './admin/new-user/new-user.component';
+import { SalesTeamNavbarComponent } from './employee/sales-team/sales-team-navbar/sales-team-navbar.component';
+import { SalesTeamDashboardComponent } from './employee/sales-team/sales-team-dashboard/sales-team-dashboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +62,14 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     ClientComponent,
     AdminLoginComponent,
     AdminDashboardComponent,
+
+    BillingComponent,
+    CollectionComponent,
+    TreasuryComponent,
+    AdminNavbarComponent,
+    NewUserComponent,
+    SalesTeamNavbarComponent,
+    SalesTeamDashboardComponent,
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
   imports: [
@@ -70,6 +89,8 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     HttpClientModule,
     MatSelectModule,
     FormsModule,
+    MatTabsModule,
+    MatTableModule,
     HotToastModule.forRoot(),
   ],
   providers: [],

@@ -56,14 +56,16 @@ export class LoginComponent implements OnInit {
       (data: Users) => {
         this.postUser = data['data'];
         if (this.postUser.user_password == this.loginForm.value.passLogin) {
-          console.log(this.postUser);
           this.toast.success(`Welcome ${this.postUser.user_fname}!`);
           this.postUser.is_logged_in = 'true';
           this.updateLoggedIn(this.postUser);
+          if (this.postUser.roles == 'Client') {
+            this.nav('/client');
+          } else if (this.postUser.roles == 'Sales') {
+            this.nav('/sales');
+          }
 
-          this.nav('/client');
-
-          this.userService.getPassUserValue(this.postUser);
+          // this.userService.getPassUserValue(this.postUser);
         } else {
           this.toast.error('Incorrect Password!');
           return;
@@ -132,7 +134,7 @@ export class LoginComponent implements OnInit {
   }
   onOpenRegister() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
+    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
     (dialogConfig.panelClass = 'post-dialog-container'),
@@ -148,6 +150,7 @@ export class LoginComponent implements OnInit {
     updateFormData.append('user_username', userUpdate.user_username.toString());
     updateFormData.append('user_password', userUpdate.user_password);
     updateFormData.append('is_logged_in', 'true');
+    updateFormData.append('roles', userUpdate.roles.toString());
     this.userService
       .updateUser(updateFormData)
       .pipe(
