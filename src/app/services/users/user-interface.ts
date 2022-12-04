@@ -6,4 +6,5 @@ export interface Users {
   user_username: string;
   user_password: string;
   is_logged_in: String;
+  roles: String;
 }

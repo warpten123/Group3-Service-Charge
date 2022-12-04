@@ -62,7 +62,7 @@ export class ClientComponent implements OnInit {
           if (this.postUser[i].is_logged_in === 'true') {
             this.bindUser = this.postUser[i];
             this.getTicketsByUser(this.bindUser);
-
+            console.log('tickets: ', this.tickets);
             break;
           }
         }
@@ -79,9 +79,9 @@ export class ClientComponent implements OnInit {
   // ngAfterViewInit(){
   //   window.location.reload();
   // }
-  updateLoggedIn(postUser: any) {
-    throw new Error('Method not implemented.');
-  }
+  // updateLoggedIn(postUser: any) {
+  //   throw new Error('Method not implemented.');
+  // }
   ticketForm: FormGroup = new FormGroup({
     ticketSubject: new FormControl('', Validators.required),
     ticketDesc: new FormControl('', Validators.required),
@@ -114,7 +114,9 @@ export class ClientComponent implements OnInit {
   getTicketsByUser(user: Users) {
     this.ticketService.getAllTicketsByUser(user.user_id).subscribe(
       (data: Ticket[]) => {
-        this.tickets = data['data'];
+        if (data['message'] != null) {
+          this.tickets = data['data'];
+        }
       },
       (error: any) => {
         console.error(error);
