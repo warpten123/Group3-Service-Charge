@@ -86,6 +86,7 @@ export class ForgotComponent implements OnInit {
       this.confirmPasswordForm.value.password
     );
     updateFormData.append('is_logged_in', 'false');
+    updateFormData.append('roles', 'Client');
     this.userService
       .updateUser(updateFormData)
       .pipe(

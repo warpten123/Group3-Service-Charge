@@ -289,6 +289,7 @@ body{
     max-width: 850px;
     width: 100%;
     background: #fff;
+    border-radius: 10px;
     padding: 40px 30px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     perspective: 2700px;
@@ -300,6 +301,7 @@ body{
    left: 50%;
    height: 100%;
    width: 50%;
+   
  
    z-index: 98;
     transition: all 1s ease;
@@ -313,6 +315,8 @@ body{
     height: 100%;
     width: 100%; 
     background: red; 
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     opacity: 0.5;
     z-index: 100;
     
@@ -323,6 +327,8 @@ body{
     height: 100%;
     width: 100%; 
     background: #7d2ae8; 
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     opacity: 0.5;
     z-index: 100;
     
@@ -333,6 +339,8 @@ body{
     width: 100%;
     object-fit: cover;
     position: absolute;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     z-index: 12;
     backface-visibility: hidden;
     
@@ -465,7 +473,8 @@ form .form-content .button input{
     transition: all 0.4s ease;
 }
 form .form-content .button input:hover{
-    background: red;
+    background: whitesmoke;
+    color: red;
 }
 form .form-content label{
     color: red;

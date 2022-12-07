@@ -279,7 +279,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: red;
+    background-image: url('../../../assets/adminbg.jpg');
+    background-size: 100%;
     padding: 30px;
 
 }
@@ -287,7 +288,8 @@ body{
     position: relative;
     max-width: 850px;
     width: 100%;
-    background: #fff;
+    background: rgb(235, 87, 87);
+    border-radius: 10px;
     padding: 40px 30px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     perspective: 2700px;
@@ -312,6 +314,8 @@ body{
     height: 100%;
     width: 100%; 
     background: red; 
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     opacity: 0.5;
     z-index: 100;
     
@@ -322,6 +326,8 @@ body{
     height: 100%;
     width: 100%; 
     background: #7d2ae8; 
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     opacity: 0.5;
     z-index: 100;
     
@@ -332,6 +338,8 @@ body{
     width: 100%;
     object-fit: cover;
     position: absolute;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     z-index: 12;
     backface-visibility: hidden;
     
@@ -377,7 +385,7 @@ body{
 .container form{
     height: 100%;
     width: 100%;
-    background: #fff;
+    background: rgb(235, 87, 87);
 }
 .container .form-content{
    display: flex;
@@ -393,7 +401,7 @@ body{
     position: relative;
     font-size: 24px;
     font-weight: 500;
-    color: #333;
+    color: whitesmoke;
 }
 form .form-content .title:before{
     content: '';
@@ -402,7 +410,7 @@ form .form-content .title:before{
     position: absolute;
     height: 3px;
     width: 25px;
-    background: red;
+    background: black;
     margin-bottom: -5px;
 }
 form .signup-form .title:before{
@@ -428,7 +436,9 @@ form .form-content .input-box{
     padding: 0 30px;
     font-size: 16px;
     font-weight: 500;
-    border-bottom: 2px solid rgb(0,0,0,0.2);
+    background-color: rgb(235, 87, 87);
+    border-radius: 5px;
+    border-bottom: 2px solid rgba(245, 237, 237, 0.2);
     transition: all 0.3s ease;
 }
 .form-content .input-box input:focus,
@@ -438,9 +448,10 @@ form .form-content .input-box{
 }
 .form-content .input-box i{
     position: absolute;
-    color: red;
+    color: black;
     font-size: 17px;
 }
+
 form .form-content .text{
     font-size: 14px;
     font-weight: 500;
@@ -456,15 +467,16 @@ form .form-content .button{
     color: #fff;
 }
 form .form-content .button input{
-    color: #fff;
-    background: red;
+    color: red;
+    background: whitesmoke;
     border-radius: 6px;
     padding: 0;
     cursor: pointer;
     transition: all 0.4s ease;
 }
 form .form-content .button input:hover{
-    background: red;
+    background: rgb(235, 87, 87);
+    color: whitesmoke;
 }
 form .form-content label{
     color: red;
