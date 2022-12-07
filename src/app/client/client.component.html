@@ -357,11 +357,20 @@
                 Ticket is still pending
               </div>
               <div
+                style="background: yellowgreen"
                 class="alert alert-warning"
                 role="alert"
                 *ngIf="getTicket.status == 'Accepted'"
               >
                 Ticket is Accepted
+              </div>
+              <div
+                style="background: yellow"
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Resolved'"
+              >
+                Ticket is Resolved
               </div>
             </div>
           </div>
