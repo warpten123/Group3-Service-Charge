@@ -279,7 +279,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: red;
+    background-image: url('../../assets/clientbg.png');
+    background-size: 100%;
     padding: 30px;
 
 }
@@ -393,7 +394,7 @@ body{
     position: relative;
     font-size: 24px;
     font-weight: 500;
-    color: #333;
+    color: #333;    
 }
 form .form-content .title:before{
     content: '';
@@ -402,7 +403,7 @@ form .form-content .title:before{
     position: absolute;
     height: 3px;
     width: 25px;
-    background: red;
+    background: rgb(235, 87, 87);
     margin-bottom: -5px;
 }
 form .signup-form .title:before{
@@ -457,7 +458,7 @@ form .form-content .button{
 }
 form .form-content .button input{
     color: #fff;
-    background: red;
+    background: rgb(235, 87, 87);
     border-radius: 6px;
     padding: 0;
     cursor: pointer;
