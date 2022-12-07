@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Users } from 'src/app/services/users/user-interface';
 import { UsersService } from 'src/app/services/users/users.service';
+import { AdminRegisterComponent } from '../admin-register/admin-register.component';
 
 @Component({
   selector: 'app-admin-login',
@@ -55,5 +56,14 @@ export class AdminLoginComponent implements OnInit {
   }
   nav(destination: string) {
     this.router.navigate([destination]);
+  }
+
+  onRegisterAdmin() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    (dialogConfig.panelClass = 'post-dialog-container'),
+      this.dialog.open(AdminRegisterComponent, dialogConfig);
   }
 }

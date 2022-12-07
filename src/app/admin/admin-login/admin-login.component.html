@@ -31,7 +31,7 @@
       <form class="inputs" [formGroup]="adminForm">
         <div class="form-content">
           <div class="admin-form">
-            <div class="title">Login</div>
+            <div class="title">Admin Login</div>
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fa fa-key"></i>
@@ -65,6 +65,8 @@
               </div>
               <div class="text sign-up-text">
                 <a routerLink="/login" style="color: blue">Take me back! </a>
+                <a routerLink="" (click)="onRegisterAdmin()" style="color: blue">
+                  | Register Admin</a>
 
                 <!-- <label for="flip"><a routerLink=""> Members </a></label> -->
               </div>
