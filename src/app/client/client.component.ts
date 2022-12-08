@@ -11,6 +11,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UpdateTicketComponent } from '../update-ticket/update-ticket.component';
 import { ModalCreateComponent } from '../modal-create/modal-create.component';
+import { UploadService } from '../services/upload/upload.service';
 
 @Component({
   selector: 'app-client',
@@ -33,13 +34,14 @@ export class ClientComponent implements OnInit {
   loginForm: any;
   postUser: Users[] = [];
   bindUser: Users;
-
+  strmessage: string;
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
     private dialog: MatDialog,
     private router: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private fileService: UploadService
   ) {
     this.receivedUserData = this.userService.passUserValue$;
     this.receivedUserData.subscribe((user: Users) => {
@@ -86,6 +88,41 @@ export class ClientComponent implements OnInit {
     ticketSubject: new FormControl('', Validators.required),
     ticketDesc: new FormControl('', Validators.required),
   });
+  imagePath: any;
+  url: any;
+  message: String = '';
+  validImage: boolean = false;
+  onFileChanged(event) {
+    const files = event.target.files;
+    if (files.length === 0) return;
+
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = 'Only images are supported.';
+      return;
+    }
+
+    const reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.url = reader.result;
+      this.validImage = true;
+    };
+  }
+  onFileUpload() {
+    console.log(this.url);
+    let fileUploadForm = new FormData();
+    let one = 1;
+    // fileUploadForm.append('file_id', one.toString());
+    fileUploadForm.append('ticket_id', one.toString());
+    fileUploadForm.append('type', one.toString());
+    fileUploadForm.append('path', this.url);
+    this.fileService.uploadFile(fileUploadForm).subscribe((message: any) => {
+      this.message = message;
+      console.log(this.message);
+    });
+  }
   logout(user: Users) {
     let updateFormData = new FormData();
     updateFormData.append('user_id', user.user_id.toString());
@@ -179,6 +216,7 @@ export class ClientComponent implements OnInit {
         window.location.reload();
       });
   }
+  onOpenConfirmSlip() {}
   // filterItems(search: string) {
   //   this.tickets.length = 0;
 
