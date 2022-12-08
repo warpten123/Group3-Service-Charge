@@ -1,1 +1,61 @@
-<p>confirm-slip works!</p>
+<h1 mat-dialog-title>Create Slip for Ticket# {{ ticket.ticketID }}</h1>
+<form class="example-form" [formGroup]="slipForm">
+  <mat-form-field class="example-full-width">
+    <mat-label style="font-weight: bold"> Date </mat-label>
+    <input
+      matInput
+      placeholder="{{ date }}"
+      value=""
+      readonly
+      style="font-weight: bold"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label style="font-weight: bold">User ID</mat-label>
+    <input
+      formControlName="slipTicket"
+      matInput
+      placeholder="{{ ticket.userID }}"
+      value=""
+      style="font-weight: bold"
+      readonly
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label style="font-weight: bold">Details</mat-label>
+    <input
+      matInput
+      placeholder="{{ ticket.description }} "
+      style="font-weight: bold"
+      value=""
+      readonly
+    />
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label style="font-weight: bold">Amount</mat-label>
+    <input
+      formControlName="slipAmount"
+      matInput
+      placeholder="Amount"
+      type="number"
+      style="font-weight: bold"
+    />
+  </mat-form-field>
+
+  <div mat-dialog-actions align="end">
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="onSubmitCreateSlip(ticket)"
+    >
+      Create Slip
+    </button>
+  </div>
+  <!-- <div mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" (click)="refreshForm()">
+      Clear
+    </button>
+  </div> -->
+</form>

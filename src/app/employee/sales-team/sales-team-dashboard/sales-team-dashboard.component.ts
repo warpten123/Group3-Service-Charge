@@ -8,6 +8,7 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { Users } from 'src/app/services/users/user-interface';
 import { UsersService } from 'src/app/services/users/users.service';
 import { UpdateTicketComponent } from 'src/app/update-ticket/update-ticket.component';
+import { ConfirmSlipComponent } from '../confirm-slip/confirm-slip.component';
 
 @Component({
   selector: 'app-sales-team-dashboard',
@@ -72,6 +73,20 @@ export class SalesTeamDashboardComponent implements OnInit {
       autoFocus: true,
       disableClose: true,
     });
+  }
+  openSlip(ticket: Ticket) {
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true
+    // dialogConfig.autoFocus = true;
+    // dialogConfig.width =  "60%";
+    // dialogConfig.panelClass = 'post-dialog-container',
+    // this.dialog.open(ModalCreateComponent,dialogConfig);
+    this.dialog.open(ConfirmSlipComponent, {
+      width: '30%',
+      autoFocus: true,
+      disableClose: false,
+    });
+    this.ticketService.getPassTicketValue(ticket);
   }
   nav(destination: string) {
     this.router.navigate([destination]);

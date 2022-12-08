@@ -90,9 +90,19 @@
               style="width: 200px; background-color: violet"
               class="btn btn-primary btn-sm"
               *ngIf="ticket.status == 'Accepted'"
-              (click)="updateTicket(ticket)"
+              (click)="openSlip(ticket)"
             >
               Add Slip
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background: red"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Resolved'"
+              (click)="updateTicket(ticket)"
+            >
+              Ticket Resolved!
               <span style="width: 50px" class="badge text-bg-success">New</span>
             </button>
           </td>
