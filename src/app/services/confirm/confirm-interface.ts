@@ -1,5 +1,5 @@
 export interface Confirm {
-  confirm_id: number;
+  confirm_id?: number;
   confirm_date: string;
   confirm_ticket: number;
   confirm_user: number;

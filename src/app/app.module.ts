@@ -35,7 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ForgotComponent } from './forgot/forgot.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { RegisterComponent } from './register/register.component';
-import { ClientComponent } from './client/client.component';
+import { ClientComponent } from './client/client_dashboard/client.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 

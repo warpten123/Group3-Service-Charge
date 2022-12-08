@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
-import { ClientComponent } from './client/client.component';
+import { ClientComponent } from './client/client_dashboard/client.component';
 import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
 import { SalesTeamDashboardComponent } from './employee/sales-team/sales-team-dashboard/sales-team-dashboard.component';
 import { LoginComponent } from './login/login.component';

@@ -2,16 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, tap } from 'rxjs';
-import { Ticket } from '../services/ticket/ticket-interface';
-import { TicketService } from '../services/ticket/ticket.service';
-import { Users } from '../services/users/user-interface';
-import { UsersService } from '../services/users/users.service';
+
 import * as moment from 'moment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
-import { UpdateTicketComponent } from '../update-ticket/update-ticket.component';
-import { ModalCreateComponent } from '../modal-create/modal-create.component';
-import { UploadService } from '../services/upload/upload.service';
+import { Ticket } from 'src/app/services/ticket/ticket-interface';
+import { TicketService } from 'src/app/services/ticket/ticket.service';
+import { UploadService } from 'src/app/services/upload/upload.service';
+import { Users } from 'src/app/services/users/user-interface';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-client',
@@ -216,7 +215,8 @@ export class ClientComponent implements OnInit {
         window.location.reload();
       });
   }
-  onOpenConfirmSlip() {}
+  onOpenConfirmSlip(ticket: Ticket) {}
+
   // filterItems(search: string) {
   //   this.tickets.length = 0;
 
