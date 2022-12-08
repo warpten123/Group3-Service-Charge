@@ -47,6 +47,7 @@ import { NewUserComponent } from './admin/new-user/new-user.component';
 import { SalesTeamNavbarComponent } from './employee/sales-team/sales-team-navbar/sales-team-navbar.component';
 import { SalesTeamDashboardComponent } from './employee/sales-team/sales-team-dashboard/sales-team-dashboard.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
+import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { AdminRegisterComponent } from './admin/admin-register/admin-register.co
     SalesTeamNavbarComponent,
     SalesTeamDashboardComponent,
     AdminRegisterComponent,
+    EmployeeLoginComponent,
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
   imports: [
