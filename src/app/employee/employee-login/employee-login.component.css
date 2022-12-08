@@ -288,7 +288,7 @@ body{
     position: relative;
     max-width: 850px;
     width: 100%;
-    background: rgb(235, 87, 87);
+    background: #fff;
     border-radius: 10px;
     padding: 40px 30px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
@@ -301,6 +301,7 @@ body{
    left: 50%;
    height: 100%;
    width: 50%;
+   
  
    z-index: 98;
     transition: all 1s ease;
@@ -385,7 +386,7 @@ body{
 .container form{
     height: 100%;
     width: 100%;
-    background: rgb(235, 87, 87);
+    background: #fff;
 }
 .container .form-content{
    display: flex;
@@ -401,7 +402,7 @@ body{
     position: relative;
     font-size: 24px;
     font-weight: 500;
-    color: whitesmoke;
+    color: #333;    
 }
 form .form-content .title:before{
     content: '';
@@ -410,7 +411,7 @@ form .form-content .title:before{
     position: absolute;
     height: 3px;
     width: 25px;
-    background: black;
+    background: rgb(235, 87, 87);
     margin-bottom: -5px;
 }
 form .signup-form .title:before{
@@ -436,9 +437,7 @@ form .form-content .input-box{
     padding: 0 30px;
     font-size: 16px;
     font-weight: 500;
-    background-color: rgb(235, 87, 87);
-    border-radius: 5px;
-    border-bottom: 2px solid rgba(245, 237, 237, 0.2);
+    border-bottom: 2px solid rgb(0,0,0,0.2);
     transition: all 0.3s ease;
 }
 .form-content .input-box input:focus,
@@ -448,10 +447,9 @@ form .form-content .input-box{
 }
 .form-content .input-box i{
     position: absolute;
-    color: black;
+    color: red;
     font-size: 17px;
 }
-
 form .form-content .text{
     font-size: 14px;
     font-weight: 500;
@@ -467,16 +465,16 @@ form .form-content .button{
     color: #fff;
 }
 form .form-content .button input{
-    color: red;
-    background: whitesmoke;
+    color: #fff;
+    background: rgb(235, 87, 87);
     border-radius: 6px;
     padding: 0;
     cursor: pointer;
     transition: all 0.4s ease;
 }
 form .form-content .button input:hover{
-    background: rgb(235, 87, 87);
-    color: whitesmoke;
+    background: whitesmoke;
+    color: red;
 }
 form .form-content label{
     color: red;

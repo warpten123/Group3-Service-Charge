@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Users } from 'src/app/services/users/user-interface';
 import { UsersService } from 'src/app/services/users/users.service';
+
 @Component({
   selector: 'app-employee-login',
   templateUrl: './employee-login.component.html',
@@ -24,8 +25,8 @@ export class EmployeeLoginComponent implements OnInit {
   ngOnInit(): void {}
 
   employeeForm: FormGroup = new FormGroup({
-    adminKey: new FormControl('', Validators.required),
-    adminPassword: new FormControl('', Validators.required),
+    empLogin: new FormControl('', Validators.required),
+    empPassword: new FormControl('', Validators.required),
   });
   onSubmitLogin() {
     this.userService.getAllUsers().subscribe(
@@ -36,12 +37,12 @@ export class EmployeeLoginComponent implements OnInit {
         this.toast.error(error);
       }
     );
-    this.userService.getUserByEmail(this.employeeForm.value.adminKey).subscribe(
+    this.userService.getUserByEmail(this.employeeForm.value.empLogin).subscribe(
       (data: Users) => {
         this.postUser = data['data'];
-        if (this.postUser.user_password == this.employeeForm.value.adminPassword) {
+        if (this.postUser.user_password == this.employeeForm.value.empPassword) {
           this.toast.success(`Welcome ${this.postUser.user_fname}!`);
-          this.nav('admin-dashboard');
+          this.nav('sales');
         } else {
           this.toast.error('Incorrect Password!');
           return;
@@ -56,12 +57,4 @@ export class EmployeeLoginComponent implements OnInit {
     this.router.navigate([destination]);
   }
 
-  onRegisterAdmin() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    (dialogConfig.panelClass = 'post-dialog-container'),
-      this.dialog.open(EmployeeLoginComponent, dialogConfig);
-  }
 }

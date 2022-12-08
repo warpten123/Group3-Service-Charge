@@ -39,7 +39,7 @@
                   type="text"
                   id="emailLogin"
                   placeholder="Email"
-                  formControlName="adminKey"
+                  formControlName="empLogin"
                   required
                 />
               </div>
@@ -50,7 +50,7 @@
                   type="password"
                   id="passLogin"
                   placeholder="Password"
-                  formControlName="adminPassword"
+                  formControlName="empPassword"
                   required
                 />
               </div>
@@ -62,13 +62,6 @@
                   value="Login"
                   (click)="onSubmitLogin()"
                 />
-              </div>
-              <div class="text sign-up-text">
-                <a routerLink="/login" style="color: blue">Take me back! </a>
-                <a routerLink="" (click)="onRegisterAdmin()" style="color: blue">
-                  </a>
-
-                <!-- <label for="flip"><a routerLink=""> Members </a></label> -->
               </div>
             </div>
           </div>
