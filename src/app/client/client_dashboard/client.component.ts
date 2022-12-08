@@ -11,6 +11,9 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import { Users } from 'src/app/services/users/user-interface';
 import { UsersService } from 'src/app/services/users/users.service';
+import { Confirm } from 'src/app/services/confirm/confirm-interface';
+import { ConfirmnService } from 'src/app/services/confirm/confirmn.service';
+import { ClientViewSlipComponent } from '../client-view-slip/client-view-slip.component';
 
 @Component({
   selector: 'app-client',
@@ -34,13 +37,16 @@ export class ClientComponent implements OnInit {
   postUser: Users[] = [];
   bindUser: Users;
   strmessage: string;
+  confirmSlip: Confirm[] = [];
+  passConfirm: Confirm;
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
     private dialog: MatDialog,
     private router: Router,
     private toast: HotToastService,
-    private fileService: UploadService
+    private fileService: UploadService,
+    private confirmService: ConfirmnService
   ) {
     this.receivedUserData = this.userService.passUserValue$;
     this.receivedUserData.subscribe((user: Users) => {
@@ -63,7 +69,7 @@ export class ClientComponent implements OnInit {
           if (this.postUser[i].is_logged_in === 'true') {
             this.bindUser = this.postUser[i];
             this.getTicketsByUser(this.bindUser);
-            console.log('tickets: ', this.tickets);
+
             break;
           }
         }
@@ -215,7 +221,29 @@ export class ClientComponent implements OnInit {
         window.location.reload();
       });
   }
-  onOpenConfirmSlip(ticket: Ticket) {}
+  onOpenConfirmSlip(ticket: Ticket) {
+    let test: Confirm[] = [];
+    let check: number = 0;
+
+    console.log(ticket.ticketID);
+    this.confirmService
+      .getSlipsByUserID(ticket.userID)
+      .subscribe((slips: Confirm) => {
+        this.confirmSlip = slips['data'];
+        for (let i = 0; i < this.confirmSlip.length; i++) {
+          if (this.confirmSlip[i].confirmTicket == ticket.ticketID) {
+            this.passConfirm = this.confirmSlip[i];
+            this.confirmService.getPassConfirmValue(this.passConfirm);
+          }
+        }
+      });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    (dialogConfig.panelClass = 'post-dialog-container'),
+      this.dialog.open(ClientViewSlipComponent, dialogConfig);
+  }
 
   // filterItems(search: string) {
   //   this.tickets.length = 0;

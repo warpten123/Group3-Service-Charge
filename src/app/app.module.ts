@@ -49,6 +49,7 @@ import { SalesTeamDashboardComponent } from './employee/sales-team/sales-team-da
 import { ConfirmSlipComponent } from './employee/sales-team/confirm-slip/confirm-slip.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
 import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
+import { ClientViewSlipComponent } from './client/client-view-slip/client-view-slip.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { EmployeeLoginComponent } from './employee/employee-login/employee-login
     ConfirmSlipComponent,
     AdminRegisterComponent,
     EmployeeLoginComponent,
+    ClientViewSlipComponent,
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
   imports: [
