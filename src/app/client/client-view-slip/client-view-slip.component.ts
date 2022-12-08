@@ -32,7 +32,7 @@ export class ClientViewSlipComponent implements OnInit {
     this.receivedConfirmData = this.confirmService.passConfirmValue$;
     this.receivedConfirmData.subscribe((data: Confirm) => {
       this.confirmSlip = data;
-      this.urlAmount = this.confirmSlip.confirmAmount;
+      this.urlAmount = this.confirmSlip.confirmAmountPath;
       this.urlSignature = this.confirmSlip.confirmSignatures;
       console.log(`from service: ${this.confirmSlip}`);
     });
@@ -64,14 +64,16 @@ export class ClientViewSlipComponent implements OnInit {
     this.onFileUploadAmount(confirm);
     this.onFileUploadSignature(confirm);
     let slipCreate = new FormData();
+    slipCreate.append('confirmID', confirm.confirmID.toString());
     slipCreate.append('confirmDate', confirm.confirmDate);
     slipCreate.append('confirmUser', confirm.confirmUser.toString());
     slipCreate.append('confirmDesc', confirm.confirmDesc);
     slipCreate.append('confirmTicket', confirm.confirmTicket.toString());
-    slipCreate.append('confirmAmount', this.urlAmount);
+    slipCreate.append('confirmAmountInt', confirm.confirmAmountInt.toString());
+    slipCreate.append('confirmAmountPath', this.urlAmount);
     slipCreate.append('confirmSignatures', this.urlSignature);
     this.confirmService
-      .createSlip(slipCreate)
+      .updateSlip(slipCreate)
       .pipe(
         this.toast.observe({
           success: 'Slip Updated Successfully!',
@@ -111,7 +113,7 @@ export class ClientViewSlipComponent implements OnInit {
     reader.onload = (_event) => {
       this.urlAmount = reader.result;
       this.validImageAmount = true;
-      this.confirmSlip.confirmAmount = this.urlAmount;
+      this.confirmSlip.confirmAmountPath = this.urlAmount;
     };
   }
   onFileUploadAmount(confirm: Confirm) {

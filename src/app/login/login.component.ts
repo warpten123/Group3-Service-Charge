@@ -56,15 +56,20 @@ export class LoginComponent implements OnInit {
       (data: Users) => {
         this.postUser = data['data'];
         if (this.postUser.user_password == this.loginForm.value.passLogin) {
-          this.toast.success(`Welcome ${this.postUser.user_fname}!`);
-          this.postUser.is_logged_in = 'true';
-          this.updateLoggedIn(this.postUser);
-          if (this.postUser.roles == 'Client') {
+          // if (this.postUser.roles == 'Client') {
+          //   this.nav('/client');
+          // } else if (this.postUser.roles == 'Sales') {
+          //   this.nav('/sales');
+          // }
+          if (this.postUser.roles != 'Client') {
+            this.toast.error("You're not allowed to logged in!");
+            return;
+          } else {
+            this.toast.success(`Welcome ${this.postUser.user_fname}!`);
+            this.postUser.is_logged_in = 'true';
+            this.updateLoggedIn(this.postUser);
             this.nav('/client');
-          } else if (this.postUser.roles == 'Sales') {
-            this.nav('/sales');
           }
-
           // this.userService.getPassUserValue(this.postUser);
         } else {
           this.toast.error('Incorrect Password!');

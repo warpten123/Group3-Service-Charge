@@ -17,7 +17,10 @@ import { ConfirmSlipComponent } from '../confirm-slip/confirm-slip.component';
 })
 export class SalesTeamDashboardComponent implements OnInit {
   tickets: Ticket[] = [];
+  finalTickets: Ticket[] = [];
   users: Users[] = [];
+  bindUser: Users;
+  bool: boolean[] = [];
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
@@ -32,7 +35,12 @@ export class SalesTeamDashboardComponent implements OnInit {
   getAllUsers() {
     this.userService.getAllUsers().subscribe(
       (data: Users[]) => {
-        this.users = data;
+        this.users = data['data'];
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].is_logged_in === 'true') {
+            this.bindUser = this.users[i];
+          }
+        }
       },
       (error: any) => {
         console.error(error);
@@ -42,10 +50,27 @@ export class SalesTeamDashboardComponent implements OnInit {
   getAllTicket() {
     this.ticketService.getAllTickets().subscribe(
       (data: Ticket[]) => {
-        for (let i = 0; i < data['data'].length; i++) {
-          this.tickets = data['data'];
-          // this.tickets[i].created_at = moment().format('YYYY-MM-DD');
+        this.tickets = data['data'];
+
+        let check = 0;
+        for (let i = 0; i < this.tickets.length; i++) {
+          this.bool.push(
+            this.tickets[i].assignee === this.bindUser?.user_lname
+          );
         }
+        console.log(this.bool);
+        for (let i = 0; i < this.tickets.length; i++) {
+          if (this.bool[i] === true) {
+            this.finalTickets.push(this.tickets[i]);
+          }
+        }
+        // for (let i = 0; i < this.tickets.length; i++) {
+        //   if (this.tickets[i].assignee == this.bindUser.user_lname) {
+        //     console.log(this.tickets[i].assignee == this.bindUser.user_lname);
+        //   }
+        // }
+        // this.tickets[i].created_at = moment().format('YYYY-MM-DD');
+
         const currentDay = moment();
         // const createdDate = moment(this.tickets[0].created_at);
         // const diff = createdDate.diff(currentDay, 'days');
@@ -54,7 +79,6 @@ export class SalesTeamDashboardComponent implements OnInit {
         // const diff = rentalDate.diff(currentDay, 'days');
         // const finalDate = moment(currentDay);
         // let date = moment(test, 'YYYY-MM-DD').format('MMMM Do YYYY, h:mm:ss a');
-        console.log(currentDay.toString());
       },
       (error: any) => {
         console.error(error);
@@ -116,12 +140,12 @@ export class SalesTeamDashboardComponent implements OnInit {
   }
   checkForAgingTicket(ticket: Ticket) {
     //Sun Dec 04 2022 21:40:33 GMT+0800
-    console.log(ticket.created_at);
+
     let cont: boolean = false;
     const currentDay = moment();
     const createdAt = moment(ticket.created_at);
     const diff = createdAt.diff(currentDay, 'days');
-    console.log(diff);
+
     if (Math.abs(diff) > 7) {
       cont = true;
     } else cont = false;

@@ -32,7 +32,7 @@
 </form>
 
 <div
-  *ngIf="tickets.length > 0; else noTickets"
+  *ngIf="finalTickets.length > 0; else noTickets"
   class="container"
   style="width: 2500px"
 >
@@ -53,7 +53,7 @@
       </thead>
       <tbody
         style="text-align: left"
-        *ngFor="let ticket of tickets; let i = index"
+        *ngFor="let ticket of finalTickets; let i = index"
       >
         <tr>
           <th scope="row">{{ ticket.ticketID }}</th>

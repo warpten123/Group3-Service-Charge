@@ -38,8 +38,8 @@
     <mat-label style="font-weight: bold">Amount</mat-label>
     <input
       matInput
-      placeholder="{{ confirmSlip?.confirmAmount }}"
-      type="text"
+      placeholder="{{ confirmSlip?.confirmAmountInt }}"
+      type="number"
       style="font-weight: bold"
     />
   </mat-form-field>
@@ -56,8 +56,8 @@
   <div class="front">
     <!-- put the image from FormControl carimage -->
     <img
-      src="{{ confirmSlip?.confirmAmount }}"
-      *ngIf="confirmSlip?.confirmAmount != undefined"
+      src="{{ confirmSlip?.confirmAmountPath }}"
+      *ngIf="confirmSlip?.confirmAmountPath != undefined"
       alt="car-image"
       class="car-image"
       id="carImg"
@@ -66,7 +66,7 @@
     />
     <img
       src="assets\Upload-Transparent.png"
-      *ngIf="confirmSlip?.confirmAmount == undefined"
+      *ngIf="confirmSlip?.confirmAmountPath == undefined"
       alt="car-image"
       class="car-image"
       id="carImg"

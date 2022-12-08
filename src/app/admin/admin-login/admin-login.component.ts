@@ -42,8 +42,13 @@ export class AdminLoginComponent implements OnInit {
       (data: Users) => {
         this.postUser = data['data'];
         if (this.postUser.user_password == this.adminForm.value.adminPassword) {
-          this.toast.success(`Welcome ${this.postUser.user_fname}!`);
-          this.nav('admin-dashboard');
+          if (this.postUser.roles == 'Admin') {
+            this.toast.success(`Welcome ${this.postUser.user_fname}!`);
+            this.nav('admin-dashboard');
+          } else {
+            this.toast.error("You're not allowed to logged in!");
+            return;
+          }
         } else {
           this.toast.error('Incorrect Password!');
           return;

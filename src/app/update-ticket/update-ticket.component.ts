@@ -7,6 +7,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ticket } from '../services/ticket/ticket-interface';
 import { tick } from '@angular/core/testing';
+import { UsersService } from '../services/users/users.service';
+import { Users } from '../services/users/user-interface';
 interface Assignee {
   name: string;
 }
@@ -39,22 +41,17 @@ export class UpdateTicketComponent implements OnInit {
     private dialog: MatDialog,
     private toast: HotToastService,
     public ticketService: TicketService,
-    private router: Router
+    private router: Router,
+    private userService: UsersService
   ) {
     this.receivedTicketData = this.ticketService.passTicketValue$;
     this.receivedTicketData.subscribe((data: Ticket) => {
       this.ticket = data;
-      console.log(`from service: ${this.ticket}`);
     });
   }
-
-  assignee: Assignee[] = [
-    { name: 'Pending' },
-    { name: 'Morales' },
-    { name: 'Premacio' },
-    { name: 'Pinote' },
-    { name: 'Tuso' },
-  ];
+  sales: String = 'Sales';
+  assignee: Users[] = [];
+  users: Users[] = [];
   tracker: Tracker[] = [
     { track: 'Pending' },
     { track: 'Feature' },
@@ -62,12 +59,21 @@ export class UpdateTicketComponent implements OnInit {
     { track: 'Front-end' },
     { track: 'Back-end' },
   ];
-  status: Status[] = [
-    { stat: 'Pending' },
-    { stat: 'Accepted' },
-    { stat: 'Resolved' },
-  ];
+  status: Status[] = [{ stat: 'Pending' }, { stat: 'Checked' }];
+  bool: boolean[] = [];
   ngOnInit(): void {
+    this.userService.getAllUsers().subscribe((data: Users) => {
+      this.users = data['data'];
+      let check = 0;
+      for (let i = 0; i < this.users.length; i++) {
+        this.bool.push(this.users[i].roles === 'Sales');
+      }
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.bool[i] == true) {
+          this.assignee.push(this.users[i]);
+        }
+      }
+    });
     this.finalAssignee = 'Pending';
     this.finalStatus = 'Pending';
     this.finalTracker = 'Pending';
@@ -91,15 +97,12 @@ export class UpdateTicketComponent implements OnInit {
   });
   getValueFromAssignee(value) {
     this.finalAssignee = value;
-    console.log(this.finalAssignee);
   }
   getValueFromStatus(value) {
     this.finalStatus = value;
-    console.log(this.finalStatus);
   }
   getValueFromTracker(value) {
     this.finalTracker = value;
-    console.log(this.finalTracker);
   }
   onSubmitUpdate(ticket: Ticket) {
     if (
@@ -112,7 +115,7 @@ export class UpdateTicketComponent implements OnInit {
     }
     this.ticketForm.controls['ticketSubject'].enable();
     this.ticketForm.controls['ticketDescription'].enable();
-    console.log(`update ${ticket.ticketID}`);
+
     const payload: Ticket = {
       ticketID: ticket.ticketID,
       assignee: this.finalAssignee,

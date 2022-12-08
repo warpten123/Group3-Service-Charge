@@ -54,7 +54,7 @@ export class ConfirmSlipComponent implements OnInit {
     slipCreate.append('confirmUser', ticket.userID.toString());
     slipCreate.append('confirmDesc', ticket.description);
     slipCreate.append('confirmTicket', ticket.ticketID.toString());
-    slipCreate.append('confirmAmount', this.slipForm.value.slipAmount);
+    slipCreate.append('confirmAmountInt', this.slipForm.value.slipAmount);
     this.confirmService
       .createSlip(slipCreate)
       .pipe(

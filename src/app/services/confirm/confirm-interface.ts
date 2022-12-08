@@ -1,9 +1,10 @@
 export interface Confirm {
-  confirmId?: number;
+  confirmID?: number;
   confirmDate: string;
   confirmTicket: number;
   confirmUser: number;
   confirmDesc: string;
   confirmSignatures?: string;
-  confirmAmount?: string;
+  confirmAmountPath?: string;
+  confirmAmountInt?: number;
 }

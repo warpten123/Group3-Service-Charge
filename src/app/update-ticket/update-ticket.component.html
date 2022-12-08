@@ -15,14 +15,10 @@
     <div class="cover">
       <img src="assets/wall2.jpg" alt="background image" />
     </div>
-    <form
-      class="inputs"
-      [formGroup]="ticketForm"
-      (ngSubmit)="onSubmitUpdate(ticket)"
-    >
+    <form class="inputs" (ngSubmit)="onSubmitUpdate(ticket)">
       <div class="form-content">
         <div class="admin-form">
-          <div class="title">Update Ticket for {{ ticket.userID }}</div>
+          <div class="title">Update Ticket #{{ ticket.ticketID }}</div>
           <div class="input-boxes">
             <!-- <div class="input-box">
                         <i class="fa fa-car"></i>
@@ -35,7 +31,6 @@
                 title="Subject"
                 value="60"
                 type="text"
-                formControlName="ticketSubject"
                 placeholder="{{ ticket.subject }}"
               />
             </div>
@@ -47,7 +42,6 @@
                 title="Description"
                 value="60"
                 type="text"
-                formControlName="ticketDescription"
                 placeholder="{{ ticket.description }}"
               />
             </div>
@@ -61,9 +55,9 @@
               >
                 <mat-option
                   *ngFor="let assignee of assignee"
-                  [value]="assignee.name"
+                  [value]="assignee.user_lname"
                 >
-                  {{ assignee.name }}
+                  {{ assignee.user_lname }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
