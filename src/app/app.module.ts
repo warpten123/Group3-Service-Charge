@@ -46,6 +46,7 @@ import { AdminNavbarComponent } from './admin/admin-navbar/admin-navbar.componen
 import { NewUserComponent } from './admin/new-user/new-user.component';
 import { SalesTeamNavbarComponent } from './employee/sales-team/sales-team-navbar/sales-team-navbar.component';
 import { SalesTeamDashboardComponent } from './employee/sales-team/sales-team-dashboard/sales-team-dashboard.component';
+import { ConfirmSlipComponent } from './employee/sales-team/confirm-slip/confirm-slip.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
 import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
 
@@ -72,6 +73,7 @@ import { EmployeeLoginComponent } from './employee/employee-login/employee-login
     NewUserComponent,
     SalesTeamNavbarComponent,
     SalesTeamDashboardComponent,
+    ConfirmSlipComponent,
     AdminRegisterComponent,
     EmployeeLoginComponent,
   ],

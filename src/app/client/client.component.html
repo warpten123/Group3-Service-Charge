@@ -17,17 +17,20 @@
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button>
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- <div class="input-box dist">
+          <i class="fa fa-upload"></i>
+          <input
+            type="file"
+            id="carImage"
+            placeholder="Upload Image"
+            (change)="onFileChanged($event)"
+            required
+          />
+        </div> -->
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -107,7 +110,7 @@
               class="p-3 d-flex justify-content-between"
               style="line-height: 100px"
             >
-              <h3>My tickets</h3>
+              <h3 (click)="onFileUpload()">My tickets</h3>
               <button
                 type="button"
                 class="btn btn-primary btn-sm"
@@ -149,6 +152,7 @@
                     </td>
                     <td class="text-center p-4" width="15%">
                       <button
+                        *ngIf="ticket.status == 'Pending'"
                         type="button"
                         class="btn btn-primary btn-sm"
                         data-bs-toggle="modal"
@@ -157,6 +161,26 @@
                         (click)="passTicket(ticket)"
                       >
                         View ticket
+                      </button>
+                      <button
+                        style="background: green"
+                        *ngIf="ticket.status == 'Accepted'"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        (click)="onOpenConfirmSlip()"
+                      >
+                        View Confirm Slip
+                      </button>
+                      <button
+                        *ngIf="ticket.status == 'Resolved'"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewTicket"
+                        data-bs-whatever="@mdo"
+                        (click)="passTicket(ticket)"
+                      >
+                        View Ticket
                       </button>
                     </td>
                   </tr>
@@ -357,11 +381,20 @@
                 Ticket is still pending
               </div>
               <div
+                style="background: yellowgreen"
                 class="alert alert-warning"
                 role="alert"
                 *ngIf="getTicket.status == 'Accepted'"
               >
                 Ticket is Accepted
+              </div>
+              <div
+                style="background: yellow"
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Resolved'"
+              >
+                Ticket is Resolved
               </div>
             </div>
           </div>
@@ -375,6 +408,13 @@
     </div>
   </div>
 </div>
+<!-- <img
+  mat-card-image
+  src="{{ this.url }}"
+  class=".img-responsive"
+  width="304"
+  height="236"
+/> -->
 <ng-template #noTickets>
   <hr />
   <h5 class="noCars">There are no Tickets listed!</h5>
