@@ -31,9 +31,6 @@ export class SalesTeamDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getAllUsers();
     this.getAllTicket();
-    setTimeout(() => {
-      this.ngOnInit();
-    }, 1000 * 1);
   }
   getAllUsers() {
     this.userService.getAllUsers().subscribe(
