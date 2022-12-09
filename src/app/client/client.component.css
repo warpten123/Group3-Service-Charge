@@ -1,0 +1,28 @@
+img{
+max-width: 250px;
+max-height: 250px;
+margin-right: 100px;
+}
+.navbar-expand-lg{
+
+background-color: rgb(238, 226, 212);
+}
+
+nav{
+    font-size: 21px;
+    
+
+}
+.btn-outline-success{
+    background-color: white;
+    color: black;
+    border: 2px solid #e72c2c;
+    /*background-color: rgb(216, 26, 26);--->*/
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.btn-outline-success:hover {
+    background-color: #f11d1d
+}
+h1{
+    font-size: 53px;
+}
