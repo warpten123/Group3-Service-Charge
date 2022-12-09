@@ -98,16 +98,11 @@ export class ConfirmSlipComponent implements OnInit {
     formData.append('subject', payload.subject);
     formData.append('status', payload.status);
 
-    this.ticketService
-      .updateTicket(ticket.ticketID, formData)
-      .pipe(
-        this.toast.observe({
-          error: (message: any) => `${message}`,
-        })
-      )
-      .subscribe((data: number) => {
-        this.data = data;
-      });
+    this.ticketService.updateTicket(ticket.ticketID, formData).pipe(
+      this.toast.observe({
+        error: (message: any) => `${message}`,
+      })
+    );
   }
   nav(destination: string) {
     this.router.navigate([destination]);

@@ -78,6 +78,7 @@ export class NewUserComponent implements OnInit {
 
     this.registerForm.reset();
     this.close();
+    window.location.reload();
   }
   nav(destination: string) {
     this.router.navigate([destination]);

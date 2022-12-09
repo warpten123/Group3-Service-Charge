@@ -86,9 +86,9 @@
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success" type="submit">
+            <!-- <button class="btn btn-outline-success" type="submit">
               Search
-            </button>
+            </button> -->
             <button
               class="btn btn-outline-success"
               type="submit"
@@ -197,6 +197,14 @@
                         class="btn btn-primary btn-sm"
                       >
                         Pending Confirmation
+                      </button>
+                      <button
+                        style="background: green"
+                        *ngIf="ticket.status == 'Accepted'"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                      >
+                        Waiting for Resolution
                       </button>
                       <button
                         *ngIf="ticket.status == 'Resolved'"

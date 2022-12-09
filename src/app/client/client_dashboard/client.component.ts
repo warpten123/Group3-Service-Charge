@@ -78,9 +78,28 @@ export class ClientComponent implements OnInit {
         this.toast.error('Invalid Login');
       }
     );
-    setTimeout(() => {
-      this.ngOnInit();
-    }, 1000 * 1);
+    // setTimeout(() => {
+    //   this.ngOnInit();
+    // }, 1000 * 1);
+    ///idk wtf is going on here but reload the page once
+    var urlParams = [];
+    window.location.search
+      .replace('?', '')
+      .split('&')
+      .forEach(function (e, i) {
+        var p = e.split('=');
+        urlParams[p[0]] = p[1];
+      });
+
+    // We have all the params now -> you can access it by name
+    console.log(urlParams['loaded']);
+
+    if (urlParams['loaded']) {
+    } else {
+      let win = window as any;
+      win.location.search = '?loaded=1';
+      //win.location.reload('?loaded=1');
+    }
   }
 
   // ngAfterViewInit(){
@@ -217,14 +236,11 @@ export class ClientComponent implements OnInit {
       )
       .subscribe((data: Ticket) => {
         this.postTicket = data['data'];
-
-        window.location.reload();
+        this.ngOnInit();
+        // window.location.reload();
       });
   }
   onOpenConfirmSlip(ticket: Ticket) {
-    let test: Confirm[] = [];
-    let check: number = 0;
-
     console.log(ticket.ticketID);
     this.confirmService
       .getSlipsByUserID(ticket.userID)

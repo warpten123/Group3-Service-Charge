@@ -38,8 +38,47 @@ export class SalesTeamDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllUsers();
-    this.getAllTicket();
+    this.finalTickets.length = 0;
+    this.userService.getAllUsers().subscribe(
+      (data: Users[]) => {
+        this.users = data['data'];
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].is_logged_in === 'true') {
+            this.bindUser = this.users[i];
+            this.getAllTickets(this.bindUser);
+          }
+        }
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+    var urlParams = [];
+    window.location.search
+      .replace('?', '')
+      .split('&')
+      .forEach(function (e, i) {
+        var p = e.split('=');
+        urlParams[p[0]] = p[1];
+      });
+
+    // We have all the params now -> you can access it by name
+    console.log(urlParams['loaded']);
+
+    if (urlParams['loaded']) {
+    } else {
+      let win = window as any;
+      win.location.search = '?loaded=1';
+      //win.location.reload('?loaded=1');
+    }
+
+    // var myVar = setTimeout(() => this.refresh(), 1000);
+    // clearTimeout(myVar);
+  }
+
+  refresh() {
+    console.log('rfresh');
+    window.location.reload();
   }
   logout(user: Users) {
     let updateFormData = new FormData();
@@ -79,38 +118,16 @@ export class SalesTeamDashboardComponent implements OnInit {
       }
     );
   }
-  getAllTicket() {
+  getAllTickets(user: Users) {
+    console.log(user.user_id);
     this.ticketService.getAllTickets().subscribe(
       (data: Ticket[]) => {
         this.tickets = data['data'];
-
-        let check = 0;
         for (let i = 0; i < this.tickets.length; i++) {
-          this.bool.push(
-            this.tickets[i].assignee === this.bindUser?.user_lname
-          );
-        }
-        console.log(this.bool);
-        for (let i = 0; i < this.tickets.length; i++) {
-          if (this.bool[i] === true) {
+          if (this.tickets[i].assignee == user.user_lname) {
             this.finalTickets.push(this.tickets[i]);
           }
         }
-        // for (let i = 0; i < this.tickets.length; i++) {
-        //   if (this.tickets[i].assignee == this.bindUser.user_lname) {
-        //     console.log(this.tickets[i].assignee == this.bindUser.user_lname);
-        //   }
-        // }
-        // this.tickets[i].created_at = moment().format('YYYY-MM-DD');
-
-        const currentDay = moment();
-        // const createdDate = moment(this.tickets[0].created_at);
-        // const diff = createdDate.diff(currentDay, 'days');
-        // console.log(diff);
-
-        // const diff = rentalDate.diff(currentDay, 'days');
-        // const finalDate = moment(currentDay);
-        // let date = moment(test, 'YYYY-MM-DD').format('MMMM Do YYYY, h:mm:ss a');
       },
       (error: any) => {
         console.error(error);
@@ -184,7 +201,6 @@ export class SalesTeamDashboardComponent implements OnInit {
     return cont;
   }
   onVerifySlip(ticket: Ticket) {
-    console.log(ticket.ticketID);
     this.confirmService
       .getSlipsByUserID(ticket.userID)
       .subscribe((slips: Confirm) => {

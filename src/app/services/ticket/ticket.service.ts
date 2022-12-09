@@ -33,17 +33,17 @@ export class TicketService {
   // }
   constructor(private http: HttpClient) {}
 
-  getAllTickets() {
+  getAllTickets(): Observable<object> {
     return this.http
       .get('http://localhost:8080/ticket/all')
       .pipe(map((resp) => resp));
   }
-  saveTicket(ticket: FormData) {
+  saveTicket(ticket: FormData): Observable<object> {
     return this.http
       .post('http://localhost:8080/ticket/create', ticket)
       .pipe(map((resp) => resp));
   }
-  deleteTicket(ticketID: number) {
+  deleteTicket(ticketID: number): Observable<object> {
     return this.http
       .delete(`http://localhost:8080/ticket/delete/${ticketID}`)
       .pipe(map((resp) => resp));
@@ -51,17 +51,17 @@ export class TicketService {
   // updateTicket(ticket: Ticket){
   //   return this.http.
   // }
-  updateTicket(ticket_id: number, ticket: FormData) {
+  updateTicket(ticket_id: number, ticket: FormData): Observable<object> {
     return this.http
       .put(`http://localhost:8080/ticket/update`, ticket)
       .pipe(map((resp) => resp));
   }
-  getAllTicketsByUser(id: number) {
+  getAllTicketsByUser(id: number): Observable<object> {
     return this.http
       .get(`http://localhost:8080/ticket/user/${id}`)
       .pipe(map((resp) => resp));
   }
-  getTicketByID(id: number) {
+  getTicketByID(id: number): Observable<object> {
     return this.http
       .get(`http://localhost:8080/ticket/${id}`)
       .pipe(map((resp) => resp));

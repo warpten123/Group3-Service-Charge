@@ -54,15 +54,35 @@ export class AdminDashboardComponent implements OnInit {
   users: Users[] = [];
   tickets: Ticket[] = [];
   singleTicket: number;
+  clientAccount: Users[] = [];
+  finalClientAccount: Users[] = [];
+
+  employeeAccount: Users[] = [];
+  finalEmployeeAccount: Users[] = [];
+
   ngOnInit(): void {
     this.getAllUsers();
     this.getAllTicket();
+    this.getAllClients();
     this.dataSource = new MatTableDataSource(this.users);
   }
   searchForm: FormGroup = new FormGroup({
     search: new FormControl('', Validators.required),
   });
-
+  getAllClients() {
+    this.userService.getAllUsers().subscribe((data: Users[]) => {
+      this.clientAccount = data['data'];
+      for (let i = 0; i < data['data'].length; i++) {
+        if (this.clientAccount[i].roles == 'Client') {
+          this.finalClientAccount.push(this.clientAccount[i]);
+        } else if (this.clientAccount[i].roles != 'Client') {
+          if (this.clientAccount[i].roles != 'Admin') {
+            this.finalEmployeeAccount.push(this.clientAccount[i]);
+          }
+        }
+      }
+    });
+  }
   deleteTicket(ticket: Ticket, index: number) {
     this.ticketService
       .deleteTicket(ticket.ticketID)
