@@ -61,7 +61,11 @@ export class TicketService {
       .get(`http://localhost:8080/ticket/user/${id}`)
       .pipe(map((resp) => resp));
   }
-
+  getTicketByID(id: number) {
+    return this.http
+      .get(`http://localhost:8080/ticket/${id}`)
+      .pipe(map((resp) => resp));
+  }
   refreshTicket() {
     return this.getAllTickets().subscribe(
       (data: Ticket[]) => {

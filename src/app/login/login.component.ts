@@ -32,8 +32,12 @@ export class LoginComponent implements OnInit {
     emailLogin: new FormControl('', Validators.required),
     passLogin: new FormControl('', Validators.required),
   });
+
   registerForm: FormGroup = new FormGroup({
-    registerEmailAdd: new FormControl('', Validators.required),
+    registerEmailAdd: new FormControl(
+      Validators.required,
+      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+    ),
     registerLastName: new FormControl('', Validators.required),
     registerUserName: new FormControl('', Validators.required),
     registerFirstName: new FormControl('', Validators.required),

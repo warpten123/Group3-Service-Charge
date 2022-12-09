@@ -20,6 +20,9 @@ export class ConfirmSlipComponent implements OnInit {
   receivedTicketData: Subject<Ticket>;
   ticket: Ticket;
   con: Confirm;
+  updateTicket: Ticket;
+  data: number;
+  date: Date;
   constructor(
     private toast: HotToastService,
     private userService: UsersService,
@@ -35,7 +38,6 @@ export class ConfirmSlipComponent implements OnInit {
     });
   }
 
-  date: Date;
   slipForm: FormGroup = new FormGroup({
     slipAmount: new FormControl('', Validators.required),
   });
@@ -68,8 +70,44 @@ export class ConfirmSlipComponent implements OnInit {
         this.con = data;
         // this.nav('login');
       });
+
+    this.ticketService
+      .getTicketByID(ticket.ticketID)
+      .subscribe((data: Ticket) => {
+        this.updateTicket = data['data'];
+        this.ticketUpdate(this.updateTicket);
+      });
+
     this.slipForm.reset();
     this.close();
+  }
+  ticketUpdate(ticket: Ticket) {
+    const payload: Ticket = {
+      ticketID: ticket.ticketID,
+      assignee: ticket.assignee,
+      tracker: ticket.tracker,
+      description: ticket.description,
+      subject: ticket.subject,
+      status: 'Waiting for Client',
+    };
+    let formData = new FormData();
+    formData.append('ticketID', payload.ticketID.toString());
+    formData.append('assignee', payload.assignee);
+    formData.append('tracker', payload.tracker);
+    formData.append('description', payload.description);
+    formData.append('subject', payload.subject);
+    formData.append('status', payload.status);
+
+    this.ticketService
+      .updateTicket(ticket.ticketID, formData)
+      .pipe(
+        this.toast.observe({
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: number) => {
+        this.data = data;
+      });
   }
   nav(destination: string) {
     this.router.navigate([destination]);

@@ -37,7 +37,7 @@ export class ClientViewSlipComponent implements OnInit {
       console.log(`from service: ${this.confirmSlip}`);
     });
   }
-
+  data: number;
   ticket: Ticket;
   confirmSlip: Confirm;
   con: Confirm;
@@ -46,6 +46,7 @@ export class ClientViewSlipComponent implements OnInit {
   urlAmount: any;
   urlSignature: any;
   message: String = '';
+  updateTicket: Ticket;
   validImageAmount: boolean = false;
   validImageSignature: boolean = false;
   slipForm: FormGroup = new FormGroup({
@@ -85,8 +86,46 @@ export class ClientViewSlipComponent implements OnInit {
         this.con = data;
         // this.nav('login');
       });
+    this.ticketService
+      .getTicketByID(confirm.confirmTicket)
+      .subscribe((data: Ticket) => {
+        this.updateTicket = data['data'];
+        this.ticketUpdate(this.updateTicket);
+      });
+
     this.slipForm.reset();
     this.close();
+  }
+
+  ticketUpdate(ticket: Ticket) {
+    const payload: Ticket = {
+      ticketID: ticket.ticketID,
+      assignee: ticket.assignee,
+      tracker: ticket.tracker,
+      description: ticket.description,
+      subject: ticket.subject,
+      status: 'Waiting for Confirmation',
+    };
+    let formData = new FormData();
+    formData.append('ticketID', payload.ticketID.toString());
+    formData.append('assignee', payload.assignee);
+    formData.append('tracker', payload.tracker);
+    formData.append('description', payload.description);
+    formData.append('subject', payload.subject);
+    formData.append('status', payload.status);
+
+    this.ticketService
+      .updateTicket(ticket.ticketID, formData)
+      .pipe(
+        this.toast.observe({
+          success: 'Updated Successfully!',
+          loading: 'Processing',
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: number) => {
+        this.data = data;
+      });
   }
   nav(destination: string) {
     this.router.navigate([destination]);

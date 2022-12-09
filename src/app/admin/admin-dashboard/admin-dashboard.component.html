@@ -76,14 +76,19 @@
                   class="btn btn-primary btn-sm"
                   (click)="updateTicket(ticket)"
                 >
-                  Update
+                  View Request
                 </button>
               </td>
               <td>
                 <span
                   style="width: 100px"
                   *ngIf="
-                    ticket.status == 'Pending' && !checkForAgingTicket(ticket)
+                    (ticket.status == 'Pending' ||
+                      ticket.status == 'Checked' ||
+                      ticket.status == 'Accepted' ||
+                      ticket.status == 'Waiting for Client' ||
+                      ticket.status == 'Waiting for Confirmation') &&
+                    !checkForAgingTicket(ticket)
                   "
                   class="badge text-bg-success"
                   >New</span

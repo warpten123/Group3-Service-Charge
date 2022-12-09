@@ -175,12 +175,28 @@
                       </button>
                       <button
                         style="background: green"
-                        *ngIf="ticket.status == 'Accepted'"
+                        *ngIf="ticket.status == 'Checked'"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                      >
+                        Waiting for Confirm Slip
+                      </button>
+                      <button
+                        style="background: green"
+                        *ngIf="ticket.status == 'Waiting for Client'"
                         type="button"
                         class="btn btn-primary btn-sm"
                         (click)="onOpenConfirmSlip(ticket)"
                       >
-                        View Confirm Slip
+                        Open Confirm Slip
+                      </button>
+                      <button
+                        style="background: green"
+                        *ngIf="ticket.status == 'Waiting for Confirmation'"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                      >
+                        Pending Confirmation
                       </button>
                       <button
                         *ngIf="ticket.status == 'Resolved'"

@@ -6,7 +6,6 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Users } from 'src/app/services/users/user-interface';
 import { UsersService } from 'src/app/services/users/users.service';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './admin-register.component.html',
@@ -47,9 +46,18 @@ export class AdminRegisterComponent implements OnInit {
 
     // };
     let userCreate = new FormData();
-    userCreate.append('user_fname', this.registerAdminForm.value.registerFirstName);
-    userCreate.append('user_lname', this.registerAdminForm.value.registerLastName);
-    userCreate.append('user_email', this.registerAdminForm.value.registerEmailAdd);
+    userCreate.append(
+      'user_fname',
+      this.registerAdminForm.value.registerFirstName
+    );
+    userCreate.append(
+      'user_lname',
+      this.registerAdminForm.value.registerLastName
+    );
+    userCreate.append(
+      'user_email',
+      this.registerAdminForm.value.registerEmailAdd
+    );
     userCreate.append(
       'user_username',
       this.registerAdminForm.value.registerUserName
@@ -71,7 +79,7 @@ export class AdminRegisterComponent implements OnInit {
       )
       .subscribe((data: Users) => {
         this.postUser = data;
-        this.nav('login');
+        this.nav('admin-login');
       });
 
     this.registerAdminForm.reset();

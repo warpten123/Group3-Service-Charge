@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
     private toast: HotToastService
   ) {}
   postUser: Users;
+  email: Users;
   ngOnInit(): void {}
   close() {
     this.dialog.closeAll();
@@ -45,36 +46,53 @@ export class RegisterComponent implements OnInit {
     //   user_password:  this.registerForm.value.registerPassword,
 
     // };
-    let userCreate = new FormData();
-    userCreate.append('user_fname', this.registerForm.value.registerFirstName);
-    userCreate.append('user_lname', this.registerForm.value.registerLastName);
-    userCreate.append('user_email', this.registerForm.value.registerEmailAdd);
-    userCreate.append(
-      'user_username',
-      this.registerForm.value.registerUserName
-    );
-    userCreate.append(
-      'user_password',
-      this.registerForm.value.registerPassword
-    );
-    userCreate.append('is_logged_in', 'false');
-    userCreate.append('roles', 'Client');
     this.userService
-      .saveUser(userCreate)
-      .pipe(
-        this.toast.observe({
-          success: 'Registered Successfully!',
-          loading: 'Processing',
-          error: (message: any) => `${message}`,
-        })
-      )
+      .getUserByEmail(this.registerForm.value.registerEmailAdd)
       .subscribe((data: Users) => {
-        this.postUser = data;
-        this.nav('login');
+        if (data['status'] == 'SUCCESS') {
+          this.toast.error('Email Already Taken!');
+          return;
+        } else {
+          let userCreate = new FormData();
+          userCreate.append(
+            'user_fname',
+            this.registerForm.value.registerFirstName
+          );
+          userCreate.append(
+            'user_lname',
+            this.registerForm.value.registerLastName
+          );
+          userCreate.append(
+            'user_email',
+            this.registerForm.value.registerEmailAdd
+          );
+          userCreate.append(
+            'user_username',
+            this.registerForm.value.registerUserName
+          );
+          userCreate.append(
+            'user_password',
+            this.registerForm.value.registerPassword
+          );
+          userCreate.append('is_logged_in', 'false');
+          userCreate.append('roles', 'Client');
+          this.userService
+            .saveUser(userCreate)
+            .pipe(
+              this.toast.observe({
+                success: 'Registered Successfully!',
+                loading: 'Processing',
+                error: (message: any) => `${message}`,
+              })
+            )
+            .subscribe((data: Users) => {
+              this.postUser = data;
+              this.nav('login');
+            });
+          this.registerForm.reset();
+          this.close();
+        }
       });
-
-    this.registerForm.reset();
-    this.close();
   }
   nav(destination: string) {
     this.router.navigate([destination]);

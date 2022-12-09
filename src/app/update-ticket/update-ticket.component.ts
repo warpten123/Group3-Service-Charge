@@ -59,7 +59,7 @@ export class UpdateTicketComponent implements OnInit {
     { track: 'Front-end' },
     { track: 'Back-end' },
   ];
-  status: Status[] = [{ stat: 'Pending' }, { stat: 'Accepted' }];
+  status: Status[] = [{ stat: 'Pending' }, { stat: 'Checked' }];
   bool: boolean[] = [];
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe((data: Users) => {

@@ -1,4 +1,15 @@
-<app-sales-team-navbar></app-sales-team-navbar>
+<mat-toolbar color="red" class="mat-elevation-z8">
+  <!-- <mat-icon>gavel</mat-icon> -->
+  <span style="font-size: 30px; text-align: center">Sales Team </span>
+
+  <div class="spacer"></div>
+  <a mat-button></a>
+  <a mat-button></a>
+  <a mat-button></a>
+  <!-- <a mat-raised-button color="accent" (click)="modalCreate()">New User</a> -->
+  <a mat-button></a>
+  <a mat-raised-button color="accent" (click)="logout(bindUser)">Logout</a>
+</mat-toolbar>
 
 <head>
   <script
@@ -75,24 +86,34 @@
                 >Warning</span
               >
             </button>
+
             <button
               type="button"
-              style="width: 200px"
+              style="width: 200px; background-color: violet"
               class="btn btn-primary btn-sm"
-              *ngIf="ticket.status == 'Pending' && !checkForAgingTicket(ticket)"
-              (click)="updateTicket(ticket)"
+              *ngIf="ticket.status == 'Checked'"
+              (click)="openSlip(ticket)"
             >
-              Accept Request
+              Add Slip
               <span style="width: 50px" class="badge text-bg-success">New</span>
             </button>
             <button
               type="button"
               style="width: 200px; background-color: violet"
               class="btn btn-primary btn-sm"
-              *ngIf="ticket.status == 'Accepted'"
-              (click)="openSlip(ticket)"
+              *ngIf="ticket.status == 'Waiting for Confirmation'"
+              (click)="onVerifySlip(ticket)"
             >
-              Add Slip
+              For Verification
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background-color: violet"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Waiting for Client'"
+            >
+              Waiting for Client
               <span style="width: 50px" class="badge text-bg-success">New</span>
             </button>
             <button
@@ -103,6 +124,15 @@
               (click)="updateTicket(ticket)"
             >
               Ticket Resolved!
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background: red"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Accepted'"
+            >
+              Resolve Ticket
               <span style="width: 50px" class="badge text-bg-success">New</span>
             </button>
           </td>

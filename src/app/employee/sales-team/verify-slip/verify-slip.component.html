@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-  Viewing Confirm Slip for Ticket# {{ confirmSlip?.confirmTicket }}
+  Verify Confirm Slip for Ticket# {{ confirmSlip?.confirmTicket }}
 </h1>
 <form class="example-form">
   <mat-form-field class="example-full-width">
@@ -49,9 +49,9 @@
     <button
       mat-raised-button
       color="accent"
-      (click)="onSubmitUpdateSlip(confirmSlip)"
+      (click)="onSubmitAcceptSlip(confirmSlip)"
     >
-      Finalize Slip
+      Accept Slip
     </button>
   </div>
   <div class="front">
@@ -75,21 +75,7 @@
       height="100"
     />
   </div>
-  <div class="back">
-    <div class="text">
-      <!-- Add upload button -->
-      <div class="input-box dist">
-        <i class="fa fa-upload"></i>
-        <input
-          type="file"
-          id="amount"
-          placeholder="Upload Amount"
-          (change)="onFileChangedAmount($event)"
-          required
-        />
-      </div>
-    </div>
-  </div>
+
   <div class="front">
     <!-- put the image from FormControl carimage -->
     <img
@@ -111,25 +97,10 @@
       height="100"
     />
   </div>
-  <div class="back">
-    <div class="text">
-      <!-- Add upload button -->
-      <div class="input-box dist">
-        <i class="fa fa-upload"></i>
 
-        <input
-          type="file"
-          id="signature"
-          placeholder="Upload Signature"
-          (change)="onFileChangedSignature($event)"
-          required
-        />
-      </div>
-    </div>
-  </div>
   <!-- <div mat-dialog-actions align="end">
-    <button mat-raised-button color="accent" (click)="refreshForm()">
-      Clear
-    </button>
-  </div> -->
+      <button mat-raised-button color="accent" (click)="refreshForm()">
+        Clear
+      </button>
+    </div> -->
 </form>
