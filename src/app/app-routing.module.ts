@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
+import { ClientAgingComponent } from './client/client-aging/client-aging.component';
+import { ClientResolvedComponent } from './client/client-resolved/client-resolved.component';
 import { ClientComponent } from './client/client_dashboard/client.component';
 import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
 import { SalesTeamDashboardComponent } from './employee/sales-team/sales-team-dashboard/sales-team-dashboard.component';
@@ -50,6 +52,14 @@ const routes: Routes = [
   {
     path: 'sales',
     component: SalesTeamDashboardComponent,
+  },
+  {
+    path: 'client-aging',
+    component: ClientAgingComponent,
+  },
+  {
+    path: 'client-resolved',
+    component: ClientResolvedComponent,
   },
 ];
 

@@ -28,6 +28,7 @@ export class SalesTeamDashboardComponent implements OnInit {
   confirmSlip: Confirm[] = [];
   passConfirm: Confirm;
   temp: number;
+  data: number;
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
@@ -53,6 +54,7 @@ export class SalesTeamDashboardComponent implements OnInit {
         console.error(error);
       }
     );
+    ///idk wtf is going on here but reload the page once
     var urlParams = [];
     window.location.search
       .replace('?', '')
@@ -218,5 +220,35 @@ export class SalesTeamDashboardComponent implements OnInit {
     dialogConfig.width = '30%';
     (dialogConfig.panelClass = 'post-dialog-container'),
       this.dialog.open(VerifySlipComponent, dialogConfig);
+  }
+  resolveTicket(ticket: Ticket) {
+    const payload: Ticket = {
+      ticketID: ticket.ticketID,
+      assignee: ticket.assignee,
+      tracker: ticket.tracker,
+      description: ticket.description,
+      subject: ticket.subject,
+      status: 'Resolved',
+    };
+    let formData = new FormData();
+    formData.append('ticketID', payload.ticketID.toString());
+    formData.append('assignee', payload.assignee);
+    formData.append('tracker', payload.tracker);
+    formData.append('description', payload.description);
+    formData.append('subject', payload.subject);
+    formData.append('status', payload.status);
+
+    this.ticketService
+      .updateTicket(ticket.ticketID, formData)
+      .pipe(
+        this.toast.observe({
+          success: 'Ticket Resolved!',
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: number) => {
+        this.data = data;
+      });
+    window.location.reload();
   }
 }

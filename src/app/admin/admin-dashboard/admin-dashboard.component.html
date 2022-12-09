@@ -87,7 +87,8 @@
                       ticket.status == 'Checked' ||
                       ticket.status == 'Accepted' ||
                       ticket.status == 'Waiting for Client' ||
-                      ticket.status == 'Waiting for Confirmation') &&
+                      ticket.status == 'Waiting for Confirmation' ||
+                      ticket.status == 'Resolved') &&
                     !checkForAgingTicket(ticket)
                   "
                   class="badge text-bg-success"
@@ -96,7 +97,13 @@
                 <span
                   style="width: 100px"
                   *ngIf="
-                    ticket.status == 'Pending' && checkForAgingTicket(ticket)
+                    (ticket.status == 'Pending' ||
+                      ticket.status == 'Checked' ||
+                      ticket.status == 'Accepted' ||
+                      ticket.status == 'Waiting for Client' ||
+                      ticket.status == 'Waiting for Confirmation' ||
+                      ticket.status == 'Resolved') &&
+                    checkForAgingTicket(ticket)
                   "
                   class="badge text-bg-warning"
                   >Warning</span
@@ -270,5 +277,5 @@
 
 <ng-template #noTickets>
   <hr />
-  <h5 class="noTickets">There are no tickets listed!</h5>
+  <h5 class="noTickets">There are no Accounts or Lists</h5>
 </ng-template>

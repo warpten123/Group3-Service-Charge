@@ -51,6 +51,8 @@ import { AdminRegisterComponent } from './admin/admin-register/admin-register.co
 import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
 import { ClientViewSlipComponent } from './client/client-view-slip/client-view-slip.component';
 import { VerifySlipComponent } from './employee/sales-team/verify-slip/verify-slip.component';
+import { ClientAgingComponent } from './client/client-aging/client-aging.component';
+import { ClientResolvedComponent } from './client/client-resolved/client-resolved.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { VerifySlipComponent } from './employee/sales-team/verify-slip/verify-sl
     EmployeeLoginComponent,
     ClientViewSlipComponent,
     VerifySlipComponent,
+    ClientAgingComponent,
+    ClientResolvedComponent,
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
   imports: [

@@ -47,5 +47,75 @@ export class VerifySlipComponent implements OnInit {
   validImageAmount: boolean = false;
   validImageSignature: boolean = false;
   ngOnInit(): void {}
-  onSubmitAcceptSlip(confirm: Confirm) {}
+
+  onSubmitAcceptSlip(confirm: Confirm) {
+    if (this.urlAmount == undefined || this.urlSignature == undefined) {
+      this.toast.error('Error Creating Slip!');
+      return;
+    }
+
+    let slipCreate = new FormData();
+    slipCreate.append('confirmID', confirm.confirmID.toString());
+    slipCreate.append('confirmDate', confirm.confirmDate);
+    slipCreate.append('confirmUser', confirm.confirmUser.toString());
+    slipCreate.append('confirmDesc', confirm.confirmDesc);
+    slipCreate.append('confirmTicket', confirm.confirmTicket.toString());
+    slipCreate.append('confirmAmountInt', confirm.confirmAmountInt.toString());
+    slipCreate.append('confirmAmountPath', this.urlAmount);
+    slipCreate.append('confirmSignatures', this.urlSignature);
+    this.confirmService
+      .updateSlip(slipCreate)
+      .pipe(
+        this.toast.observe({
+          success: 'Confirm Slip Verified!',
+          loading: 'Processing',
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: Confirm) => {
+        this.con = data;
+        // this.nav('login');
+      });
+    this.ticketService
+      .getTicketByID(confirm.confirmTicket)
+      .subscribe((data: Ticket) => {
+        this.updateTicket = data['data'];
+        this.ticketUpdate(this.updateTicket);
+      });
+
+    this.close();
+  }
+  close() {
+    this.dialog.closeAll();
+  }
+  ticketUpdate(ticket: Ticket) {
+    console.log('asd');
+    const payload: Ticket = {
+      ticketID: ticket.ticketID,
+      assignee: ticket.assignee,
+      tracker: ticket.tracker,
+      description: ticket.description,
+      subject: ticket.subject,
+      status: 'Accepted',
+    };
+    let formData = new FormData();
+    formData.append('ticketID', payload.ticketID.toString());
+    formData.append('assignee', payload.assignee);
+    formData.append('tracker', payload.tracker);
+    formData.append('description', payload.description);
+    formData.append('subject', payload.subject);
+    formData.append('status', payload.status);
+
+    this.ticketService
+      .updateTicket(ticket.ticketID, formData)
+      .pipe(
+        this.toast.observe({
+          error: (message: any) => `${message}`,
+        })
+      )
+      .subscribe((data: number) => {
+        this.data = data;
+      });
+    window.location.reload();
+  }
 }

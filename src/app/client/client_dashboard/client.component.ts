@@ -173,11 +173,17 @@ export class ClientComponent implements OnInit {
   nav(destination: string) {
     this.router.navigate([destination]);
   }
+  finalTickets: Ticket[] = [];
   getTicketsByUser(user: Users) {
     this.ticketService.getAllTicketsByUser(user.user_id).subscribe(
       (data: Ticket[]) => {
         if (data['message'] != null) {
           this.tickets = data['data'];
+          for (let i = 0; i < this.tickets.length; i++) {
+            if (this.tickets[i].status != 'Resolved') {
+              this.finalTickets.push(this.tickets[i]);
+            }
+          }
         }
       },
       (error: any) => {
@@ -236,8 +242,8 @@ export class ClientComponent implements OnInit {
       )
       .subscribe((data: Ticket) => {
         this.postTicket = data['data'];
-        this.ngOnInit();
-        // window.location.reload();
+
+        window.location.reload();
       });
   }
   onOpenConfirmSlip(ticket: Ticket) {
@@ -260,7 +266,9 @@ export class ClientComponent implements OnInit {
     (dialogConfig.panelClass = 'post-dialog-container'),
       this.dialog.open(ClientViewSlipComponent, dialogConfig);
   }
-
+  toResolved() {
+    this.nav('/client-resolved');
+  }
   // filterItems(search: string) {
   //   this.tickets.length = 0;
 

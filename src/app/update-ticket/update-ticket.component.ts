@@ -141,7 +141,9 @@ export class UpdateTicketComponent implements OnInit {
           error: (message: any) => `${message}`,
         })
       )
-      .subscribe(() => {});
+      .subscribe((data: number) => {
+        this.data = data;
+      });
   }
   close() {
     window.location.reload();
