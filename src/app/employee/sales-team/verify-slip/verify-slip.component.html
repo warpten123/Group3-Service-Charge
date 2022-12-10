@@ -54,49 +54,63 @@
       Accept Slip
     </button>
   </div>
-  <div class="front">
-    <!-- put the image from FormControl carimage -->
-    <img
-      src="{{ confirmSlip?.confirmAmountPath }}"
-      *ngIf="confirmSlip?.confirmAmountPath != undefined"
-      alt="car-image"
-      class="car-image"
-      id="carImg"
-      width="100"
-      height="100"
-    />
-    <img
-      src="assets\Upload-Transparent.png"
-      *ngIf="confirmSlip?.confirmAmountPath == undefined"
-      alt="car-image"
-      class="car-image"
-      id="carImg"
-      width="100"
-      height="100"
-    />
-  </div>
+  <div class="row" style="width: 70%; margin: 0 auto;">
+    <div class="col">
+      <div class="front">
+        <!-- put the image from FormControl carimage -->
 
-  <div class="front">
-    <!-- put the image from FormControl carimage -->
-    <img
-      src="{{ confirmSlip?.confirmSignatures }}"
-      *ngIf="confirmSlip?.confirmSignatures != undefined"
-      alt="car-image"
-      class="car-image"
-      id="carImg"
-      width="100"
-      height="100"
-    />
-    <img
-      src="assets\Upload-Transparent.png"
-      *ngIf="confirmSlip?.confirmSignatures == undefined"
-      alt="car-image"
-      class="car-image"
-      id="carImg"
-      width="100"
-      height="100"
-    />
+        
+        <img
+          src="{{ confirmSlip?.confirmAmountPath }}"
+          *ngIf="confirmSlip?.confirmAmountPath != undefined"
+          alt="car-image"
+          class="car-image"
+          id="carImg"
+          width="100"
+          height="100"
+        />
+        
+        <img
+          src="assets\Upload-Transparent.png"
+          *ngIf="confirmSlip?.confirmAmountPath == undefined"
+          alt="car-image"
+          class="car-image"
+          id="carImg"
+          width="100"
+          height="100"
+        />
+        <p class="fst-italic">Proof of payment</p>
+      </div>
+    </div>
+    <div class="col">
+      
+      <div class="front">
+        <!-- put the image from FormControl carimage -->
+        <img
+          src="{{ confirmSlip?.confirmSignatures }}"
+          *ngIf="confirmSlip?.confirmSignatures != undefined"
+          alt="car-image"
+          class="car-image"
+          id="carImg"
+          width="100"
+          height="100"
+        />
+        <img
+          src="assets\Upload-Transparent.png"
+          *ngIf="confirmSlip?.confirmSignatures == undefined"
+          alt="car-image"
+          class="car-image"
+          id="carImg"
+          width="100"
+          height="100"
+        />
+        <p class="fst-italic">Client's E-signature</p>
+      </div>
+    </div>
   </div>
+  
+
+  
 
   <!-- <div mat-dialog-actions align="end">
       <button mat-raised-button color="accent" (click)="refreshForm()">
