@@ -27,7 +27,9 @@ export class AdminNavbarComponent implements OnInit {
       this.dialog.open(NewUserComponent, dialogConfig);
   }
   logout() {
-    console.log('clicked logout');
     this.router.navigate(['/login']);
+  }
+  toHome() {
+    this.router.navigate(['/admin-dashboard']);
   }
 }
