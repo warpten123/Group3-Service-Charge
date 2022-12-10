@@ -116,13 +116,24 @@ export class AdminMonthlyComponent implements OnInit {
     });
     const dwdlink = document.createElement('a');
     const url = URL.createObjectURL(blob);
-    // const isSafariBrowser = navigator.userAgent.indexOf()
+    const isSafariBrowser =
+      navigator.userAgent.indexOf('Safari') !== -1 &&
+      navigator.userAgent.indexOf('Chrome') === -1;
+    if (isSafariBrowser) {
+      dwdlink.setAttribute('target', '_blank');
+    }
+    dwdlink.setAttribute('href', url);
+    dwdlink.setAttribute('download', fileName + '_' + '.csv');
+    dwdlink.style.visibility = 'hidden';
+    document.body.appendChild(dwdlink);
+    dwdlink.click();
+    document.body.removeChild(dwdlink);
   }
   convertToCSV(objArray, headerList) {
     const array =
       typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
     let str = '';
-    let row = 'S.no,';
+    let row = 'Reports';
     for (const index in headerList) {
       row += headerList[index] + ',';
     }
