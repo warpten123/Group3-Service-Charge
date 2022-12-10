@@ -53,6 +53,7 @@ import { ClientViewSlipComponent } from './client/client-view-slip/client-view-s
 import { VerifySlipComponent } from './employee/sales-team/verify-slip/verify-slip.component';
 import { ClientAgingComponent } from './client/client-aging/client-aging.component';
 import { ClientResolvedComponent } from './client/client-resolved/client-resolved.component';
+import { AdminMonthlyComponent } from './admin/admin-monthly/admin-monthly.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { ClientResolvedComponent } from './client/client-resolved/client-resolve
     VerifySlipComponent,
     ClientAgingComponent,
     ClientResolvedComponent,
+    AdminMonthlyComponent,
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
   imports: [

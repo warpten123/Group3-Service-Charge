@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { AdminMonthlyComponent } from './admin/admin-monthly/admin-monthly.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
 import { ClientAgingComponent } from './client/client-aging/client-aging.component';
 import { ClientResolvedComponent } from './client/client-resolved/client-resolved.component';
@@ -60,6 +61,10 @@ const routes: Routes = [
   {
     path: 'client-resolved',
     component: ClientResolvedComponent,
+  },
+  {
+    path: 'admin-resolved',
+    component: AdminMonthlyComponent,
   },
 ];
 
