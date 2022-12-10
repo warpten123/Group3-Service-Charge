@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tick } from '@angular/core/testing';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -29,6 +30,7 @@ export class SalesTeamDashboardComponent implements OnInit {
   passConfirm: Confirm;
   temp: number;
   data: number;
+  confirmRes: string = 'Resolve Ticket';
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
@@ -251,4 +253,13 @@ export class SalesTeamDashboardComponent implements OnInit {
       });
     window.location.reload();
   }
+
+  onConfirmSlip(ticket:any)
+    {
+      if(confirm('Confirm resolving this ticket?') == true)
+      {
+        this.confirmRes = 'Ticket Resolved'
+        this.resolveTicket(ticket);
+      }
+    }
 }
