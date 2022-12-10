@@ -31,6 +31,8 @@ export class AdminMonthlyComponent implements OnInit {
   totalActive?: number = 0;
   totalResolved?: number = 0;
   totalAging?: number = 0;
+  csvData: any;
+  columns: any[];
   constructor(
     private userService: UsersService,
     private ticketService: TicketService,
@@ -76,6 +78,14 @@ export class AdminMonthlyComponent implements OnInit {
 
       console.log('asd', this.reports);
     });
+    this.columns = [
+      { field: 'totalClients', header: 'Number of Clients' },
+      { field: 'totalEmployees', header: 'Number of Employees' },
+      { field: 'totalTickets', header: 'Total Tickets' },
+      { field: 'totalActive', header: 'Active Tickets' },
+      { field: 'totalAging', header: 'Aging Tickets' },
+      { field: 'totalResolved', header: 'Resolved Tickets' },
+    ];
   } //end ng onit
   checkForAgingTicket(ticket: Ticket) {
     //Sun Dec 04 2022 21:40:33 GMT+0800
@@ -89,5 +99,43 @@ export class AdminMonthlyComponent implements OnInit {
       cont = true;
     } else cont = false;
     return cont;
+  }
+
+  exportToCSV() {
+    const header = [];
+
+    this.columns.forEach((selectedColumns) => {
+      header.push(selectedColumns.field);
+    });
+    this.downloadFile(this.reports, 'MonthlyReport', header);
+  }
+  downloadFile(data, fileName, header) {
+    const csvData = this.convertToCSV(data, header);
+    const blob = new Blob(['\ufeff' + csvData], {
+      type: 'text/csv;charset=utf-8',
+    });
+    const dwdlink = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    // const isSafariBrowser = navigator.userAgent.indexOf()
+  }
+  convertToCSV(objArray, headerList) {
+    const array =
+      typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+    let row = 'S.no,';
+    for (const index in headerList) {
+      row += headerList[index] + ',';
+    }
+    row = row.slice(0, -1);
+    str += row + '\r\n';
+    for (let i = 0; i < array.length; i++) {
+      let line = i + 1 + '';
+      for (const index in headerList) {
+        const head = headerList[index];
+        line += ',' + array[i][head];
+      }
+      str += line + '\r\n';
+    }
+    return str;
   }
 }

@@ -14,6 +14,7 @@
           <th scope="col">Active Tickets</th>
           <th scope="col">Aging Tickets</th>
           <th scope="col">Resolved Tickets</th>
+          <th scope="col">Actions</th>
           <!-- <th scope="col">Actions</th>
         <th scope="col">Status</th> -->
         </tr>
@@ -26,6 +27,15 @@
           <td>{{ reports?.totalActive }}</td>
           <td>{{ reports?.totalAging }}</td>
           <td>{{ reports?.totalResolved }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="exportToCSV()"
+            >
+              Export
+            </button>
+          </td>
           <!-- <th scope="row">{{ ticket.created_at }}</th> -->
           <!-- <td>
           <button
