@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .layout {
+        margin: 50px auto;
+        width: 1500px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- navbar -->
+    <!-- <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a> -->
+    <style>
+      body {
+        background-image: url("../../assets/bgc.jpg");
+        background-size: 100%;
+      }
+    </style>
+
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <img src="assets/logo-asi.png" class="img-fluid" />
+
+        <!-- <button>
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <!-- <div class="input-box dist">
+          <i class="fa fa-upload"></i>
+          <input
+            type="file"
+            id="carImage"
+            placeholder="Upload Image"
+            (change)="onFileChanged($event)"
+            required
+          />
+        </div> -->
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                routerLink="/client-dashboard"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/client-aging">Aging Tickets</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" (click)="toResolved()">Resolved Tickets</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              #search
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <!-- <button class="btn btn-outline-success" type="submit">
+              Search
+            </button> -->
+            <!-- <button
+              class="btn btn-outline-success"
+              type="submit"
+              (click)="logout(bindUser)"
+            >
+              Logout
+            </button> -->
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="layout">
+      <div class="container px-4 text-center main-content">
+        <div class="row gx-5">
+          <div class="col">
+            <div class="p-3 d-flex" style="line-height: 100px">
+              <h1>
+                Welcome <b style="color: red">{{ bindUser?.user_fname }}</b>
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="container bg-light shadow p-3 mb-5 bg-body rounded position-relative"
+          style="height: 700px"
+        >
+          <div class="col">
+            <div
+              class="p-3 d-flex justify-content-between"
+              style="line-height: 100px"
+            >
+              <h3>Aging Tickets</h3>
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#createTicket"
+                data-bs-whatever="@mdo"
+              >
+                Submit ticket
+              </button>
+            </div>
+          </div>
+          <!-- <div class="row gx-5" *ngIf="tickets.length > 0; else noTickets"> -->
+          <div class="row gx-5" *ngIf="agingTickets.length > 0; else noTickets">
+            <div class="col">
+              <table class="table table-hover text-center">
+                <th scope="col">Ticket ID</th>
+                <th scope="col">Ticket Created</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+                <tbody
+                  class="table-group-divider text-start"
+                  *ngFor="let ticket of agingTickets; let i = index"
+                >
+                  <tr>
+                    <th class="text-center p-4" scope="row" width="10%">
+                      {{ ticket.ticketID }}
+                    </th>
+                    <td class="text-center p-4" width="10%">
+                      {{ ticket.created_at }}
+                    </td>
+                    <td class="d-flex justify-content-center">
+                      <textarea
+                        class="form-control"
+                        placeholder="Leave a comment here"
+                        id="floatingTextarea2"
+                        style="height: 70px; width: 400px"
+                        disabled
+                        >{{ ticket.description }}</textarea
+                      >
+                    </td>
+                    <td class="text-center p-4" width="15%">
+                      <button
+                        *ngIf="checkForAgingTicket(ticket)"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewTicket"
+                        data-bs-whatever="@mdo"
+                        (click)="passTicket(ticket)"
+                      >
+                        View ticket
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <nav
+            aria-label="Page navigation example"
+            class="position-absolute bottom-0 end-0"
+            style="margin-right: 20px"
+          ></nav>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<div
+  *ngIf="getTicket"
+  class="modal fade"
+  id="viewTicket"
+  data-bs-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Ticket ID: {{ getTicket.ticketID }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="p-3">
+            <div class="row g-2">
+              <div class="col-6">
+                <h2 class="fs-5">Subject</h2>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="start_date"
+                  id="start_date"
+                  value="{{ getTicket.subject }}"
+                  disabled
+                />
+              </div>
+              <div class="col-6">
+                <h2 class="fs-5">Tracker</h2>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="start_date"
+                  id="start_date"
+                  value="{{ getTicket.tracker }}"
+                  disabled
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row g-2">
+              <div class="col-12">
+                <h2 class="fs-5">Tell us about your issue</h2>
+                <div class="form-floating">
+                  <textarea
+                    class="form-control"
+                    placeholder="Leave a comment here"
+                    id="floatingTextarea2"
+                    style="height: 100px"
+                    disabled
+                    >{{ getTicket.description }}</textarea
+                  >
+                  <label for="floatingTextarea2">Description</label>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row g-2">
+              <div class="col-6">
+                <h2 class="fs-5">Ticket assigned to</h2>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="start_date"
+                  id="start_date"
+                  value="{{ getTicket.assignee }}"
+                  disabled
+                />
+              </div>
+            </div>
+            <br />
+            <hr />
+            <div class="row g-2">
+              <div class="col-6">
+                <h2 class="fs-5">Status</h2>
+              </div>
+
+              <div
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Pending'"
+              >
+                Ticket is still pending
+              </div>
+              <div
+                style="background: yellowgreen"
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Accepted'"
+              >
+                Ticket is Accepted
+              </div>
+              <div
+                style="background: yellow"
+                class="alert alert-warning"
+                role="alert"
+                *ngIf="getTicket.status == 'Resolved'"
+              >
+                Ticket is Resolved
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noTickets>
+  <hr />
+  <h5 class="noCars">No Aging Tickets!</h5>
+</ng-template>

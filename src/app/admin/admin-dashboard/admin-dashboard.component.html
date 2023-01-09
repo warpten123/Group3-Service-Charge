@@ -1,0 +1,281 @@
+<app-admin-navbar></app-admin-navbar>
+
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">library_books</mat-icon>
+      All Tickets
+    </ng-template>
+
+    <head>
+      <script
+        src="https://kit.fontawesome.com/a076d05399.js"
+        crossorigin="anonymous"
+      ></script>
+    </head>
+    <form class="example" [formGroup]="searchForm">
+      <nav
+        class="navbar"
+        style="width: 1265px; margin-left: 320px; margin-top: 10px"
+      >
+        <!-- <div class="container-fluid">
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              #search
+              placeholder="Search..."
+              name="search"
+            />
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+              style="width: max-content"
+            >
+              Search
+            </button>
+          </form>
+        </div> -->
+      </nav>
+    </form>
+
+    <div
+      *ngIf="tickets.length > 0; else noTickets"
+      class="container"
+      style="width: 2500px"
+    >
+      <div
+        class="content"
+        style="font-size: 25px; font-weight: 200; font-family: monospace"
+      >
+        <table class="table table-hover">
+          <thead class="text-black" style="text-align: left">
+            <tr>
+              <th scope="col">Ticket ID</th>
+              <th scope="col">User ID</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Actions</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody
+            style="text-align: left"
+            *ngFor="let ticket of tickets; let i = index"
+          >
+            <tr>
+              <th scope="row">{{ ticket.ticketID }}</th>
+              <th scope="row">{{ ticket.userID }}</th>
+
+              <td>{{ ticket.subject }}</td>
+              <td>{{ ticket.description }}</td>
+              <th scope="row">{{ ticket.created_at }}</th>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  (click)="updateTicket(ticket)"
+                >
+                  View Request
+                </button>
+              </td>
+              <td>
+                <span
+                  style="width: 100px"
+                  *ngIf="
+                    (ticket.status == 'Pending' ||
+                      ticket.status == 'Checked' ||
+                      ticket.status == 'Accepted' ||
+                      ticket.status == 'Waiting for Client' ||
+                      ticket.status == 'Waiting for Confirmation' ||
+                      ticket.status == 'Resolved') &&
+                    !checkForAgingTicket(ticket)
+                  "
+                  class="badge text-bg-success"
+                  >New</span
+                >
+                <span
+                  style="width: 100px"
+                  *ngIf="
+                    (ticket.status == 'Pending' ||
+                      ticket.status == 'Checked' ||
+                      ticket.status == 'Accepted' ||
+                      ticket.status == 'Waiting for Client' ||
+                      ticket.status == 'Waiting for Confirmation' ||
+                      ticket.status == 'Resolved') &&
+                    checkForAgingTicket(ticket)
+                  "
+                  class="badge text-bg-warning"
+                  >Warning</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">account_circle</mat-icon>
+      Client Accounts
+    </ng-template>
+
+    <head>
+      <script
+        src="https://kit.fontawesome.com/a076d05399.js"
+        crossorigin="anonymous"
+      ></script>
+    </head>
+    <form class="example" [formGroup]="searchForm">
+      <nav
+        class="navbar"
+        style="width: 1265px; margin-left: 320px; margin-top: 10px"
+      >
+        <!-- <div class="container-fluid">
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              #search
+              placeholder="Search..."
+              name="search"
+            />
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+              style="width: max-content"
+            >
+              Search
+            </button>
+          </form>
+        </div> -->
+      </nav>
+    </form>
+
+    <div
+      *ngIf="finalClientAccount.length > 0; else noTickets"
+      class="container"
+      style="width: 2500px"
+    >
+      <div
+        class="content"
+        style="font-size: 25px; font-weight: 200; font-family: monospace"
+      >
+        <table class="table table-hover">
+          <thead class="text-black" style="text-align: left">
+            <tr>
+              <th scope="col">User ID</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Username</th>
+              <th scope="col">Is Logged In</th>
+            </tr>
+          </thead>
+          <tbody
+            style="text-align: left"
+            *ngFor="let account of finalClientAccount; let i = index"
+          >
+            <tr>
+              <th scope="row">{{ account.user_id }}</th>
+              <th scope="row">{{ account.user_fname }}</th>
+
+              <td>{{ account.user_lname }}</td>
+              <td>{{ account.user_email }}</td>
+              <td>{{ account.user_username }}</td>
+              <td>{{ account.is_logged_in }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--END TAB 1-->
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">account_circle</mat-icon>
+      Employee Accounts
+    </ng-template>
+
+    <head>
+      <script
+        src="https://kit.fontawesome.com/a076d05399.js"
+        crossorigin="anonymous"
+      ></script>
+    </head>
+    <form class="example" [formGroup]="searchForm">
+      <nav
+        class="navbar"
+        style="width: 1265px; margin-left: 320px; margin-top: 10px"
+      >
+        <!-- <div class="container-fluid">
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              #search
+              placeholder="Search..."
+              name="search"
+            />
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+              style="width: max-content"
+            >
+              Search
+            </button>
+          </form>
+        </div> -->
+      </nav>
+    </form>
+
+    <div
+      *ngIf="finalEmployeeAccount.length > 0; else noTickets"
+      class="container"
+      style="width: 2500px"
+    >
+      <div
+        class="content"
+        style="font-size: 25px; font-weight: 200; font-family: monospace"
+      >
+        <table class="table table-hover">
+          <thead class="text-black" style="text-align: left">
+            <tr>
+              <th scope="col">User ID</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Username</th>
+              <th scope="col">Is Logged In</th>
+              <th scope="col">Department</th>
+            </tr>
+          </thead>
+          <tbody
+            style="text-align: left"
+            *ngFor="let account of finalEmployeeAccount; let i = index"
+          >
+            <tr>
+              <th scope="row">{{ account.user_id }}</th>
+              <th scope="row">{{ account.user_fname }}</th>
+
+              <td>{{ account.user_lname }}</td>
+              <td>{{ account.user_email }}</td>
+              <td>{{ account.user_username }}</td>
+              <td>{{ account.is_logged_in }}</td>
+              <td>{{ account.roles }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--TAB 2-->
+
+    <!--END TAB 2-->
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #noTickets>
+  <hr />
+  <h5 class="noTickets">There are no Accounts or Lists</h5>
+</ng-template>

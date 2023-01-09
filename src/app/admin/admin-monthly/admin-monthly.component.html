@@ -1,0 +1,57 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="container" style="width: 2500px">
+  <div
+    class="content"
+    style="font-size: 25px; font-weight: 200; font-family: monospace"
+  >
+    <table class="table table-hover">
+      <thead class="text-black" style="text-align: left">
+        <tr>
+          <th scope="col">Number of Clients</th>
+          <th scope="col">Number of Employees</th>
+          <th scope="col">Total Tickets</th>
+          <th scope="col">Active Tickets</th>
+          <th scope="col">Aging Tickets</th>
+          <th scope="col">Resolved Tickets</th>
+          <th scope="col">Actions</th>
+          <!-- <th scope="col">Actions</th>
+        <th scope="col">Status</th> -->
+        </tr>
+      </thead>
+      <tbody style="text-align: left">
+        <tr>
+          <th scope="row">{{ reports?.totalClients }}</th>
+          <th scope="row">{{ reports?.totalEmployees }}</th>
+          <td>{{ reports?.totalTickets }}</td>
+          <td>{{ reports?.totalActive }}</td>
+          <td>{{ reports?.totalAging }}</td>
+          <td>{{ reports?.totalResolved }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="exportToCSV()"
+            >
+              Export
+            </button>
+          </td>
+          <!-- <th scope="row">{{ ticket.created_at }}</th> -->
+          <!-- <td>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="updateTicket(ticket)"
+          >
+            View Request
+          </button>
+        </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #noTickets>
+  <hr />
+  <h5 class="noTickets">There are no Accounts or Lists</h5>
+</ng-template>

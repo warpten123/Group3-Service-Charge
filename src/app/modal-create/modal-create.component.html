@@ -1,0 +1,76 @@
+<!-- <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel = "stylesheet" href = "./modal-create.component.css">
+        <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    </head> -->
+
+<div class="container">
+  <input type="checkbox" id="flip" />
+  <div class="cover">
+    <img src="assets/wall2.jpg" alt="background image" />
+  </div>
+  <form class="inputs" [formGroup]="ticketForm" (ngSubmit)="onSubmitCreate()">
+    <div class="form-content">
+      <div class="admin-form">
+        <div class="title">Create New Ticket</div>
+        <div class="input-boxes">
+          <div class="input-box">
+            <i class="fa fa-car"></i>
+            <input
+              type="text"
+              formControlName="ticketAssignee"
+              placeholder="Ticket Assignee"
+            />
+          </div>
+
+          <div class="input-box">
+            <i class="fa fa-paint-brush"></i>
+            <input placeholder="Pending" disabled="disabled" />
+          </div>
+
+          <div class="input-box">
+            <i class="fa fa-money"></i>
+            <input
+              type="text"
+              formControlName="ticketSubject"
+              placeholder="Subject"
+            />
+          </div>
+
+          <div class="input-box">
+            <i class="fa fa-road"></i>
+            <input
+              type="text"
+              formControlName="ticketDescription"
+              placeholder="Description"
+            />
+          </div>
+          <div class="input-box">
+            <i class="fa fa-road"></i>
+            <input formControlName="ticketTracker" placeholder="Tracker" />
+          </div>
+
+          <!-- <div class="input-box">
+                      <i class="fa fa-key"></i>
+                        <input matInput [matDatepicker]= "datePicker" placeholder="Pick-up Date"[min]="minDate"[max]="maxDate"[(ngModel)]="getDate" [ngModelOptions]="{standalone: true}">
+                        
+                        <mat-datepicker-toggle [for]= "datePicker" matSuffix>
+                          <mat-datepicker #datePicker>
+                          </mat-datepicker>
+                        </mat-datepicker-toggle>
+                     
+                    </div> -->
+
+          <div class="button input-box">
+            <input type="submit" value="Submit Ticket" />
+          </div>
+          <div class="text sign-up-text">
+            <a routerLink="/user-dashboard" (click)="close()">Take me back!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,154 @@
+<mat-toolbar color="red" class="mat-elevation-z8">
+  <!-- <mat-icon>gavel</mat-icon> -->
+  <span style="font-size: 30px; text-align: center">Sales Team </span>
+
+  <div class="spacer"></div>
+  <a mat-button></a>
+  <a mat-button></a>
+  <a mat-button></a>
+  <!-- <a mat-raised-button color="accent" (click)="modalCreate()">New User</a> -->
+  <a mat-button></a>
+  <a mat-raised-button color="accent" (click)="logout(bindUser)">Logout</a>
+</mat-toolbar>
+
+<head>
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
+  <!-- <script>
+    function confirmSlip()
+    {
+      alert('test alert');
+    }
+  </script> -->
+</head>
+<form class="example">
+  <nav
+    class="navbar"
+    style="width: 1265px; margin-left: 320px; margin-top: 10px"
+  >
+    <div class="container-fluid">
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          #search
+          placeholder="Search..."
+          name="search"
+        />
+        <button
+          class="btn btn-outline-success"
+          type="submit"
+          style="width: max-content"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  </nav>
+</form>
+
+<div
+  *ngIf="finalTickets.length > 0; else noTickets"
+  class="container"
+  style="width: 2500px"
+>
+  <div
+    class="content"
+    style="font-size: 25px; font-weight: 200; font-family: monospace"
+  >
+    <table class="table table-hover">
+      <thead class="text-black" style="text-align: left">
+        <tr>
+          <th scope="col">Ticket ID</th>
+          <th scope="col">User ID</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody
+        style="text-align: left"
+        *ngFor="let ticket of finalTickets; let i = index"
+      >
+        <tr>
+          <th scope="row">{{ ticket.ticketID }}</th>
+          <th scope="row">{{ ticket.userID }}</th>
+
+          <td>{{ ticket.subject }}</td>
+          <td>{{ ticket.description }}</td>
+          <th scope="row">{{ ticket.created_at }}</th>
+          <td>
+            <button
+              type="button"
+              style="width: 100px"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Pending' && checkForAgingTicket(ticket)"
+              (click)="updateTicket(ticket)"
+            >
+              Accept Request
+              <span style="width: 100px" class="badge text-bg-warning"
+                >Warning</span
+              >
+            </button>
+
+            <button
+              type="button"
+              style="width: 200px; background-color: violet"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Checked'"
+              (click)="openSlip(ticket)"
+            >
+              Add Slip
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background-color: violet"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Waiting for Confirmation'"
+              (click)="onVerifySlip(ticket)"
+            >
+              For Verification
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background-color: violet"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Waiting for Client'"
+            >
+              Waiting for Client
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background: rgb(0, 255, 98)"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Resolved'"
+            >
+              Ticket Resolved!
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+            <button
+              type="button"
+              style="width: 200px; background:red"
+              class="btn btn-primary btn-sm"
+              *ngIf="ticket.status == 'Accepted'"
+              (click)="onConfirmSlip(ticket)"
+            >
+            <!-- (click)="resolveTicket(ticket) "  -->
+              {{confirmRes}}
+              <span style="width: 50px" class="badge text-bg-success">New</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #noTickets>
+  <hr />
+  <h5 class="noTickets">There are no tickets listed!</h5>
+</ng-template>

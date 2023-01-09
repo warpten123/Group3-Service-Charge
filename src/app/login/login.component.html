@@ -1,0 +1,178 @@
+<!-- <html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="login.component.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="front">
+                <img src="assets/alliance2.jpg" alt="">
+                <div class="text">
+                    <span class="text-1">Group 3</span>
+                    <span class="text-2">Service Charge System</span>
+                </div>
+            </div>
+            <div class="back">
+                <img class="backImg" src="assets/wall2.jpg" alt="">
+                <div class="text">
+                 
+                </div>
+            </div>
+        </div>
+        <div class="form-content">
+            <div class="login-form">
+                <form class="inputs" [formGroup]="loginForm"(ngSubmit)="onSubmitLogin()">
+                    <div class="title-login">LogIn</div>
+                    <div class="input-boxes">
+                        <div class="input-box">
+                            <i class="fa fa-envelope"></i>
+                            <input type="text" #email formControlName="emailLogin" placeholder="Enter your Email" required>
+                        </div>
+                        <div class="input-box">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" formControlName="passLogin" placeholder="Enter your Password" required>
+                        </div>
+                      
+                        <div class="button input-box">
+                            <input type="submit"value="Submit">
+                        </div>
+                        <div class="text sign-up-text"><a style="color:blue" (click)="onOpenForgot()">Forgot Password?</a><label for="flip"><a style="color:blue">  Sign Up Now! </a></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="signup-form">
+                <form class="inputs" [formGroup]="registerForm"(ngSubmit)="onSubmitRegister()">
+                    <div class=" title-register ">Sign Up</div>
+                    <div class=" input-boxes">
+                        <div class="input-box">
+                            <i class="fa fa-envelope "></i>
+                            <input type="text" formControlName="registerEmailAdd" placeholder="Enter your Email" id="email">
+                        </div>
+                        <div class="input-box">
+                      
+                            <input type="text" formControlName="registerLastName" placeholder="Last Name" id="lastname">
+                        </div>
+                        <div class="input-box">
+                        
+                            <input type="text" formControlName="registerFirstName" placeholder="First Name" id="firstname">
+                        </div>     
+                        <div class="input-box">
+                            <i class="fa fa-envelope "></i>
+                            <input type="text" formControlName="registerUserName" placeholder="Enter your Username" id="username">
+                        </div>
+                        <div class="input-box">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" formControlName="registerPassword" placeholder="Password" id="password" >
+                        </div>
+                        <div class="input-box">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" placeholder="Confirm Password" id="confirmPassword" >
+                        </div>
+                        <div class="button input-box">
+                            <input type="submit" value="Submit">
+                        </div>
+                        <div class="text sign-up-text">
+                            Already have an account?
+                            <label for="flip"><a>Log In</a></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body> -->
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Group 3 Service Charge</title>
+    <link rel="stylesheet" href="./login.component.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <input type="checkbox" id="flip" />
+      <div class="cover">
+        <div class="front">
+          <img src="assets/alliance2.jpg" alt="" />
+          <div class="text">
+            <span class="text-1">Service Charge System</span>
+            <span class="text-2">Group 3</span>
+          </div>
+        </div>
+        <div class="back">
+          <img class="backImg" src="assets/alliance2.jpg" alt="" />
+          <div class="text">
+            <!-- <span class="text-1">Join us now!</span>
+                        <span class="text-2">Yea right!</span> -->
+          </div>
+        </div>
+      </div>
+      <form class="inputs" [formGroup]="loginForm">
+        <div class="form-content">
+          <div class="admin-form">
+            <div class="title">Client Login</div>
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fa fa-envelope"></i>
+                <input
+                  type="text"
+                  id="emailLogin"
+                  placeholder="Email"
+                  formControlName="emailLogin"
+                  required
+                />
+              </div>
+              <!--1-->
+              <div class="input-box">
+                <i class="fa fa-lock"></i>
+                <input
+                  type="password"
+                  id="passLogin"
+                  placeholder="Password"
+                  formControlName="passLogin"
+                  required
+                />
+              </div>
+
+              <div class="button input-box">
+                <input
+                  type="submit"
+                  id="adminGo"
+                  value="Login"
+                  (click)="onSubmitLogin()"
+                />
+              </div>
+              <div class="text sign-up-text">
+                <a routerLink="" (click)="onOpenForgot()" style="color: blue"
+                  >Forgot Password?
+                </a>
+                <a routerLink="" (click)="onOpenRegister()" style="color: blue">
+                  | Join us now!</a
+                >
+                <a routerLink="/admin-login" style="color: blue">
+                  | Administrator</a
+                >
+                <a routerLink="/employee-login" style="color: blue">
+                  | Employee</a
+                >
+                <!-- <label for="flip"><a routerLink=""> Members </a></label> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

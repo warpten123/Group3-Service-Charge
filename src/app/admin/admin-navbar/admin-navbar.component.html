@@ -1,0 +1,18 @@
+<mat-toolbar color="red" class="mat-elevation-z8">
+  <!-- <mat-icon>gavel</mat-icon> -->
+  <span style="font-size: 30px; text-align: center"
+    ><a routerLink="/admin-dashboard">Administrator</a></span
+  >
+
+  <div class="spacer"></div>
+
+  <a mat-raised-button color="accent" (click)="modalCreate()">New User</a>
+  <a mat-button></a>
+  <a mat-raised-button color="accent">Export CSV Files</a>
+  <a mat-button></a>
+  <a mat-raised-button color="accent" routerLink="/admin-resolved"
+    >Monthly Report</a
+  >
+  <a mat-button></a>
+  <a mat-raised-button color="accent" (click)="logout()">Logout</a>
+</mat-toolbar>

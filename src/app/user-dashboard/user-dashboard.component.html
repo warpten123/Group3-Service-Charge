@@ -1,0 +1,221 @@
+<app-navbar></app-navbar>
+
+<form
+  class="example"
+  [formGroup]="searchForm"
+>
+  <nav class="navbar" style="width: 1265px; margin-left:320px; margin-top: 10px;">
+    <div class="container-fluid">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" #search  placeholder="Search..." name="search"
+        formControlName="search" (input)="filterItems(search.value)">
+        <button class="btn btn-outline-success" type="submit" style="width:max-content;" (click)="filterItems(search.value)">Search</button>
+      </form>
+    </div>
+  </nav>
+  <!-- <button type="submit" (click)="filterItems(search.value)"><i class="fa fa-search"></i></button> -->
+</form>
+<!-- <a mat-raised-button color="accent" (click)="modalCreate()">New Ticket</a> -->
+<!-- <div *ngIf="users.length > 0;else noUsers" class="container">
+    <table class="content-table">
+        <thead>
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{user.user_lname}}</td>
+            <td>{{user.user_fname}}</td>
+            <td>{{user.user_email}}</td>
+            <td>{{user.user_username}}</td>
+          </tr>
+         
+        </tbody>
+      </table>
+</div>
+<ng-template #noUsers>
+    <hr>
+    <h5>There are no users registered!</h5>
+    
+</ng-template> -->
+<div
+  *ngIf="tickets.length > 0; else noTickets"
+  class="container"
+  style="width: 2500px;"
+>
+  <!--START CARD-->
+  <div
+    class="content"
+    style="font-size: 25px; font-weight: 200; font-family: monospace"
+  >
+    <table class="table table-hover">
+      <thead class="text-black" style="text-align: left">
+        <tr>
+          <th scope="col">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            </div>
+          </th>
+          <th scope="col">Ticket ID</th>
+          <th scope="col">Assignee</th>
+          <th scope="col">Status</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Description</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody
+        style="text-align: left"
+        *ngFor="let ticket of tickets; let i = index"
+      >
+        <tr>
+          <th>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            </div>
+          </th>
+          <th scope="row">{{ ticket.ticketID }}</th>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option selected>Assignee</option>
+              <option value="1">Vonne</option>
+              <option value="2">Joshua</option>
+              <option value="3">Sean</option>
+              <option value="4">Mervyn</option>
+            </select>
+
+          </td>
+          <td>
+            <div class="col-md-7">
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>pending</option>
+                <option value="1">resolved</option>
+                <option value="2">to be reviewed</option>
+              </select>
+            </div>
+          </td>
+          <td>{{ ticket.subject }}</td>
+          <td>{{ ticket.description }}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm">Save</button>
+          </td>
+          <!-- <td>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="updateTicket(ticket)"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              (click)="deleteTicket(ticket, i)"
+            >
+              Resolve
+            </button>
+            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              View more
+            </button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="text-align: left;">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+    <!-- <div fxLayout="row wrap" fxLayoutGap="25px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let ticket of tickets; let i = index">
+          <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>{{ticket.subject}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="assets/ticket.png"class=".img-responsive" width="10" height="200">
+            <mat-card-content class="mat-typography">
+              <p>
+                
+                Assignee: {{ticket.assignee}}
+                
+              </p>
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Available'"><mat-icon>add_circle</mat-icon>RESERVE CAR</button>
+              <button mat-button (click)="onView(car)" *ngIf="car.carStatus == 'Rented'"[disabled]="true"><mat-icon>warning</mat-icon>Unavailable</button>
+              <button mat-button color="primary" (click)="updateTicket(ticket)">UPDATE</button>
+              <button mat-button color="primary" (click)="deleteTicket(ticket,i)">DELETE</button>
+              <button mat-button color="primary">VIEW MORE</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+    </div> -->
+  </div>
+  <!--END CARD-->
+</div>
+<!-- <button (click)="logout()">Log out!</button> -->
+<ng-template #noTickets>
+  <hr />
+  <h5 class="noTickets">There are no tickets listed!</h5>
+</ng-template>

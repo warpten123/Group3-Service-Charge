@@ -1,0 +1,91 @@
+<div class="container">
+    <input type="checkbox" id="flip" />
+    <div class="cover">
+      <div class="front">
+        <img src="assets/alliance2.jpg" alt="" />
+        <div class="text">
+          <span class="text-1">Take that leap of faith!</span>
+          <span class="text-2">Join us now!</span>
+        </div>
+      </div>
+      <div class="back">
+        <!-- <img class="backImg" src="assets/alliance2.jpg" alt="" /> -->
+        <div class="text">
+          <!-- <span class="text-1">Join us now!</span>
+                          <span class="text-2">Yea right!</span> -->
+        </div>
+      </div>
+    </div>
+    <form
+      class="inputs"
+      [formGroup]="registerAdminForm"
+      (ngSubmit)="onSubmitRegisterAdmin()"
+    >
+      <div class="form-content">
+        <div class="admin-form">
+          <div class="title">Sign Up!</div>
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fa fa-envelope"></i>
+              <input
+                type="text"
+                id="emailLogin"
+                placeholder="Email"
+                formControlName="registerEmailAdd"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <i class="fa fa-user-circle-o"></i>
+              <input
+                type="text"
+                id="emailLogin"
+                placeholder="Username"
+                formControlName="registerUserName"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <i class="fa fa-user-circle-o"></i>
+              <input
+                type="text"
+                id="emailLogin"
+                placeholder="First Name"
+                formControlName="registerFirstName"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <i class="fa fa-envelope"></i>
+              <input
+                type="text"
+                id="emailLogin"
+                placeholder="Last Name"
+                formControlName="registerLastName"
+                required
+              />
+            </div>
+  
+            <div class="input-box">
+              <i class="fa fa-lock"></i>
+              <input
+                type="password"
+                id="passLogin"
+                placeholder="Password"
+                formControlName="registerPassword"
+                required
+              />
+            </div>
+  
+            <div class="button input-box">
+              <input type="submit" id="adminGo" value="Register" />
+            </div>
+            <div class="text sign-up-text">
+              <a routerLink="/admin-login" (click)="close()">Take me back</a>
+              <!-- <label for="flip"><a routerLink=""> Members </a></label> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>

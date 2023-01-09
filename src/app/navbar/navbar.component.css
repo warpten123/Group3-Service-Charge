@@ -1,0 +1,18 @@
+.spacer{
+    flex: 1 1  auto;
+}
+.mat-toolbar {
+    background: teal;
+    color: #fff
+ }  
+ .post-dialog-container .mat-dialog-container {
+    background-color: var(--background);
+    box-shadow: none;
+  padding: 0px !important;
+  overflow: hidden !important;
+}
+
+mat-dialog-container {
+    background: grey !important;
+ }
+ 
